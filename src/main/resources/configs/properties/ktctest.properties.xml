@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- DataBase -->
+	<util:properties id="dbConfig">
+		<prop key="url">jdbc:mysql://localhost:3306/smartflat?useUnicode=true&amp;characterEncoding=utf8</prop>
+		<prop key="username">smartflat</prop>
+		<prop key="password">dbsf0926</prop>
+		<prop key="db_driver">com.mysql.jdbc.Driver</prop>
+	</util:properties>
+	<util:properties id="fileProp">
+		<!--<prop key="uploadPath">/Users/parkchangjo/Desktop/uploadImage</prop>-->
+		<prop key="uploadPath">/data/smartflat/was/upload</prop>
+		<prop key="ftpPath">http://sfeasel.erst.co.kr:8081</prop>
+		<!--<prop key="uploadPath">/home/changjo/development/images</prop>-->
+	</util:properties>
+
+	<util:properties id="serviceProp">
+		<prop key="api_key">AIzaSyDvnjG2FWHknveoV-zeUtWcsJmQH0xAZxg</prop>
+		<prop key="hash_salt">sM@RtF1@tH@ShS@1t</prop>
+	</util:properties>
+
+	<util:properties id="iseesServiceProp">
+		<prop key="api_key">AIzaSyBekMp2gF23RowOJZoGPe5E-MN_uRkdZBI</prop>
+		<prop key="hash_salt">sM@RtF1@tH@ShS@1t</prop>
+	</util:properties>
+
+	<util:properties id="hiozServiceProp">
+		<prop key="api_key">AIzaSyAW8Hg8tqdeWgHoxOpofvBdd6ub_PuS64g</prop>
+		<prop key="hash_salt">sM@RtF1@tH@ShS@1t</prop>
+	</util:properties>
+
+	<util:properties id="pushyProp">
+		<prop key="api_key">f9941ede99b0db4168c9272fc9fc351464b9b0e627e966963b6ccf43725c9b2b</prop>
+	</util:properties>
+
+	<util:properties id="serviceUrl">
+		<prop key="url">http://sfeasel.erst.co.kr:8081</prop>
+	</util:properties>
+
+	<util:properties id="checkUrl">
+		<prop key="url">sftools.erst.co.kr</prop>
+	</util:properties>
+
+	<!--<util:properties id="mailConfig">-->
+		<!--<prop key="serviceUrl">http://smartflateasel.cafe24.com</prop>-->
+		<!--<prop key="emailSender">admin@digigroove.co.kr</prop>-->
+		<!--<prop key="emailSenderName">디지그루브 관리자</prop>-->
+	<!--</util:properties>-->
+
+	<util:properties id="hiozCheckUrl">
+		<prop key="url">hioz.makesflat.co.kr</prop>
+	</util:properties>
+
+	<util:properties id="iseesCheckUrl">
+		<prop key="url">isees.makesflat.co.kr</prop>
+	</util:properties>
+
+</beans>

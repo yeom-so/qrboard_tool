@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.digigroove.qrboard_tool.dao.UserDAO">
+
+    <!-- 로그인 -->
+    <select id="selectLoginUserEntity" parameterType="userEntity" resultType="userEntity">
+        SELECT * FROM user
+        WHERE user_email = #{userEmail}
+    </select>
+
+    <!-- 회원가입 -->
+    <insert id="insertUserEntity" parameterType="userEntity">
+        INSERT INTO user (
+            user_name,
+            user_tel,
+            user_email,
+            user_pw,
+            user_grade,
+            user_type,
+            user_state,
+            reg_date
+        ) VALUES (
+            #{userName}
+            , #{userTel}
+            , #{userEmail}
+            , #{userPw}
+            , #{userGrade}
+            , #{userType}
+            , #{userState}
+            , now()
+        )
+    </insert>
+
+    <!-- 내정보변경 -->
+    <update id="updateUserEntity" parameterType="userEntity">
+        UPDATE user
+        SET
+            user_name = #{userName}
+            , user_tel = #{userTel}
+            <if test="userPw != '' and userPw != null">
+            , user_pw = #{userPw}
+            </if>
+        WHERE
+            user_idx = #{userIdx}
+    </update>
+
+    <!-- 유료회원으로변경 -->
+    <update id="updatePayUserEntity" parameterType="userEntity">
+        UPDATE user
+        SET
+            user_type = #{userType}
+        WHERE
+            user_idx = #{userIdx}
+    </update>
+
+</mapper>
