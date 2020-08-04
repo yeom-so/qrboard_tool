@@ -11,13 +11,19 @@ public class Default {
 
     /** Result */
     public static final class Result {
-        public static final String SUCCESS      = "Success";
-        public static final String FAIL         = "Fail";
-        public static final String MISMATCH     = "Mismatch";
-        public static final String EMPTY_USER   = "EmptyUser";
-        public static final String NOT_APPROVE  = "NotApprove";
-        public static final String WITHDRAW     = "Withdraw";
-        public static final String USE_EMAIL     = "UseEmail";
+        public static final String SUCCESS                  = "Success";
+        public static final String FAIL                     = "Fail";
+        public static final String MISMATCH                 = "Mismatch";
+        public static final String EMPTY_USER               = "EmptyUser";
+        public static final String NOT_APPROVE              = "NotApprove";
+        public static final String WITHDRAW                 = "Withdraw";
+        public static final String USE_EMAIL                = "UseEmail";
+        public static final String AUTH_NUM_ERR             = "AuthNumErr";
+        public static final String PERMIT_NUM_ERR           = "PermitNumErr";
+        public static final String PERMIT_NUM_MISMATCH      = "PermitNumMismatch";
+        public static final String USE_PERMIT_NUM           = "UsePermitNum";
+        public static final String USE_AUTH_NUM             = "UseAuthNum";
+
     }
 
     public static final class UserGrade {

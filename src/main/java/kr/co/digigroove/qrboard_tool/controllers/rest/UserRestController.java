@@ -43,7 +43,7 @@ public class UserRestController implements Serializable{
 				result.setUrl("/");
 				session.setAttribute("user", result.getLoginInfo());
 				result.setCode(Default.Result.SUCCESS);
-				result.setUrl("/user/test");
+				result.setUrl("/user/user");
 				result.setMessage("로그인 성공!!");
 				result.setLoginInfo(result.getLoginInfo());
 			}else if(result.getCode().equals(Default.Result.EMPTY_USER)){

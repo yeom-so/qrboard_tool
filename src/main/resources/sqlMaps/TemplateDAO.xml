@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.digigroove.qrboard_tool.dao.TemplateDAO">
+
+    <!-- 기본템플릿 목록 -->
+    <select id="selectTemplateEntityList" parameterType="templateEntity" resultType="templateEntity">
+        SELECT
+			*
+		FROM
+			template
+		WHERE
+		    layout_idx = #{layoutIdx}
+			AND use_yn = 'Y'
+        ORDER BY reg_date DESC
+    </select>
+
+</mapper>

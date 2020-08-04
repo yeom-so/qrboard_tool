@@ -29,4 +29,24 @@
     <property name="sqlSessionFactory" ref="sessionFactory" />
   </bean>
 
+  <bean id="QrboardDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.QrboardDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="LayoutDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.LayoutDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="TemplateDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.TemplateDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="PermitDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.PermitNumDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
 </beans>

@@ -9,5 +9,9 @@
 	</settings>
 	<typeAliases>
 		<typeAlias alias="userEntity" type="kr.co.digigroove.qrboard_tool.entities.UserEntity"/>
+		<typeAlias alias="qrboardEntity" type="kr.co.digigroove.qrboard_tool.entities.QrboardEntity"/>
+		<typeAlias alias="layoutEntity" type="kr.co.digigroove.qrboard_tool.entities.LayoutEntity"/>
+		<typeAlias alias="templateEntity" type="kr.co.digigroove.qrboard_tool.entities.TemplateEntity"/>
+		<typeAlias alias="permitNumEntity" type="kr.co.digigroove.qrboard_tool.entities.PermitNumEntity"/>
 	</typeAliases>
 </configuration>

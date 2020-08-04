@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.digigroove.qrboard_tool.dao.QrboardDAO">
+
+    <!-- QR보드 등록 -->
+<!--    <insert id="insertQrboardEntity" parameterType="qrboardEntity">-->
+<!--        INSERT INTO qrboard (-->
+<!--            layout_idx,-->
+<!--            template_idx,-->
+<!--            user_idx,-->
+<!--            qrboard_name,-->
+<!--            qrboard_location,-->
+<!--            qrboard_detail_location,-->
+<!--            qrboard_auto_location,-->
+<!--            qrboard_auth_num,-->
+<!--            qrboard_permit_num,-->
+<!--            qrboard_price,-->
+<!--            qrboard_public_yn,-->
+<!--            qrboard_auth_yn,-->
+<!--            qrboard_approve_yn,-->
+<!--            qrboard_approve_stime,-->
+<!--            qrboard_approve_etime,-->
+<!--            qrboard_approve_option,-->
+<!--            reg_date-->
+<!--        ) VALUES (-->
+<!--            #{layoutIdx}-->
+<!--            , #{templateIdx}-->
+<!--            , #{userIdx}-->
+<!--            , #{qrboardName}-->
+<!--            , #{qrboardLocation}-->
+<!--            , #{qrboardDetailLocation}-->
+<!--            , #{qrboardAutoLocation}-->
+<!--            , #{qrboardAuthNum}-->
+<!--            , #{qrboardPermitNum}-->
+<!--            , #{qrboardPrice}-->
+<!--            , #{qrboardPublicYn}-->
+<!--            , #{qrboardAuthYn}-->
+<!--            , #{qrboardApproveYn}-->
+<!--            , #{qrboardApproveStime}-->
+<!--            , #{qrboardApproveEtime}-->
+<!--            , #{qrboardApproveOption}-->
+<!--            , now()-->
+<!--        )-->
+<!--    </insert>-->
+
+
+
+    <!-- QR보드 등록(인증) -->
+    <update id="certifyQrboardEntity" parameterType="qrboardEntity">
+        UPDATE qrboard
+        SET
+            layout_idx = #{layoutIdx}
+            , template_idx = #{templateIdx}
+            , user_idx = #{userIdx}
+            , qrboard_name = #{qrboardName}
+            , qrboard_location = #{qrboardLocation}
+            , qrboard_detail_location = #{qrboardDetailLocation}
+            , qrboard_auto_location = #{qrboardAutoLocation}
+            , qrboard_auth_num = #{qrboardAuthNum}
+            , qrboard_permit_num = #{qrboardPermitNum}
+            , qrboard_price = #{qrboardPrice}
+            , qrboard_public_yn = #{qrboardPublicYn}
+            , qrboard_auth_yn = 'Y'
+            , qrboard_approve_yn = #{qrboardApproveYn}
+            , qrboard_approve_stime = #{qrboardApproveStime}
+            , qrboard_approve_etime = #{qrboardApproveEtime}
+            , qrboard_approve_option = #{qrboardApproveOption}
+        WHERE qrboard_auth_num = #{qrboardAuthNum}
+    </update>
+
+    <!-- QR보드 목록 개수 -->
+    <select id="selectQrboardEntityListCount" parameterType="qrboardEntity" resultType="int">
+        SELECT
+			COUNT(qrboard_idx)
+		FROM
+			qrboard
+		WHERE
+			user_idx = #{userIdx}
+			AND use_yn = 'Y'
+    </select>
+
+    <!-- QR보드 목록 -->
+    <select id="selectQrboardEntityList" parameterType="qrboardEntity" resultType="qrboardEntity">
+        SELECT
+			*
+		FROM
+			qrboard
+		WHERE
+			user_idx = #{userIdx}
+			AND use_yn = 'Y'
+        ORDER BY reg_date DESC
+		LIMIT #{rowStartNumber}, #{pageListSize}
+    </select>
+
+    <!-- QR보드 상세 -->
+    <select id="selectQrboardEntity" parameterType="qrboardEntity" resultType="qrboardEntity">
+        SELECT * FROM qrboard
+        WHERE qrboard_idx = #{qrboardIdx}
+    </select>
+
+    <!-- QR보드 수정 -->
+    <update id="updateQrboardEntity" parameterType="qrboardEntity">
+        UPDATE qrboard
+        SET
+            qrboard_name = #{qrboardName}
+            , qrboard_location = #{qrboardLocation}
+            , qrboard_detail_location = #{qrboardDetailLocation}
+            , qrboard_auto_location = #{qrboardAutoLocation}
+            , layout_idx = #{layoutIdx}
+            , template_idx = #{templateIdx}
+            , qrboard_price = #{qrboardPrice}
+            , qrboard_public_yn = #{qrboardPublicYn}
+            , qrboard_approve_yn = #{qrboardApproveYn}
+            , qrboard_approve_stime = #{qrboardApproveStime}
+            , qrboard_approve_etime = #{qrboardApproveEtime}
+            , qrboard_approve_option = #{qrboardApproveOption}
+        WHERE
+            qrboard_idx = #{qrboardIdx}
+    </update>
+
+    <!-- QR보드 삭제 -->
+    <update id="deleteQrboardEntity" parameterType="qrboardEntity">
+        UPDATE qrboard
+        SET
+            use_yn = 'N'
+        WHERE
+            qrboard_idx = #{qrboardIdx}
+    </update>
+
+    <!-- QR보드 인증번호 유무체크 -->
+    <select id="selectAuthQrboardEntity" parameterType="qrboardEntity" resultType="qrboardEntity">
+        SELECT * FROM qrboard
+        WHERE qrboard_auth_num = #{qrboardAuthNum}
+    </select>
+
+</mapper>

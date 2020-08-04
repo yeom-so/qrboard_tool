@@ -59,6 +59,11 @@
             }
         });
     }
+
+    // QR보드관리
+    function goQrboard() {
+        location.href = contextPath + "/qrboard";
+    }
 </script>
 
 <div>
@@ -71,7 +76,8 @@
         <input type="text" name="userEmail" value="${sessionScope.user.userEmail}" disabled><br/>
         <input type="text" name="userPw" value=""><br/>
         <input type="submit" value="내정보변경">
+        <input type="button" value="유료회원변경" onclick="updatePayUserEntity()">
     </form>
-    <br/>
-    <input type="button" value="유료회원변경" onclick="updatePayUserEntity()">
 </div>
+<br/>
+<input type="button" value="QR보드관리" onclick="goQrboard()">

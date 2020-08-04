@@ -106,20 +106,14 @@ public class UserServiceImpl implements UserService {
      * @throws Exception
      */
     @Override
-    public UserEntity updateUserEntity(UserEntity userEntity) {
-        try {
-            if(userEntity.getUserPw() != null){
-                // 변경할 비밀번호 암호화
-                userEntity.setUserPw(HashUtils.encryptSHA256(userEntity.getUserPw(), hashSalt));
-            }
-            userDAO.updateUserEntity(userEntity);
-            // 회원상세
-            userEntity = userDAO.selectUserEntity(userEntity);
-        }catch (Exception e){
-            e.printStackTrace();
+    public UserEntity updateUserEntity(UserEntity userEntity) throws Exception{
+        if(userEntity.getUserPw() != null && !userEntity.getUserPw().equals("")){
+            // 변경할 비밀번호 암호화
+            userEntity.setUserPw(HashUtils.encryptSHA256(userEntity.getUserPw(), hashSalt));
         }
-
-        return userEntity;
+        userDAO.updateUserEntity(userEntity);
+        // 회원상세
+        return userDAO.selectUserEntity(userEntity);
     }
 
 }

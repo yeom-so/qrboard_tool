@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.digigroove.qrboard_tool.dao.PermitNumDAO">
+
+    <!-- 허가번호 유무체크 -->
+    <select id="selectPermitNumEntity" parameterType="permitNumEntity" resultType="permitNumEntity">
+        select
+            *
+        FROM
+            permit_num
+        WHERE
+            permit_num = #{permitNum}
+            AND user_idx = #{userIdx}
+            AND use_yn = 'Y'
+    </select>
+
+    <!-- 허가번호 인증처리 -->
+    <update id="authPermitNumEntity" parameterType="permitNumEntity">
+        UPDATE permit_num
+        SET
+            qrboard_idx = #{qrboardIdx}
+            , auth_date = now()
+        WHERE
+            permit_num_idx = #{permitNumIdx}
+    </update>
+
+</mapper>

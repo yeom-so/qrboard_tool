@@ -22,9 +22,9 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value="/test", method=RequestMethod.GET)
+    @RequestMapping(value="/user", method=RequestMethod.GET)
     public String test() throws Exception {
-        return "user/test";
+        return "user/user";
     }
 
 }
