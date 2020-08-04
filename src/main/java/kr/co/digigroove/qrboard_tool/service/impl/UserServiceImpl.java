@@ -4,6 +4,7 @@ import kr.co.digigroove.commons.utils.HashUtils;
 import kr.co.digigroove.qrboard_tool.constant.Default;
 import kr.co.digigroove.qrboard_tool.dao.UserDAO;
 import kr.co.digigroove.qrboard_tool.entities.UserEntity;
+import kr.co.digigroove.qrboard_tool.entities.result.ResultEntity;
 import kr.co.digigroove.qrboard_tool.entities.result.UserResultEntity;
 import kr.co.digigroove.qrboard_tool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,14 @@ public class UserServiceImpl implements UserService {
     @Value("#{serviceProp[hash_salt]}")
     private String hashSalt;
 
+    /**
+     * 로그인
+     * @param userEntity
+     * @return
+     * @throws Exception
+     */
     @Override
     public UserResultEntity checkLoginUser(UserEntity userEntity) throws Exception {
-
         UserResultEntity userResultEntity = new UserResultEntity();
 
         // 로그인을 시도한 사용자정보
@@ -48,6 +54,72 @@ public class UserServiceImpl implements UserService {
         }
 
         return userResultEntity;
+    }
+
+    @Override
+    public ResultEntity insertUserEntity(UserEntity userEntity) throws Exception {
+        ResultEntity resultEntity = new ResultEntity();
+
+        // 이메일 중복체크
+        UserEntity userInfo = userDAO.selectLoginUserEntity(userEntity);
+
+        if(userInfo != null) {
+            resultEntity.setCode(Default.Result.USE_EMAIL);
+        }else{
+            // 비밀번호 암호화
+            userEntity.setUserPw(HashUtils.encryptSHA256(userEntity.getUserPw(), hashSalt));
+            // 사용자 등급에 따른 데이터 변경
+            if(userEntity.getUserGrade() == Default.UserGrade.ADVERTISER_ADMIN){    // 광고사업주
+                userEntity.setUserType(Default.UserType.PAID_MEMBER);
+                userEntity.setUserState(Default.UserState.WAIT);
+            }else if(userEntity.getUserGrade() == Default.UserGrade.ADVERTISER){    // 광고주
+                userEntity.setUserType(Default.UserType.FREE_MEMBER);
+                userEntity.setUserState(Default.UserState.APPROVE);
+            }
+            // 회원가입
+            userDAO.insertUserEntity(userEntity);
+            resultEntity.setCode(Default.Result.SUCCESS);
+        }
+
+        return resultEntity;
+    }
+
+    /**
+     * 유료회원변경
+     * @param userEntity
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public UserEntity updatePayUserEntity(UserEntity userEntity) throws Exception {
+        // 유료회원
+        userEntity.setUserType(Default.UserType.PAID_MEMBER);
+        userDAO.updatePayUserEntity(userEntity);
+        // 회원상세
+        return userDAO.selectUserEntity(userEntity);
+    }
+
+    /**
+     * 내정보변경
+     * @param userEntity
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public UserEntity updateUserEntity(UserEntity userEntity) {
+        try {
+            if(userEntity.getUserPw() != null){
+                // 변경할 비밀번호 암호화
+                userEntity.setUserPw(HashUtils.encryptSHA256(userEntity.getUserPw(), hashSalt));
+            }
+            userDAO.updateUserEntity(userEntity);
+            // 회원상세
+            userEntity = userDAO.selectUserEntity(userEntity);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return userEntity;
     }
 
 }

@@ -45,6 +45,12 @@
             user_idx = #{userIdx}
     </update>
 
+    <!-- 사용자정보상세 -->
+    <select id="selectUserEntity" parameterType="userEntity" resultType="userEntity">
+        SELECT * FROM user
+        WHERE user_idx = #{userIdx}
+    </select>
+
     <!-- 유료회원으로변경 -->
     <update id="updatePayUserEntity" parameterType="userEntity">
         UPDATE user

@@ -12,75 +12,43 @@
 	response.setContentType("text/html; charset=UTF-8");
 %>
 <html lang="ko">
-<head>
-    <script type="text/javascript">
-        var contextPath = '${contextPath}';
-        ${allMessages}
-    </script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <head>
+        <script type="text/javascript">
+            var contextPath = '${contextPath}';
+            ${allMessages}
+        </script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 
-    <!-- full screen -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
+        <!-- full screen -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
 
-    <!-- clip icon -->
-    <%if(request.getServerName().equals("isees.makesflat.co.kr")){%>
-        <link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/img/isees-favicon.ico" />
-        <title>컨텐츠관리툴</title>
-    <%}else if(request.getServerName().equals("hioz.makesflat.co.kr")){%>
-        <link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/img/hioz-favicon.ico" />
-        <title>컨텐츠관리툴</title>
-    <%}else{%>
+        <!-- clip icon -->
         <link rel="apple-touch-icon" href="${contextPath}/resources/img/clips/180x180.png" />
         <link rel="shortcut icon" href="${contextPath}/resources/img/clips/180x180.png" /><!-- android icon 72x72 -->
-        <link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/img/favicon.ico" />
-        <title>스마트플랫 웹관리툴 - MakeSFlat</title>
-    <%}%>
 
-    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/lib/animate.min.css" />
-    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/lib/pe-icon-7-stroke.css" />
-    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/lib/light-bootstrap-dashboard.css" />
-    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/lib/ionicons.min.css" />
-    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/lib/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css"/>
+        <!-- scripts -->
+        <script type="text/javascript" src="${contextPath}/resources/js/lib/jquery-1.10.1.js"></script>
+        <script type="text/javascript" src="${contextPath}/resources/js/lib/jquery.form.js"></script>
+        <script type="text/javascript" src="${contextPath}/resources/js/lib/jquery-ui.min.js"></script>
 
-    <script type="text/javascript" src="${contextPath}/resources/js/lib/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/js/lib/jquery.blockUI.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/js/lib/jquery.form.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/js/lib/jquery.placeholder.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/js/lib/jquery.waitforimages.min.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/js/lib/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/js/lib/bootstrap.min.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/js/lib/bootstrap-checkbox-radio-switch.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/js/lib/bootstrap-notify.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/js/lib/bootstrap-select.js"></script>
-
-    <script type="text/javascript" src="${contextPath}/resources/js/lib/jquery.bounce.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/js/customDialog.js"></script>
-
-    <script type="text/javascript" src="${contextPath}/resources/js/common.js"></script>
-
-    <script type="text/javascript" src="${contextPath}/resources/colorpicker/js/bootstrap-colorpicker.min.js"></script>
-
-</head>
-<body>
-
-<div class="wrapper">
-    <%--<div class="sidebar" data-color="blue" data-image="/resources/img/admin/nav-background.jpg">--%>
-        <div class="sidebar" data-color="blue">
-        <tiles:insertAttribute name="left" />
-    </div>
-    <div id="panel" class="main-panel">
-        <div class="navbar navbar-default navbar-fixed">
-            <tiles:insertAttribute name="header" />
+        <title>QR보드 관리툴</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="sidebar" data-color="blue">
+                <tiles:insertAttribute name="left" />
+            </div>
+            <div id="panel" class="main-panel">
+                <div class="navbar navbar-default navbar-fixed">
+                    <tiles:insertAttribute name="header" />
+                </div>
+                <div class="content">
+                    <tiles:insertAttribute name="body" />
+                </div>
+            </div>
         </div>
-        <div class="content">
-            <tiles:insertAttribute name="body" />
-        </div>
-    </div>
-</div>
-</body>
+    </body>
 </html>

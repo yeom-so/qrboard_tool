@@ -1,12 +1,11 @@
 package kr.co.digigroove.qrboard_tool.controllers;
 
-import kr.co.digigroove.qrboard_tool.entities.UserEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value = {"", "/"})
+@RequestMapping(value = {"", "/", "/user"})
 public class UserController {
 
     /**
@@ -15,9 +14,17 @@ public class UserController {
      * @throws Exception
      */
     @RequestMapping(method= RequestMethod.GET)
-    public String login(UserEntity userEntity) throws Exception {
-        System.out.println(userEntity.getUserEmail());
+    public String login() throws Exception {
         return "login";
+    }
+
+    /**
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/test", method=RequestMethod.GET)
+    public String test() throws Exception {
+        return "user/test";
     }
 
 }
