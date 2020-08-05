@@ -3,49 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.digigroove.qrboard_tool.dao.QrboardDAO">
 
-    <!-- QR보드 등록 -->
-<!--    <insert id="insertQrboardEntity" parameterType="qrboardEntity">-->
-<!--        INSERT INTO qrboard (-->
-<!--            layout_idx,-->
-<!--            template_idx,-->
-<!--            user_idx,-->
-<!--            qrboard_name,-->
-<!--            qrboard_location,-->
-<!--            qrboard_detail_location,-->
-<!--            qrboard_auto_location,-->
-<!--            qrboard_auth_num,-->
-<!--            qrboard_permit_num,-->
-<!--            qrboard_price,-->
-<!--            qrboard_public_yn,-->
-<!--            qrboard_auth_yn,-->
-<!--            qrboard_approve_yn,-->
-<!--            qrboard_approve_stime,-->
-<!--            qrboard_approve_etime,-->
-<!--            qrboard_approve_option,-->
-<!--            reg_date-->
-<!--        ) VALUES (-->
-<!--            #{layoutIdx}-->
-<!--            , #{templateIdx}-->
-<!--            , #{userIdx}-->
-<!--            , #{qrboardName}-->
-<!--            , #{qrboardLocation}-->
-<!--            , #{qrboardDetailLocation}-->
-<!--            , #{qrboardAutoLocation}-->
-<!--            , #{qrboardAuthNum}-->
-<!--            , #{qrboardPermitNum}-->
-<!--            , #{qrboardPrice}-->
-<!--            , #{qrboardPublicYn}-->
-<!--            , #{qrboardAuthYn}-->
-<!--            , #{qrboardApproveYn}-->
-<!--            , #{qrboardApproveStime}-->
-<!--            , #{qrboardApproveEtime}-->
-<!--            , #{qrboardApproveOption}-->
-<!--            , now()-->
-<!--        )-->
-<!--    </insert>-->
-
-
-
     <!-- QR보드 등록(인증) -->
     <update id="certifyQrboardEntity" parameterType="qrboardEntity">
         UPDATE qrboard
@@ -70,7 +27,7 @@
         WHERE qrboard_auth_num = #{qrboardAuthNum}
     </update>
 
-    <!-- QR보드 목록 개수 -->
+    <!-- 광고사업자용 QR보드 목록 개수 -->
     <select id="selectQrboardEntityListCount" parameterType="qrboardEntity" resultType="int">
         SELECT
 			COUNT(qrboard_idx)
@@ -81,7 +38,7 @@
 			AND use_yn = 'Y'
     </select>
 
-    <!-- QR보드 목록 -->
+    <!-- 광고사업자용 QR보드 목록 -->
     <select id="selectQrboardEntityList" parameterType="qrboardEntity" resultType="qrboardEntity">
         SELECT
 			*
@@ -144,6 +101,28 @@
     <select id="selectAuthQrboardEntity" parameterType="qrboardEntity" resultType="qrboardEntity">
         SELECT * FROM qrboard
         WHERE qrboard_auth_num = #{qrboardAuthNum}
+    </select>
+
+    <!-- 모든 QR보드 목록 개수 -->
+    <select id="selectQrboardEntityListCountAll" parameterType="qrboardEntity" resultType="int">
+        SELECT
+			COUNT(qrboard_idx)
+		FROM
+			qrboard
+		WHERE
+			AND use_yn = 'Y'
+    </select>
+
+    <!-- 모든 QR보드 목록 -->
+    <select id="selectQrboardEntityListAll" parameterType="qrboardEntity" resultType="qrboardEntity">
+        SELECT
+			*
+		FROM
+			qrboard
+		WHERE
+			AND use_yn = 'Y'
+        ORDER BY reg_date DESC
+		LIMIT #{rowStartNumber}, #{pageListSize}
     </select>
 
 </mapper>

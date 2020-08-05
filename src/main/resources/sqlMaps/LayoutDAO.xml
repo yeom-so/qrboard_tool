@@ -14,4 +14,15 @@
         ORDER BY reg_date DESC
     </select>
 
+    <!-- 레이아웃 목록 -->
+    <select id="selectLayoutEntity" parameterType="int" resultType="layoutEntity">
+        SELECT
+			*
+		FROM
+			layout
+		WHERE
+			layout_idx = #{layoutIdx}
+    </select>
+
+
 </mapper>

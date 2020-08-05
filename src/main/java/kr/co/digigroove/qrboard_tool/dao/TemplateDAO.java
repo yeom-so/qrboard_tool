@@ -12,4 +12,12 @@ public interface TemplateDAO {
      * @throws Exception
      */
     List<TemplateEntity> selectTemplateEntityList(TemplateEntity templateEntity) throws Exception;
+
+    /**
+     * 기본템플릿상세
+     * @param templateIdx
+     * @return
+     * @throws Exception
+     */
+    TemplateEntity selectTemplateEntity(int templateIdx) throws Exception;
 }

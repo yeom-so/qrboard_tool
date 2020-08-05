@@ -12,6 +12,12 @@
 		<typeAlias alias="qrboardEntity" type="kr.co.digigroove.qrboard_tool.entities.QrboardEntity"/>
 		<typeAlias alias="layoutEntity" type="kr.co.digigroove.qrboard_tool.entities.LayoutEntity"/>
 		<typeAlias alias="templateEntity" type="kr.co.digigroove.qrboard_tool.entities.TemplateEntity"/>
+		<typeAlias alias="templateShopEntity" type="kr.co.digigroove.qrboard_tool.entities.TemplateShopEntity"/>
 		<typeAlias alias="permitNumEntity" type="kr.co.digigroove.qrboard_tool.entities.PermitNumEntity"/>
+		<typeAlias alias="advertEntity" type="kr.co.digigroove.qrboard_tool.entities.AdvertEntity"/>
+		<typeAlias alias="contentEntity" type="kr.co.digigroove.qrboard_tool.entities.ContentEntity"/>
+		<typeAlias alias="contentTextEntity" type="kr.co.digigroove.qrboard_tool.entities.ContentTextEntity"/>
+		<typeAlias alias="contentImageEntity" type="kr.co.digigroove.qrboard_tool.entities.ContentImageEntity"/>
+		<typeAlias alias="contentBackgroundEntity" type="kr.co.digigroove.qrboard_tool.entities.ContentBackgroundEntity"/>
 	</typeAliases>
 </configuration>

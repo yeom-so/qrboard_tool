@@ -48,7 +48,7 @@
 <div>
     <form id="qrboardForm" action="${contextPath}/qrboardRest/certifyQrboardEntity" method="post">
         <input type="text" name="qrboardName" placeholder="QR보드명" value="로비1층"><br/>
-        <input type="text" name="qrboardLocation" placeholder="주소검색에의한 위치" value="경 안양시 동안구 흥안대로 427번길 57-2"><br/>
+        <input type="text" name="qrboardLocation" placeholder="주소검색에의한 위치" value="경기 안양시 동안구 흥안대로 427번길 57-2"><br/>
         <input type="text" name="qrboardDetailLocation" placeholder="상세위치" value="아이에스비즈타워"><br/>
         <input type="text" name="qrboardAutoLocation" placeholder="검색을위한 위치" value="경기 안양시 동안구 평촌동 160-1"><br/>
         <input type="text" name="qrboardAuthNum" placeholder="인증번호" value="ABCD1234"><br/>

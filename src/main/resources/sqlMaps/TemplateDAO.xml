@@ -15,4 +15,14 @@
         ORDER BY reg_date DESC
     </select>
 
+	<!-- 기본템플릿 상세 -->
+	<select id="selectTemplateEntity" parameterType="int" resultType="templateEntity">
+        SELECT
+			*
+		FROM
+			template
+		WHERE
+		    template_idx = #{templateIdx}
+    </select>
+
 </mapper>

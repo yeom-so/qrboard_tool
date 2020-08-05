@@ -6,20 +6,17 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Getter @Setter @ToString
-public class LayoutEntity implements Serializable {
+public class ContentEntity implements Serializable {
 
   private static final long serialVersionUID = -6375567936022237503L;
 
-  private int layoutIdx;
-  private String layoutName;
-  private String layoutCode;
-  private String layoutDirection;
-  private int layoutX;
-  private int layoutY;
-  private String layoutImagePath;
-  private String useYn;
+  private int contentIdx;
   private Date regDate;
+  private List<ContentTextEntity> contentTextEntityList;
+  private List<ContentImageEntity> cotentImageEntityList;
+  private List<ContentBackgroundEntity> contentBackgroundEntityList;
 
 }

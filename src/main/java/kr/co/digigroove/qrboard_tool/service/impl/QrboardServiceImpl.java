@@ -5,6 +5,7 @@ import kr.co.digigroove.qrboard_tool.dao.PermitNumDAO;
 import kr.co.digigroove.qrboard_tool.dao.QrboardDAO;
 import kr.co.digigroove.qrboard_tool.entities.PermitNumEntity;
 import kr.co.digigroove.qrboard_tool.entities.QrboardEntity;
+import kr.co.digigroove.qrboard_tool.entities.result.AngularResultEntity;
 import kr.co.digigroove.qrboard_tool.entities.result.ResultEntity;
 import kr.co.digigroove.qrboard_tool.service.QrboardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,7 @@ public class QrboardServiceImpl implements QrboardService {
      * @throws Exception
      */
     @Override
-    public ResultEntity certifyQrboardEntity(QrboardEntity qrboardEntity) throws Exception{
-        ResultEntity resultEntity = new ResultEntity();
-
+    public QrboardEntity certifyQrboardEntity(QrboardEntity qrboardEntity) throws Exception{
         QrboardEntity authQrboardEntity = qrboardDAO.selectAuthQrboardEntity(qrboardEntity);
         PermitNumEntity permitNumEntity = new PermitNumEntity();
         permitNumEntity.setUserIdx(qrboardEntity.getUserIdx());
@@ -50,17 +49,17 @@ public class QrboardServiceImpl implements QrboardService {
         PermitNumEntity authPermitNumEntity = permitNumDAO.selectPermitNumEntity(permitNumEntity);
 
         if (authQrboardEntity == null) {	// 해당 인증번호를 가진 QR보드가 존재하지 않은 경우
-            resultEntity.setCode(Default.Result.AUTH_NUM_ERR);
-            resultEntity.setMessage("올바른 인증번호를 입력하세요.");
+            authQrboardEntity.setResult(Default.Result.FAIL);
+            authQrboardEntity.setSubResult(Default.Result.AUTH_NUM_ERR);
         } else if(authPermitNumEntity == null) { // 허가번호가 존재하지 않은 경우
-            resultEntity.setCode(Default.Result.PERMIT_NUM_ERR);
-            resultEntity.setMessage("올바른 허가번호를 입력하세요.");
+            authQrboardEntity.setResult(Default.Result.FAIL);
+            authQrboardEntity.setSubResult(Default.Result.PERMIT_NUM_ERR);
         }else{	// QR보드 존재, 허가번호 존재
 
             // 이미 등록된 QR보드
             if(authQrboardEntity.getQrboardAuthYn().equals("Y")){
-                resultEntity.setCode(Default.Result.USE_AUTH_NUM);
-                resultEntity.setMessage("이미 등록된 인증번호입니다.");
+                authQrboardEntity.setResult(Default.Result.FAIL);
+                authQrboardEntity.setSubResult(Default.Result.USE_AUTH_NUM);
             }
 
             if(authQrboardEntity.getQrboardPermitNum() == null || authQrboardEntity.getQrboardPermitNum().equals("")){	// 등록했던 허가번호가 없음
@@ -71,8 +70,7 @@ public class QrboardServiceImpl implements QrboardService {
                     permitNumDAO.authPermitNumEntity(permitNumEntity);
                     // QR보드 인증
                     qrboardDAO.certifyQrboardEntity(qrboardEntity);
-                    resultEntity.setCode(Default.Result.SUCCESS);
-                    resultEntity.setMessage("등록되었습니다.");
+                    authQrboardEntity.setResult(Default.Result.SUCCESS);
                 }else{ // 허가번호로 등록했던 기기가 있음
                     if(authQrboardEntity.getQrboardIdx() == authPermitNumEntity.getQrboardIdx()){	// 이전에 등록한 QR보드
                         // 허가번호 인증처리
@@ -81,11 +79,10 @@ public class QrboardServiceImpl implements QrboardService {
                         permitNumDAO.authPermitNumEntity(permitNumEntity);
                         // QR보드 인증
                         qrboardDAO.certifyQrboardEntity(qrboardEntity);
-                        resultEntity.setCode(Default.Result.SUCCESS);
-                        resultEntity.setMessage("등록되었습니다.");
+                        authQrboardEntity.setResult(Default.Result.SUCCESS);
                     }else{	// 다른 QR보드가 등록한 허가번호
-                        resultEntity.setCode(Default.Result.USE_PERMIT_NUM);
-                        resultEntity.setMessage("이미 등록된 허가번호입니다.");
+                        authQrboardEntity.setResult(Default.Result.FAIL);
+                        authQrboardEntity.setSubResult(Default.Result.USE_PERMIT_NUM);
                     }
                 }
             }else{	// 기기에 등록했던 허가번호가 존재함
@@ -96,16 +93,15 @@ public class QrboardServiceImpl implements QrboardService {
                     permitNumDAO.authPermitNumEntity(permitNumEntity);
                     // QR보드 인증
                     qrboardDAO.certifyQrboardEntity(qrboardEntity);
-                    resultEntity.setCode(Default.Result.SUCCESS);
-                    resultEntity.setMessage("등록되었습니다.");
+                    authQrboardEntity.setResult(Default.Result.SUCCESS);
                 }else{	// 이미 다른 허가번호로 등록된 QR보드
-                    resultEntity.setCode(Default.Result.PERMIT_NUM_MISMATCH);
-                    resultEntity.setMessage("올바른 허가번호를 입력하세요.");
+                    authQrboardEntity.setResult(Default.Result.FAIL);
+                    authQrboardEntity.setSubResult(Default.Result.PERMIT_NUM_MISMATCH);
                 }
             }
         }
 
-        return resultEntity;
+        return authQrboardEntity;
     }
 
     @Override

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.digigroove.qrboard_tool.dao.ContentDAO">
+
+    <!-- 광고 콘텐츠 등록 -->
+    <insert id="insertContentEntity" parameterType="contentEntity">
+        INSERT INTO content (
+            reg_date
+        ) VALUES (
+            now()
+        )
+        <selectKey keyProperty="contentIdx" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+</mapper>

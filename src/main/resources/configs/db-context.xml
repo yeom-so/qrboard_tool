@@ -44,8 +44,38 @@
     <property name="sqlSessionFactory" ref="sessionFactory" />
   </bean>
 
+  <bean id="TemplateShopDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.TemplateShopDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
   <bean id="PermitDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
     <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.PermitNumDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="AdvertDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.AdvertDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="ContentDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.ContentDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="ContentTextDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.ContentTextDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="ContentImageDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.ContentImageDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="ContentBackgroundDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.ContentBackgroundDAO" />
     <property name="sqlSessionFactory" ref="sessionFactory" />
   </bean>
 

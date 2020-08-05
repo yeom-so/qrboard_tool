@@ -51,5 +51,8 @@ public class QrboardEntity extends PageEntity implements Serializable {
   private Date regDate;
   private String useYn;
 
-//  private List<QrboardEntity> qrboardEntityList;    // QR보드목록
+  // 인증결과
+  private String result;
+  private String subResult;
+
 }

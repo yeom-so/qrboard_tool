@@ -1,6 +1,7 @@
 package kr.co.digigroove.qrboard_tool.service;
 
 import kr.co.digigroove.qrboard_tool.entities.QrboardEntity;
+import kr.co.digigroove.qrboard_tool.entities.result.AngularResultEntity;
 import kr.co.digigroove.qrboard_tool.entities.result.ResultEntity;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface QrboardService {
      * @param qrboardEntity
      * @throws Exception
      */
-    ResultEntity certifyQrboardEntity(QrboardEntity qrboardEntity) throws Exception;
+    QrboardEntity certifyQrboardEntity(QrboardEntity qrboardEntity) throws Exception;
 
     /**
      * QR보드상세

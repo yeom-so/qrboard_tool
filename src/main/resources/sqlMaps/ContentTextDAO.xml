@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.digigroove.qrboard_tool.dao.ContentTextDAO">
+
+    <!-- 광고 콘텐츠 텍스트 등록 -->
+    <insert id="insertContentTextEntity" parameterType="contentTextEntity">
+        INSERT INTO content_text (
+            content_idx
+            , content_text
+            , content_text_font
+            , content_text_color
+        ) VALUES (
+            #{contentIdx}
+            , #{contentText}
+            , #{contentTextFont}
+            , #{contentTextColor}
+        )
+    </insert>
+
+</mapper>

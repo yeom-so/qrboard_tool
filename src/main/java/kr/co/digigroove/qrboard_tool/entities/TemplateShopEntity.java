@@ -8,18 +8,16 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Getter @Setter @ToString
-public class LayoutEntity implements Serializable {
+public class TemplateShopEntity implements Serializable {
 
   private static final long serialVersionUID = -6375567936022237503L;
 
-  private int layoutIdx;
-  private String layoutName;
-  private String layoutCode;
-  private String layoutDirection;
-  private int layoutX;
-  private int layoutY;
-  private String layoutImagePath;
-  private String useYn;
+  private int templateShopIdx;
+  private int templateIdx;
+  private int businessIdx;
+  private int contentIdx;
+  private String templateShopName;
   private Date regDate;
+  private ContentEntity contentEntity;
 
 }
