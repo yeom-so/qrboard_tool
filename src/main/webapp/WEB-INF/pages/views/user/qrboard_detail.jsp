@@ -13,7 +13,7 @@
             , success: function (angularResultEntity) {
                 if (typeof angularResultEntity == "string") angularResultEntity = JSON.parse(angularResultEntity);
                 alert(angularResultEntity.message);
-                location.href = contextPath + "/user/qrboard";
+                location.href = contextPath + "/qrboard";
             },
             error: function () {
                 alert(angularResultEntity.message);

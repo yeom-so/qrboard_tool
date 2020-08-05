@@ -38,9 +38,7 @@ public class QrboardRestController implements Serializable{
 		try {
 			UserEntity userEntity = (UserEntity) session.getAttribute("user");
 			qrboardEntity.setUserIdx(userEntity.getUserIdx());
-			qrboardService.certifyQrboardEntity(qrboardEntity);
-			resultEntity.setCode(Default.Result.SUCCESS);
-			resultEntity.setMessage("QR보드 등록 완료");
+			resultEntity = qrboardService.certifyQrboardEntity(qrboardEntity);
 		} catch (Exception e) {
 			resultEntity.setCode(Default.Result.FAIL);
 			resultEntity.setMessage("오류가 발생하였습니다.");

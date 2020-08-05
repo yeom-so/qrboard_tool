@@ -32,37 +32,37 @@ public class UserRestController implements Serializable{
 	 */
 	@RequestMapping(value="/login")
 	public UserResultEntity login(UserEntity userEntity, HttpSession session) {
-		UserResultEntity result = new UserResultEntity();
+		UserResultEntity userResultEntity = new UserResultEntity();
 
 		try {
-			result = (UserResultEntity) userService.checkLoginUser(userEntity);
-			if(result.getCode().equals(Default.Result.MISMATCH)){
-				result.setUrl("/");
-				result.setMessage("비번이 안맞음!!");
-			}else if(result.getCode().equals(Default.Result.SUCCESS)){
-				result.setUrl("/");
-				session.setAttribute("user", result.getLoginInfo());
-				result.setCode(Default.Result.SUCCESS);
-				result.setUrl("/user/user");
-				result.setMessage("로그인 성공!!");
-				result.setLoginInfo(result.getLoginInfo());
-			}else if(result.getCode().equals(Default.Result.EMPTY_USER)){
-				result.setUrl("/");
-				result.setMessage("일치하는 사용자가 없습니다.");
-			}else if(result.getCode().equals(Default.Result.NOT_APPROVE)){
-				result.setUrl("/");
-				result.setMessage("승인 대기중인 사용자");
-			}else if(result.getCode().equals(Default.Result.WITHDRAW)){
-				result.setUrl("/");
-				result.setMessage("탈퇴한 사용자");
+			userResultEntity = (UserResultEntity) userService.checkLoginUser(userEntity);
+			if(userResultEntity.getCode().equals(Default.Result.MISMATCH)){
+				userResultEntity.setUrl("/");
+				userResultEntity.setMessage("비번이 안맞음!!");
+			}else if(userResultEntity.getCode().equals(Default.Result.SUCCESS)){
+				userResultEntity.setUrl("/");
+				session.setAttribute("user", userResultEntity.getLoginInfo());
+				userResultEntity.setCode(Default.Result.SUCCESS);
+				userResultEntity.setUrl("/user/user");
+				userResultEntity.setMessage("로그인 성공!!");
+				userResultEntity.setLoginInfo(userResultEntity.getLoginInfo());
+			}else if(userResultEntity.getCode().equals(Default.Result.EMPTY_USER)){
+				userResultEntity.setUrl("/");
+				userResultEntity.setMessage("일치하는 사용자가 없습니다.");
+			}else if(userResultEntity.getCode().equals(Default.Result.NOT_APPROVE)){
+				userResultEntity.setUrl("/");
+				userResultEntity.setMessage("승인 대기중인 사용자");
+			}else if(userResultEntity.getCode().equals(Default.Result.WITHDRAW)){
+				userResultEntity.setUrl("/");
+				userResultEntity.setMessage("탈퇴한 사용자");
 			}
 		} catch (Exception e) {
-			result.setCode(Default.Result.FAIL);
-			result.setMessage("오류가 발생하였습니다.");
+			userResultEntity.setCode(Default.Result.FAIL);
+			userResultEntity.setMessage("오류가 발생하였습니다.");
 			LOGGER.error("UserRestController.loginSubmit:Failed", e);
 		}
 
-		return result;
+		return userResultEntity;
 	}
 
 	/**
@@ -72,19 +72,19 @@ public class UserRestController implements Serializable{
 	 */
 	@RequestMapping(value = "/logout")
 	public ResultEntity logout(HttpSession session) {
-		ResultEntity result = new ResultEntity();
+		ResultEntity resultEntity = new ResultEntity();
 
 		try {
-			result.setUrl("/");
+			resultEntity.setUrl("/");
 			session.removeAttribute("user");
-			result.setCode(Default.Result.SUCCESS);
-			result.setMessage("로그아웃");
+			resultEntity.setCode(Default.Result.SUCCESS);
+			resultEntity.setMessage("로그아웃");
 		} catch (Exception e) {
-			result.setCode(Default.Result.FAIL);
-			result.setMessage("오류가 발생했습니다.");
+			resultEntity.setCode(Default.Result.FAIL);
+			resultEntity.setMessage("오류가 발생했습니다.");
 		}
 
-		return result;
+		return resultEntity;
 	}
 
 	/**

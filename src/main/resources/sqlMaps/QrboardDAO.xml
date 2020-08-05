@@ -66,6 +66,7 @@
             , qrboard_approve_stime = #{qrboardApproveStime}
             , qrboard_approve_etime = #{qrboardApproveEtime}
             , qrboard_approve_option = #{qrboardApproveOption}
+            , use_yn = 'Y'
         WHERE qrboard_auth_num = #{qrboardAuthNum}
     </update>
 
@@ -123,7 +124,18 @@
     <update id="deleteQrboardEntity" parameterType="qrboardEntity">
         UPDATE qrboard
         SET
-            use_yn = 'N'
+            layout_idx = null
+            , template_idx = null
+            , user_idx = null
+            , qrboard_name = null
+            , qrboard_location = null
+            , qrboard_detail_location = null
+            , qrboard_auto_location = null
+            , qrboard_price = null
+            , qrboard_auth_yn = 'N'
+            , qrboard_approve_stime = null
+            , qrboard_approve_etime = null
+            , use_yn = 'N'
         WHERE
             qrboard_idx = #{qrboardIdx}
     </update>

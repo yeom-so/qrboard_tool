@@ -21,8 +21,18 @@
         SET
             qrboard_idx = #{qrboardIdx}
             , auth_date = now()
+            , unauth_date = null
         WHERE
             permit_num_idx = #{permitNumIdx}
+    </update>
+
+    <!-- 허가번호 인증해제 -->
+    <update id="unauthPermitNumEntity" parameterType="qrboardEntity">
+        UPDATE permit_num
+        SET
+            unauth_date = now()
+        WHERE
+            qrboard_idx = #{qrboardIdx}
     </update>
 
 </mapper>

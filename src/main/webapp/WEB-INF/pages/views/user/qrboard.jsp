@@ -10,13 +10,13 @@
         $('#qrboardForm').ajaxForm({
             type : "POST"
             , dataType : "json"
-            , success: function (angularResultEntity) {
-                if (typeof angularResultEntity == "string") angularResultEntity = JSON.parse(angularResultEntity);
-                alert(angularResultEntity.message);
+            , success: function (data) {
+                if (typeof data == "string") data = JSON.parse(data);
+                alert(data.message);
                 location.reload();
             },
             error: function () {
-                alert(angularResultEntity.message);
+                alert(data.message);
             }
         });
     });

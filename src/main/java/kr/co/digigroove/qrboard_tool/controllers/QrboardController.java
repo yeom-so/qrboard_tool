@@ -37,7 +37,7 @@ public class QrboardController {
     }
 
     /**
-     * QR보드 목록 페이지
+     * QR보드 상세 페이지
      * @return
      * @throws Exception
      */
@@ -46,4 +46,5 @@ public class QrboardController {
         model.addAttribute("qrboardEntity", qrboardService.selectQrboardEntity(qrboardEntity));
         return "user/qrboard_detail";
     }
+
 }
