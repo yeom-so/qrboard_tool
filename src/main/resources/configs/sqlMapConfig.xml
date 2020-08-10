@@ -10,6 +10,7 @@
 	<typeAliases>
 		<typeAlias alias="userEntity" type="kr.co.digigroove.qrboard_tool.entities.UserEntity"/>
 		<typeAlias alias="qrboardEntity" type="kr.co.digigroove.qrboard_tool.entities.QrboardEntity"/>
+		<typeAlias alias="qrboardAreaEntity" type="kr.co.digigroove.qrboard_tool.entities.QrboardAreaEntity"/>
 		<typeAlias alias="layoutEntity" type="kr.co.digigroove.qrboard_tool.entities.LayoutEntity"/>
 		<typeAlias alias="templateEntity" type="kr.co.digigroove.qrboard_tool.entities.TemplateEntity"/>
 		<typeAlias alias="templateShopEntity" type="kr.co.digigroove.qrboard_tool.entities.TemplateShopEntity"/>

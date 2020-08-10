@@ -1,11 +1,11 @@
 package kr.co.digigroove.qrboard_tool.service;
 
-import kr.co.digigroove.qrboard_tool.entities.QrboardEntity;
+import kr.co.digigroove.qrboard_tool.entities.AdvertEntity;
 
 public interface AdvertService {
     /**
-     * 광고영역 생성
-     * @param qrboardEntity
+     * 광고등록
+     * @param advertEntity
      */
-    void insertAdvertEntity(QrboardEntity qrboardEntity) throws Exception;
+    void insertAdvertEntity(AdvertEntity advertEntity) throws Exception;
 }

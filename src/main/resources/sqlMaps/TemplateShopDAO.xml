@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.digigroove.qrboard_tool.dao.TemplateDAO">
+<mapper namespace="kr.co.digigroove.qrboard_tool.dao.TemplateShopDAO">
 
 	<!-- 업종템플릿 목록 -->
-	<select id="selectTemplateShopEntityList" parameterType="templateEntity" resultType="templateEntity">
+	<select id="selectTemplateShopEntityList" parameterType="templateShopEntity" resultType="templateShopEntity">
         SELECT
 			*
 		FROM
@@ -13,5 +13,49 @@
 		    template_idx = #{templateIdx}
         ORDER BY reg_date DESC
     </select>
+
+	<!-- 업종템플릿 상세 -->
+	<select id="selectTemplateShopEntity" parameterType="templateShopEntity" resultMap="templateShopEntityMap">
+        SELECT
+			*
+		FROM
+			template_shop
+		WHERE
+		    template_shop_idx = #{templateShopIdx}
+        ORDER BY reg_date DESC
+    </select>
+
+	<resultMap id="templateShopEntityMap" type="templateShopEntity">
+		<id property="contentIdx" column="content_idx" />
+		<result property="templateShopIdx" column="template_shop_idx" />
+		<result property="templateIdx" column="template_idx" />
+		<result property="businessIdx" column="business_idx" />
+		<result property="templateShopName" column="template_shop_name" />
+		<result property="regDate" column="reg_date" />
+		<collection property="contentTextEntityList" javaType="ArrayList" column="content_idx" ofType="contentTextEntity" select="selectContentTextEntityList" />
+		<collection property="contentImageEntityList" javaType="ArrayList" column="content_idx" ofType="contentImageEntity" select="selectContentImageEntityList" />
+		<collection property="contentBackgroundEntityList" javaType="ArrayList" column="content_idx" ofType="contentBackgroundEntity" select="selectContentBackgroundEntityList" />
+	</resultMap>
+
+	<select id="selectContentTextEntityList" resultType="contentTextEntity">
+		SELECT *
+		FROM content_text
+		WHERE content_idx = #{contentIdx}
+		ORDER BY content_text_idx
+	</select>
+
+	<select id="selectContentImageEntityList" resultType="contentImageEntity">
+		SELECT *
+		FROM content_image
+		WHERE content_idx = #{contentIdx}
+		ORDER BY content_image_idx
+	</select>
+
+	<select id="selectContentBackgroundEntityList" resultType="contentBackgroundEntity">
+		SELECT *
+		FROM content_background
+		WHERE content_idx = #{contentIdx}
+		ORDER BY content_background_idx
+	</select>
 
 </mapper>

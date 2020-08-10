@@ -131,4 +131,11 @@ public class QrboardServiceImpl implements QrboardService {
         qrboardDAO.deleteQrboardEntity(qrboardEntity);
     }
 
+    @Override
+    public List<QrboardEntity> selectQrboardEntityListAll(QrboardEntity qrboardEntity) throws Exception {
+        qrboardEntity.setPageParams();
+        qrboardEntity.setDataSize(qrboardDAO.selectQrboardEntityListCountAll(qrboardEntity));
+        return qrboardDAO.selectQrboardEntityListAll(qrboardEntity);
+    }
+
 }

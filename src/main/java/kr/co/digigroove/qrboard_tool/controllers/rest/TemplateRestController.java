@@ -23,31 +23,12 @@ public class TemplateRestController implements Serializable{
 	@Autowired
 	private TemplateService templateService;
 
-	@Autowired
-	private TemplateShopService templateShopService;
-
 	@RequestMapping(value="/selectTemplateEntityList")
 	public AngularResultEntity selectTemplateEntityList(TemplateEntity templateEntity) {
 		AngularResultEntity angularResultEntity = new AngularResultEntity();
 
 		try {
 			angularResultEntity.setEntityList(templateService.selectTemplateEntityList(templateEntity));
-			angularResultEntity.setResult(Default.Result.SUCCESS);
-			angularResultEntity.setMessage("성공");
-		} catch (Exception e) {
-			angularResultEntity.setResult(Default.Result.FAIL);
-			angularResultEntity.setMessage("실패");
-		}
-
-		return angularResultEntity;
-	}
-
-	@RequestMapping(value="/selectTemplateShopEntityList")
-	public AngularResultEntity selectTemplateShopEntityList(TemplateShopEntity templateShopEntity) {
-		AngularResultEntity angularResultEntity = new AngularResultEntity();
-
-		try {
-			angularResultEntity.setEntityList(templateShopService.selectTemplateShopEntityList(templateShopEntity));
 			angularResultEntity.setResult(Default.Result.SUCCESS);
 			angularResultEntity.setMessage("성공");
 		} catch (Exception e) {

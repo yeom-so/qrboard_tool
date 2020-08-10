@@ -57,7 +57,7 @@
         <input type="text" name="qrboardApproveEtime" placeholder="광고승인 가능 종료시간" value="${qrboardEntity.qrboardApproveEtime}"><br/>
         <input type="text" name="qrboardApproveOption" value="${qrboardEntity.qrboardApproveOption}"><br/>
         <input type="text" value="${qrboardEntity.regDate}"><br/>
-        <input type="text" value="" placeholder="광고진행현황"><br/>
+        <input type="text" value="${qrboardEntity.advertNum}/${qrboardEntity.qrboardAreaNum}" placeholder="광고진행현황"><br/>
         <input type="submit" value="QR보드 수정">
     </form>
     <br/>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.digigroove.qrboard_tool.dao.QrboardAreaDAO">
+
+    <!-- QR보드 광고 영역 생성 -->
+    <insert id="insertQrboardAreaEntity" parameterType="qrboardAreaEntity">
+        INSERT INTO qrboard_area (
+            qrboard_idx
+            , qrboard_area_seq
+            , qrboard_area_code_image_path
+        ) VALUES (
+            #{qrboardIdx}
+            , #{qrboardAreaSeq}
+            , #{qrboardAreaCodeImagePath}
+        )
+    </insert>
+
+    <!-- QR보드 광고 영역 생성 -->
+    <select id="selectQrboardAreaEntityList" parameterType="qrboardEntity" resultType="qrboardAreaEntity">
+        SELECT qa.*, a.advert_sdate AS last_advert_sdate, a.advert_edate AS last_advert_edate
+        FROM qrboard_area qa
+        LEFT JOIN (
+            SELECT qrboard_area_idx, advert_sdate, advert_edate
+            FROM advert
+            WHERE advert_state IN (0,1)
+            ORDER BY advert_edate DESC
+            LIMIT 1
+        ) a
+        ON qa.qrboard_area_idx = a.qrboard_area_idx
+        WHERE qa.qrboard_idx = #{qrboardIdx}
+        ORDER BY qa.qrboard_area_seq
+    </select>
+
+</mapper>

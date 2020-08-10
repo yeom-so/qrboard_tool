@@ -34,6 +34,11 @@
     <property name="sqlSessionFactory" ref="sessionFactory" />
   </bean>
 
+  <bean id="QrboardAreaDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.QrboardAreaDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
   <bean id="LayoutDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
     <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.LayoutDAO" />
     <property name="sqlSessionFactory" ref="sessionFactory" />

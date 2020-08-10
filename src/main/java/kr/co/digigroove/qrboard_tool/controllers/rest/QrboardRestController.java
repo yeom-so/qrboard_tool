@@ -6,6 +6,7 @@ import kr.co.digigroove.qrboard_tool.entities.UserEntity;
 import kr.co.digigroove.qrboard_tool.entities.result.AngularResultEntity;
 import kr.co.digigroove.qrboard_tool.entities.result.ResultEntity;
 import kr.co.digigroove.qrboard_tool.service.AdvertService;
+import kr.co.digigroove.qrboard_tool.service.QrboardAreaService;
 import kr.co.digigroove.qrboard_tool.service.QrboardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,9 @@ public class QrboardRestController implements Serializable{
 
 	@Autowired
 	private QrboardService qrboardService;
+
+	@Autowired
+	private QrboardAreaService qrboardAreaService;
 
 	@Autowired
 	private AdvertService advertService;
@@ -47,7 +51,7 @@ public class QrboardRestController implements Serializable{
 			// 인증성공
 			if(authQrboardEntity.getResult().equals(Default.Result.SUCCESS)){
 				// 광고영역 생성
-				advertService.insertAdvertEntity(qrboardService.selectQrboardEntity(authQrboardEntity));
+				qrboardAreaService.insertQrboardAreaEntity(qrboardService.selectQrboardEntity(authQrboardEntity));
 				angularResultEntity.setResult(Default.Result.SUCCESS);
 				angularResultEntity.setMessage("QR보드 등록 성공");
 			}else if(authQrboardEntity.getResult().equals(Default.Result.FAIL)){
@@ -67,6 +71,28 @@ public class QrboardRestController implements Serializable{
 		} catch (Exception e) {
 			angularResultEntity.setResult(Default.Result.FAIL);
 			angularResultEntity.setMessage("오류가 발생하였습니다.");
+		}
+
+		return angularResultEntity;
+	}
+
+	/**
+	 * QR보드 상세
+	 * @param qrboardEntity
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/selectQrboardEntity", method= RequestMethod.POST)
+	public AngularResultEntity selectQrboardEntity(QrboardEntity qrboardEntity) throws Exception{
+		AngularResultEntity angularResultEntity = new AngularResultEntity();
+
+		try {
+			angularResultEntity.setEntity(qrboardService.selectQrboardEntity(qrboardEntity));
+			angularResultEntity.setResult(Default.Result.SUCCESS);
+			angularResultEntity.setMessage("성공");
+		} catch (Exception e) {
+			angularResultEntity.setResult(Default.Result.FAIL);
+			angularResultEntity.setMessage("실패");
 		}
 
 		return angularResultEntity;

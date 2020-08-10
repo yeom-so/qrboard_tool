@@ -13,4 +13,12 @@ public interface TemplateShopDAO {
      * @throws Exception
      */
     List<TemplateShopEntity> selectTemplateShopEntityList(TemplateShopEntity templateShopEntity) throws Exception;
+
+    /**
+     * 업종템플릿 상세
+     * @param templateShopEntity
+     * @return
+     * @throws Exception
+     */
+    TemplateShopEntity selectTemplateShopEntity(TemplateShopEntity templateShopEntity) throws Exception;
 }

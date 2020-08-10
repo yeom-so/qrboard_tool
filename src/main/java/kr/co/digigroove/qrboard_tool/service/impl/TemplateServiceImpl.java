@@ -1,27 +1,27 @@
 package kr.co.digigroove.qrboard_tool.service.impl;
 
-import kr.co.digigroove.qrboard_tool.dao.TemplateShopDAO;
-import kr.co.digigroove.qrboard_tool.entities.TemplateShopEntity;
-import kr.co.digigroove.qrboard_tool.service.TemplateShopService;
+import kr.co.digigroove.qrboard_tool.dao.TemplateDAO;
+import kr.co.digigroove.qrboard_tool.entities.TemplateEntity;
+import kr.co.digigroove.qrboard_tool.service.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class TemplateServiceImpl implements TemplateShopService {
+public class TemplateServiceImpl implements TemplateService {
 
     @Autowired
-    private TemplateShopDAO templateShopDAO;
+    private TemplateDAO templateDAO;
 
     /**
-     * 업종템플릿목록
-     * @param templateShopEntity
+     * 기본템플릿목록
      * @return
      * @throws Exception
      */
     @Override
-    public List<TemplateShopEntity> selectTemplateShopEntityList(TemplateShopEntity templateShopEntity) throws Exception {
-        return templateShopDAO.selectTemplateShopEntityList(templateShopEntity);
+    public List<TemplateEntity> selectTemplateEntityList(TemplateEntity templateEntity) throws Exception {
+        return templateDAO.selectTemplateEntityList(templateEntity);
     }
+
 }

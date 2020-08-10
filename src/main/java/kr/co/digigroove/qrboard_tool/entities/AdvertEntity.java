@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,22 +33,24 @@ public class AdvertEntity extends PageEntity implements Serializable {
 
   private int advertIdx;
   private int qrboardIdx;
-  private int templateShopIdx;
+  private int qrboardAreaIdx;
   private int contentIdx;
+  private int templateShopIdx;
   private int userIdx;
   private String advertType;
-  private int advertSeq;
   private String advertName;
   private String advertUserCi;
   private String advertUserTel;
   private Date advertSdate;
   private Date advertEdate;
-  private String advertPrice;
-  private String advertProfit;
+  private int advertPrice;
+  private int advertProfit;
   private String advertPayYn;
-  private String advertState;
+  private int advertState;
   private Date regDate;
   private String useYn;
-  private ContentEntity contentEntity;
+  private List<ContentTextEntity> contentTextEntityList;
+  private List<ContentImageEntity> contentImageEntityList;
+  private List<ContentBackgroundEntity> contentBackgroundEntityList;
 
 }

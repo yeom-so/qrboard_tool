@@ -3,17 +3,41 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.digigroove.qrboard_tool.dao.AdvertDAO">
 
-    <!-- 광고영역 생성 -->
+    <!-- 광고 등록 -->
     <insert id="insertAdvertEntity" parameterType="advertEntity">
         INSERT INTO advert (
             qrboard_idx
+            , qrboard_area_idx
             , content_idx
-            , advert_seq
+            , template_shop_idx
+            , user_idx
+            , advert_type
+            , advert_name
+            , advert_user_ci
+            , advert_user_tel
+            , advert_sdate
+            , advert_edate
+            , advert_price
+            , advert_profit
+            , advert_pay_yn
+            , advert_state
             , reg_date
         ) VALUES (
             #{qrboardIdx}
+            , #{qrboardAreaIdx}
             , #{contentIdx}
-            , #{advertSeq}
+            , #{templateShopIdx}
+            , #{userIdx}
+            , #{advertType}
+            , #{advertName}
+            , #{advertUserCi}
+            , #{advertUserTel}
+            , #{advertSdate}
+            , #{advertEdate}
+            , #{advertPrice}
+            , #{advertProfit}
+            , #{advertPayYn}
+            , #{advertState}
             , now()
         )
     </insert>

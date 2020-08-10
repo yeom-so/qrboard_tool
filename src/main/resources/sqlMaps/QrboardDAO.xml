@@ -40,20 +40,45 @@
 
     <!-- 광고사업자용 QR보드 목록 -->
     <select id="selectQrboardEntityList" parameterType="qrboardEntity" resultType="qrboardEntity">
-        SELECT
-			*
-		FROM
-			qrboard
+        SELECT q.*, u.user_name, u.user_tel, l.layout_name,
+            (
+                -- 광고영역개수
+                SELECT COUNT(qa.qrboard_area_idx) FROM qrboard_area qa
+                WHERE qa.qrboard_idx = q.qrboard_idx
+            ) AS qrboard_area_num,
+            (
+                -- 광고중 영역 개수
+                SELECT COUNT(a.advert_idx) FROM qrboard_area qa
+                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state IN (0,1)
+                WHERE qa.qrboard_idx = q.qrboard_idx
+            ) AS advert_num
+        FROM qrboard q
+        INNER JOIN user u ON q.user_idx = u.user_idx
+        INNER JOIN layout l on q.layout_idx = l.layout_idx
 		WHERE
-			user_idx = #{userIdx}
-			AND use_yn = 'Y'
-        ORDER BY reg_date DESC
+			q.user_idx = #{userIdx}
+			AND q.use_yn = 'Y'
+        ORDER BY q.reg_date DESC
 		LIMIT #{rowStartNumber}, #{pageListSize}
     </select>
 
     <!-- QR보드 상세 -->
     <select id="selectQrboardEntity" parameterType="qrboardEntity" resultType="qrboardEntity">
-        SELECT * FROM qrboard
+        SELECT q.*, u.user_name, u.user_tel, l.layout_name,
+         (
+                -- 광고영역개수
+                SELECT COUNT(qa.qrboard_area_idx) FROM qrboard_area qa
+                WHERE qa.qrboard_idx = q.qrboard_idx
+            ) AS qrboard_area_num,
+            (
+                -- 광고중 영역 개수
+                SELECT COUNT(a.advert_idx) FROM qrboard_area qa
+                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state IN (0,1)
+                WHERE qa.qrboard_idx = q.qrboard_idx
+            ) AS advert_num
+        FROM qrboard q
+        INNER JOIN user u ON q.user_idx = u.user_idx
+        INNER JOIN layout l ON q.layout_idx = l.layout_idx
         WHERE qrboard_idx = #{qrboardIdx}
     </select>
 
@@ -110,7 +135,7 @@
 		FROM
 			qrboard
 		WHERE
-			AND use_yn = 'Y'
+			use_yn = 'Y'
     </select>
 
     <!-- 모든 QR보드 목록 -->
@@ -120,7 +145,7 @@
 		FROM
 			qrboard
 		WHERE
-			AND use_yn = 'Y'
+			use_yn = 'Y'
         ORDER BY reg_date DESC
 		LIMIT #{rowStartNumber}, #{pageListSize}
     </select>

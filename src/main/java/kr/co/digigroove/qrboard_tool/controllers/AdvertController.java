@@ -5,6 +5,7 @@ import kr.co.digigroove.qrboard_tool.entities.QrboardEntity;
 import kr.co.digigroove.qrboard_tool.entities.TemplateShopEntity;
 import kr.co.digigroove.qrboard_tool.entities.UserEntity;
 import kr.co.digigroove.qrboard_tool.service.AdvertService;
+import kr.co.digigroove.qrboard_tool.service.QrboardService;
 import kr.co.digigroove.qrboard_tool.service.TemplateShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,16 +25,19 @@ public class AdvertController {
     @Autowired
     private TemplateShopService templateShopService;
 
+    @Autowired
+    private QrboardService qrboardService;
+
     /**
      * 광고 목록 페이지
      * @return
      * @throws Exception
      */
     @RequestMapping(method= RequestMethod.GET)
-    public String selectAdvertEntityList(final Model model, HttpSession session, AdvertEntity advertEntity) throws Exception {
-        UserEntity userEntity = (UserEntity) session.getAttribute("user");
-        advertEntity.setUserIdx(userEntity.getUserIdx());
-        return "user/qrboard";
+    public String selectAdvertEntityList(final Model model, HttpSession session, QrboardEntity qrboardEntity) throws Exception {
+        // 모든 QR보드 목록
+        model.addAttribute("qrboardEntityList", qrboardService.selectQrboardEntityListAll(qrboardEntity));
+        return "user/advert";
     }
 
 }

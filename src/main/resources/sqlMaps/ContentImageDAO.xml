@@ -14,6 +14,9 @@
             , #{contentImageGroupIdx}
             , #{contentImagePath}
         )
+        <selectKey keyProperty="contentImageIdx" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
 </mapper>

@@ -56,4 +56,20 @@ public interface QrboardDAO {
      * @throws Exception
      */
     QrboardEntity selectAuthQrboardEntity(QrboardEntity qrboardEntity) throws Exception;
+
+    /**
+     * QR보드 전체목록개수조회
+     * @param qrboardEntity
+     * @return
+     * @throws Exception
+     */
+    int selectQrboardEntityListCountAll(QrboardEntity qrboardEntity) throws Exception;
+
+    /**
+     * QR보드 전체목록조회
+     * @param qrboardEntity
+     * @return
+     */
+    List<QrboardEntity> selectQrboardEntityListAll(QrboardEntity qrboardEntity);
+
 }

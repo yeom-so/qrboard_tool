@@ -43,4 +43,13 @@ public interface QrboardService {
      * @throws Exception
      */
     void deleteQrboardEntity(QrboardEntity qrboardEntity) throws Exception;
+
+    /**
+     * QR보드 전체목록
+     * @param qrboardEntity
+     * @return
+     * @throws Exception
+     */
+    List<QrboardEntity> selectQrboardEntityListAll(QrboardEntity qrboardEntity) throws Exception;
+
 }

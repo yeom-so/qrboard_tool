@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Getter @Setter @ToString
 public class TemplateShopEntity implements Serializable {
@@ -18,6 +19,10 @@ public class TemplateShopEntity implements Serializable {
   private int contentIdx;
   private String templateShopName;
   private Date regDate;
-  private ContentEntity contentEntity;
+//  private ContentEntity contentEntity;
+
+  private List<ContentTextEntity> contentTextEntityList;
+  private List<ContentImageEntity> contentImageEntityList;
+  private List<ContentBackgroundEntity> contentBackgroundEntityList;
 
 }

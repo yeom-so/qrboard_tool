@@ -82,11 +82,19 @@
     <br/>
     <table border="1">
         <th>IDX</th>
-        <th>NAME</th>
+        <th>QR보드명</th>
+        <th>레이아웃</th>
+        <th>빈광고영역</th>
+        <th>허가번호</th>
+        <th>광고단가</th>
         <c:forEach items="${qrboardEntityList}" var="qrboardEntity">
             <tr>
                 <td><a href="/qrboard/detail?qrboardIdx=${qrboardEntity.qrboardIdx}">${qrboardEntity.qrboardIdx}</a></td>
                 <td>${qrboardEntity.qrboardName}</td>
+                <td>${qrboardEntity.layoutName}</td>
+                <td>${qrboardEntity.qrboardAreaNum - qrboardEntity.advertNum}</td>
+                <td>${qrboardEntity.qrboardPermitNum}</td>
+                <td>${qrboardEntity.qrboardPrice}</td>
             </tr>
         </c:forEach>
     </table>

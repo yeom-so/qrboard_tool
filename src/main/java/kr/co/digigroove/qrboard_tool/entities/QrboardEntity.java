@@ -33,8 +33,11 @@ public class QrboardEntity extends PageEntity implements Serializable {
 
   private int qrboardIdx;
   private int layoutIdx;
+  private String layoutName;
   private int templateIdx;
   private int userIdx;
+  private String userName;
+  private String userTel;
   private String qrboardName;
   private String qrboardLocation;
   private String qrboardDetailLocation;
@@ -54,5 +57,9 @@ public class QrboardEntity extends PageEntity implements Serializable {
   // 인증결과
   private String result;
   private String subResult;
+
+  // 광고여부
+  private int qrboardAreaNum;     // 광고 영역 개수
+  private int advertNum;          // 광고중 영역 개수
 
 }
