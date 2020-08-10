@@ -30,12 +30,37 @@
     <!-- 광고사업자용 QR보드 목록 개수 -->
     <select id="selectQrboardEntityListCount" parameterType="qrboardEntity" resultType="int">
         SELECT
-			COUNT(qrboard_idx)
+			COUNT(q.qrboard_idx)
 		FROM
-			qrboard
+			qrboard q
+        INNER JOIN user u ON q.user_idx = u.user_idx
+        INNER JOIN layout l on q.layout_idx = l.layout_idx
 		WHERE
-			user_idx = #{userIdx}
-			AND use_yn = 'Y'
+			q.user_idx = #{userIdx}
+			AND q.use_yn = 'Y'
+        <if test="startDate != '' and startDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(q.reg_date, '%Y-%m-%d') >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != '' and endDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(q.reg_date, '%Y-%m-%d') <= #{endDate}
+            ]]>
+        </if>
+        <if test="searchLayoutIdx != -1">
+            AND l.layout_idx = #{searchLayoutIdx}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND q.qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'userEmail'">
+                    AND q.qrboard_permit_num LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
     </select>
 
     <!-- 광고사업자용 QR보드 목록 -->
@@ -58,7 +83,101 @@
 		WHERE
 			q.user_idx = #{userIdx}
 			AND q.use_yn = 'Y'
+        <if test="startDate != '' and startDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(q.reg_date, '%Y-%m-%d') >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != '' and endDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(q.reg_date, '%Y-%m-%d') <= #{endDate}
+            ]]>
+        </if>
+        <if test="searchLayoutIdx != -1">
+            AND l.layout_idx = #{searchLayoutIdx}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND q.qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'userEmail'">
+                    AND q.qrboard_permit_num LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
         ORDER BY q.reg_date DESC
+		LIMIT #{rowStartNumber}, #{pageListSize}
+    </select>
+
+    <!-- 광고주용 QR보드 목록 개수 -->
+    <select id="selectQrboardAdvertEntityListCount" parameterType="qrboardEntity" resultType="int">
+        SELECT COUNT(qrboard_idx) FROM (
+            SELECT q.qrboard_idx, q.qrboard_name, u.user_email, l.layout_name, MAX(a.advert_idx) AS advert_idx,
+            (
+                SELECT COUNT(qa.qrboard_area_idx) FROM qrboard_area qa
+                WHERE qa.qrboard_idx = q.qrboard_idx
+            ) AS qrboard_area_num,
+            (
+                SELECT COUNT(a.advert_idx) FROM qrboard_area qa
+                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state IN (0,1)
+                WHERE qa.qrboard_idx = q.qrboard_idx
+            ) AS advert_num,
+            MIN(a.advert_state) AS advert_state FROM qrboard q
+            INNER JOIN user u ON q.user_idx = u.user_idx
+            INNER JOIN layout l ON q.layout_idx = l.layout_idx
+            LEFT JOIN advert a ON q.qrboard_idx = a.qrboard_idx AND a.advert_state != 2
+            WHERE a.user_idx = #{userIdx} AND q.use_yn = 'Y'
+        ) A
+        WHERE 1=1
+        <if test="searchAdvertState != -1">
+            AND advert_state = #{searchAdvertState}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'userEmail'">
+                    AND user_email LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 광고주용 QR보드 목록 -->
+    <select id="selectQrboardAdvertEntityList" parameterType="qrboardEntity" resultType="qrboardEntity">
+        SELECT * FROM (
+            SELECT q.qrboard_idx, q.qrboard_name, u.user_email, l.layout_name, MAX(a.advert_idx) AS advert_idx,
+            (
+                SELECT COUNT(qa.qrboard_area_idx) FROM qrboard_area qa
+                WHERE qa.qrboard_idx = q.qrboard_idx
+            ) AS qrboard_area_num,
+            (
+                SELECT COUNT(a.advert_idx) FROM qrboard_area qa
+                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state IN (0,1)
+                WHERE qa.qrboard_idx = q.qrboard_idx
+            ) AS advert_num,
+            MIN(a.advert_state) AS advert_state FROM qrboard q
+            INNER JOIN user u ON q.user_idx = u.user_idx
+            INNER JOIN layout l ON q.layout_idx = l.layout_idx
+            LEFT JOIN advert a ON q.qrboard_idx = a.qrboard_idx AND a.advert_state != 2
+            WHERE a.user_idx = #{userIdx} AND q.use_yn = 'Y'
+        ) A
+        WHERE 1=1
+        <if test="searchAdvertState != -1">
+            AND advert_state = #{searchAdvertState}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'userEmail'">
+                    AND user_email LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
 		LIMIT #{rowStartNumber}, #{pageListSize}
     </select>
 

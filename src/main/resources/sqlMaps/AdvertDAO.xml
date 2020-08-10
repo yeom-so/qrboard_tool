@@ -42,4 +42,13 @@
         )
     </insert>
 
+    <!-- QR보드에 광고중인 광고수 -->
+    <select id="selectQrboardAdvertCount" parameterType="qrboardEntity" resultType="int">
+        SELECT
+            COUNT(advert_idx)
+        FROM
+            advert
+        WHERE qrboard_idx = #{qrboardIdx}
+        AND advert_state IN (0,1)
+    </select>
 </mapper>

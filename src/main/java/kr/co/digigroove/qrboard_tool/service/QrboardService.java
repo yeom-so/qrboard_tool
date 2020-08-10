@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface QrboardService {
     /**
-     * QR보드목록
+     * 광고사업주용 QR보드목록
      * @param qrboardEntity
      * @return
      * @throws Exception
@@ -51,5 +51,13 @@ public interface QrboardService {
      * @throws Exception
      */
     List<QrboardEntity> selectQrboardEntityListAll(QrboardEntity qrboardEntity) throws Exception;
+
+    /**
+     * 광고주용 QR보드목록
+     * @param qrboardEntity
+     * @return
+     * @throws Exception
+     */
+    List<QrboardEntity> selectQrboardAdvertEntityList(QrboardEntity qrboardEntity) throws Exception;
 
 }

@@ -1,6 +1,7 @@
 package kr.co.digigroove.qrboard_tool.service.impl;
 
 import kr.co.digigroove.qrboard_tool.constant.Default;
+import kr.co.digigroove.qrboard_tool.dao.AdvertDAO;
 import kr.co.digigroove.qrboard_tool.dao.PermitNumDAO;
 import kr.co.digigroove.qrboard_tool.dao.QrboardDAO;
 import kr.co.digigroove.qrboard_tool.entities.PermitNumEntity;
@@ -22,15 +23,23 @@ public class QrboardServiceImpl implements QrboardService {
     @Autowired
     private PermitNumDAO permitNumDAO;
 
+    @Autowired
+    private AdvertDAO advertDAO;
+
     /**
-     * QR보드목록
+     * 광고사업자용 QR보드목록
      * @param qrboardEntity
      * @return
      * @throws Exception
      */
     @Override
     public List<QrboardEntity> selectQrboardEntityList(QrboardEntity qrboardEntity) throws Exception{
-        qrboardEntity.setPageParams();
+        // TODO: 검색조건
+        qrboardEntity.setStartDate("2020-01-01");
+        qrboardEntity.setEndDate("2020-08-31");
+        qrboardEntity.setSearchLayoutIdx(-1);
+        qrboardEntity.setSearchKey("qrboardName");
+        qrboardEntity.setSearchValue("로비");
         qrboardEntity.setDataSize(qrboardDAO.selectQrboardEntityListCount(qrboardEntity));
         return qrboardDAO.selectQrboardEntityList(qrboardEntity);
     }
@@ -115,27 +124,49 @@ public class QrboardServiceImpl implements QrboardService {
      * @throws Exception
      */
     @Override
-    public void updateQrboardEntity(QrboardEntity qrboardEntity){
-        try {
-            qrboardDAO.updateQrboardEntity(qrboardEntity);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+    public void updateQrboardEntity(QrboardEntity qrboardEntity) throws Exception{
+        qrboardDAO.updateQrboardEntity(qrboardEntity);
     }
 
+    /**
+     * QR보드삭제
+     * @param qrboardEntity
+     * @throws Exception
+     */
     @Override
     public void deleteQrboardEntity(QrboardEntity qrboardEntity) throws Exception {
-        // TODO : 진행중인 광고 유무확인
         // 허가번호 인증해제
         permitNumDAO.unauthPermitNumEntity(qrboardEntity);
         qrboardDAO.deleteQrboardEntity(qrboardEntity);
     }
 
+    /**
+     * QR보드 전체목록
+     * @param qrboardEntity
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<QrboardEntity> selectQrboardEntityListAll(QrboardEntity qrboardEntity) throws Exception {
-        qrboardEntity.setPageParams();
+        // TODO: 검색조건
         qrboardEntity.setDataSize(qrboardDAO.selectQrboardEntityListCountAll(qrboardEntity));
         return qrboardDAO.selectQrboardEntityListAll(qrboardEntity);
+    }
+
+    /**
+     * 광고주용 QR보드목록
+     * @param qrboardEntity
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<QrboardEntity> selectQrboardAdvertEntityList(QrboardEntity qrboardEntity) throws Exception{
+        // TODO: 검색조건
+        qrboardEntity.setSearchAdvertState(1);
+        qrboardEntity.setSearchKey("userEmail");
+        qrboardEntity.setSearchValue("erst");
+        qrboardEntity.setDataSize(qrboardDAO.selectQrboardAdvertEntityListCount(qrboardEntity));
+        return qrboardDAO.selectQrboardAdvertEntityList(qrboardEntity);
     }
 
 }

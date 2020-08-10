@@ -47,4 +47,17 @@ public class QrboardController {
         return "user/qrboard_detail";
     }
 
+    /**
+     * QR보드 목록 페이지
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/advert", method=RequestMethod.GET)
+    public String selectQrboardEntityAdvertList(final Model model, HttpSession session, QrboardEntity qrboardEntity) throws Exception {
+        UserEntity userEntity = (UserEntity) session.getAttribute("user");
+        qrboardEntity.setUserIdx(userEntity.getUserIdx());
+        model.addAttribute("qrboardEntityList", qrboardService.selectQrboardAdvertEntityList(qrboardEntity));
+        return "user/qrboard_advert";
+    }
+
 }

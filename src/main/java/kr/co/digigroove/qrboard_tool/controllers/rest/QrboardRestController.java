@@ -131,9 +131,15 @@ public class QrboardRestController implements Serializable{
 		ResultEntity resultEntity = new ResultEntity();
 
 		try {
-			qrboardService.deleteQrboardEntity(qrboardEntity);
-			resultEntity.setCode(Default.Result.SUCCESS);
-			resultEntity.setMessage("QR보드 삭제 완료");
+			// 진행중인 광고 유무확인
+			if(advertService.selectQrboardAdvertCount(qrboardEntity) > 0){
+				resultEntity.setCode(Default.Result.FAIL);
+				resultEntity.setMessage("광고가 진행중인 QR보드는 삭제할 수 없습니다.");
+			}else {
+				qrboardService.deleteQrboardEntity(qrboardEntity);
+				resultEntity.setCode(Default.Result.SUCCESS);
+				resultEntity.setMessage("QR보드 삭제 완료");
+			}
 		} catch (Exception e) {
 			resultEntity.setCode(Default.Result.FAIL);
 			resultEntity.setMessage("오류가 발생하였습니다.");

@@ -73,4 +73,9 @@ public class AdvertServiceImpl implements AdvertService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public int selectQrboardAdvertCount(QrboardEntity qrboardEntity) throws Exception {
+        return advertDAO.selectQrboardAdvertCount(qrboardEntity);
+    }
 }

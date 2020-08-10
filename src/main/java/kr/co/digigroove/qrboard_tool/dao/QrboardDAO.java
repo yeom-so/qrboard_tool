@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface QrboardDAO {
     /**
-     * QR보드 목록개수조회
+     * 광고사업자용 QR보드 목록개수조회
      * @param qrboardEntity
      * @return
      * @throws Exception
@@ -14,7 +14,7 @@ public interface QrboardDAO {
     int selectQrboardEntityListCount(QrboardEntity qrboardEntity) throws Exception;
 
     /**
-     * QR보드 목록조회
+     * 광고사업자용 QR보드 목록조회
      * @param qrboardEntity
      * @return
      */
@@ -71,5 +71,20 @@ public interface QrboardDAO {
      * @return
      */
     List<QrboardEntity> selectQrboardEntityListAll(QrboardEntity qrboardEntity);
+
+    /**
+     * 광고주용 QR보드 목록개수조회
+     * @param qrboardEntity
+     * @return
+     * @throws Exception
+     */
+    int selectQrboardAdvertEntityListCount(QrboardEntity qrboardEntity) throws Exception;
+
+    /**
+     * 광고주용 QR보드 목록조회
+     * @param qrboardEntity
+     * @return
+     */
+    List<QrboardEntity> selectQrboardAdvertEntityList(QrboardEntity qrboardEntity);
 
 }
