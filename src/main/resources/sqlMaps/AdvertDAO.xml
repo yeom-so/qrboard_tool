@@ -49,6 +49,6 @@
         FROM
             advert
         WHERE qrboard_idx = #{qrboardIdx}
-        AND advert_state IN (0,1)
+        AND advert_state = 3
     </select>
 </mapper>

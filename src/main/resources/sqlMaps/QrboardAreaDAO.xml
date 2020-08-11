@@ -16,14 +16,14 @@
         )
     </insert>
 
-    <!-- QR보드 광고 영역 생성 -->
+    <!-- QR보드 광고 영역 목록 (영역별 등록된 마지막 광고 데이터 포함) -->
     <select id="selectQrboardAreaEntityList" parameterType="qrboardEntity" resultType="qrboardAreaEntity">
         SELECT qa.*, a.advert_sdate AS last_advert_sdate, a.advert_edate AS last_advert_edate
         FROM qrboard_area qa
         LEFT JOIN (
             SELECT qrboard_area_idx, advert_sdate, advert_edate
             FROM advert
-            WHERE advert_state IN (0,1)
+            WHERE advert_state = 3
             ORDER BY advert_edate DESC
             LIMIT 1
         ) a
@@ -31,5 +31,57 @@
         WHERE qa.qrboard_idx = #{qrboardIdx}
         ORDER BY qa.qrboard_area_seq
     </select>
+
+    <!-- QR보드 광고 영역 목록 (영역별 현재 광고 데이터 포함) -->
+    <select id="selectQrboardAreaAdvertEntityList" parameterType="qrboardEntity" resultMap="qrboardAreaEntityMap">
+        SELECT qa.*, a.content_idx, l.advert_sdate AS last_advert_sdate, l.advert_edate AS last_advert_edate
+        FROM
+            qrboard_area qa
+        LEFT JOIN advert a
+            ON qa.qrboard_area_idx = a.qrboard_area_idx
+            AND a.advert_state = 3 AND now() BETWEEN advert_state AND advert_edate
+        LEFT JOIN (
+            SELECT qrboard_area_idx, advert_sdate, advert_edate
+            FROM advert
+            WHERE advert_state = 3
+            ORDER BY advert_edate DESC
+            LIMIT 1
+        ) l ON qa.qrboard_area_idx = l.qrboard_area_idx
+        WHERE qa.qrboard_idx = #{qrboardIdx}
+        ORDER BY qa.qrboard_area_seq
+    </select>
+
+    <resultMap id="qrboardAreaEntityMap" type="qrboardAreaEntity">
+        <id property="contentIdx" column="content_idx" />
+        <result property="qrboardAreaIdx" column="qrboard_area_idx" />
+        <result property="qrboardAreaSeq" column="qrboard_area_seq" />
+        <result property="qrboardAreaCodeImagePath" column="qrboard_area_code_image_path" />
+        <result property="lastAdvertSdate" column="last_advert_sdate" />
+        <result property="lastAdvertEdate" column="last_advert_edate" />
+        <collection property="contentTextEntityList" javaType="ArrayList" column="content_idx" ofType="contentTextEntity" select="selectContentTextEntityList" />
+        <collection property="contentImageEntityList" javaType="ArrayList" column="content_idx" ofType="contentImageEntity" select="selectContentImageEntityList" />
+        <collection property="contentBackgroundEntityList" javaType="ArrayList" column="content_idx" ofType="contentBackgroundEntity" select="selectContentBackgroundEntityList" />
+    </resultMap>
+
+    <select id="selectContentTextEntityList" resultType="contentTextEntity">
+		SELECT *
+		FROM content_text
+		WHERE content_idx = #{contentIdx}
+		ORDER BY content_text_idx
+	</select>
+
+    <select id="selectContentImageEntityList" resultType="contentImageEntity">
+		SELECT *
+		FROM content_image
+		WHERE content_idx = #{contentIdx}
+		ORDER BY content_image_idx
+	</select>
+
+    <select id="selectContentBackgroundEntityList" resultType="contentBackgroundEntity">
+		SELECT *
+		FROM content_background
+		WHERE content_idx = #{contentIdx}
+		ORDER BY content_background_idx
+	</select>
 
 </mapper>

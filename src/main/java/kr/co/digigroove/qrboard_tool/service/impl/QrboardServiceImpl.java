@@ -162,7 +162,7 @@ public class QrboardServiceImpl implements QrboardService {
     @Override
     public List<QrboardEntity> selectQrboardAdvertEntityList(QrboardEntity qrboardEntity) throws Exception{
         // TODO: 검색조건
-        qrboardEntity.setSearchAdvertState(1);
+//        qrboardEntity.setSearchAdvertState(3);
         qrboardEntity.setSearchKey("userEmail");
         qrboardEntity.setSearchValue("erst");
         qrboardEntity.setDataSize(qrboardDAO.selectQrboardAdvertEntityListCount(qrboardEntity));

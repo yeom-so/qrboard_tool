@@ -17,7 +17,7 @@
         <th>내광고여부</th>
         <c:forEach items="${qrboardEntityList}" var="qrboardEntity">
             <tr>
-                <td><a href="/qrboard/detail?qrboardIdx=${qrboardEntity.qrboardIdx}">${qrboardEntity.qrboardIdx}</a></td>
+                <td><a href="/qrboard/advert_detail?qrboardIdx=${qrboardEntity.qrboardIdx}">${qrboardEntity.qrboardIdx}</a></td>
                 <td>${qrboardEntity.qrboardName}</td>
                 <td>${qrboardEntity.userEmail}</td>
                 <td>${qrboardEntity.layoutName}</td>

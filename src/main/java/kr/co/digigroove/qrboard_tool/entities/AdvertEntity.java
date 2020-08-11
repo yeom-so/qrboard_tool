@@ -49,6 +49,7 @@ public class AdvertEntity extends PageEntity implements Serializable {
   private int advertState;
   private Date regDate;
   private String useYn;
+
   private List<ContentTextEntity> contentTextEntityList;
   private List<ContentImageEntity> contentImageEntityList;
   private List<ContentBackgroundEntity> contentBackgroundEntityList;

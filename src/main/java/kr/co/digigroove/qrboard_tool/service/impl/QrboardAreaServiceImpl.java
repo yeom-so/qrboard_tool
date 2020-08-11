@@ -37,7 +37,6 @@ public class QrboardAreaServiceImpl implements QrboardAreaService {
         int advertCount = layoutEntity.getLayoutX() * layoutEntity.getLayoutY();
         for(int i=0; i<advertCount; i++){
             // TODO: QR코드 생성
-
             // QR보드 광고 영역 생성
             QrboardAreaEntity qrboardAreaEntity = new QrboardAreaEntity();
             qrboardAreaEntity.setQrboardIdx(qrboardEntity.getQrboardIdx());
@@ -50,12 +49,23 @@ public class QrboardAreaServiceImpl implements QrboardAreaService {
     }
 
     /**
-     * QR보드 광고 영역 목록
+     * QR보드 광고 영역 목록 (영역별 등록된 마지막 광고 데이터 포함)
      * @param qrboardEntity
      * @throws Exception
      */
     @Override
     public List<QrboardAreaEntity> selectQrboardAreaEntityList(QrboardEntity qrboardEntity) throws Exception {
         return qrboardAreaDAO.selectQrboardAreaEntityList(qrboardEntity);
+    }
+
+    /**
+     * QR보드 광고 영역 목록 (영역별 현재 광고 데이터 포함)
+     * @param qrboardEntity
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<QrboardAreaEntity> selectQrboardAreaAdvertEntityList(QrboardEntity qrboardEntity) throws Exception {
+        return qrboardAreaDAO.selectQrboardAreaAdvertEntityList(qrboardEntity);
     }
 }

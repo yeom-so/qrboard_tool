@@ -74,7 +74,7 @@
             (
                 -- 광고중 영역 개수
                 SELECT COUNT(a.advert_idx) FROM qrboard_area qa
-                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state IN (0,1)
+                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state = 3
                 WHERE qa.qrboard_idx = q.qrboard_idx
             ) AS advert_num
         FROM qrboard q
@@ -113,21 +113,21 @@
     <!-- 광고주용 QR보드 목록 개수 -->
     <select id="selectQrboardAdvertEntityListCount" parameterType="qrboardEntity" resultType="int">
         SELECT COUNT(qrboard_idx) FROM (
-            SELECT q.qrboard_idx, q.qrboard_name, u.user_email, l.layout_name, MAX(a.advert_idx) AS advert_idx,
+            SELECT q.qrboard_idx, q.qrboard_name, u.user_email, l.layout_name,
             (
                 SELECT COUNT(qa.qrboard_area_idx) FROM qrboard_area qa
                 WHERE qa.qrboard_idx = q.qrboard_idx
             ) AS qrboard_area_num,
             (
                 SELECT COUNT(a.advert_idx) FROM qrboard_area qa
-                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state IN (0,1)
+                INNER JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state = 3
                 WHERE qa.qrboard_idx = q.qrboard_idx
             ) AS advert_num,
-            MIN(a.advert_state) AS advert_state FROM qrboard q
+            MAX(a.advert_state) AS advert_state FROM qrboard q
             INNER JOIN user u ON q.user_idx = u.user_idx
             INNER JOIN layout l ON q.layout_idx = l.layout_idx
-            LEFT JOIN advert a ON q.qrboard_idx = a.qrboard_idx AND a.advert_state != 2
-            WHERE a.user_idx = #{userIdx} AND q.use_yn = 'Y'
+            LEFT JOIN advert a ON q.qrboard_idx = a.qrboard_idx AND a.advert_state != 1
+            WHERE a.user_idx = #{userIdx}
         ) A
         WHERE 1=1
         <if test="searchAdvertState != -1">
@@ -148,21 +148,21 @@
     <!-- 광고주용 QR보드 목록 -->
     <select id="selectQrboardAdvertEntityList" parameterType="qrboardEntity" resultType="qrboardEntity">
         SELECT * FROM (
-            SELECT q.qrboard_idx, q.qrboard_name, u.user_email, l.layout_name, MAX(a.advert_idx) AS advert_idx,
+            SELECT q.qrboard_idx, q.qrboard_name, u.user_email, l.layout_name,
             (
                 SELECT COUNT(qa.qrboard_area_idx) FROM qrboard_area qa
                 WHERE qa.qrboard_idx = q.qrboard_idx
             ) AS qrboard_area_num,
             (
                 SELECT COUNT(a.advert_idx) FROM qrboard_area qa
-                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state IN (0,1)
+                INNER JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state = 3
                 WHERE qa.qrboard_idx = q.qrboard_idx
             ) AS advert_num,
-            MIN(a.advert_state) AS advert_state FROM qrboard q
+            MAX(a.advert_state) AS advert_state FROM qrboard q
             INNER JOIN user u ON q.user_idx = u.user_idx
             INNER JOIN layout l ON q.layout_idx = l.layout_idx
-            LEFT JOIN advert a ON q.qrboard_idx = a.qrboard_idx AND a.advert_state != 2
-            WHERE a.user_idx = #{userIdx} AND q.use_yn = 'Y'
+            LEFT JOIN advert a ON q.qrboard_idx = a.qrboard_idx AND a.advert_state != 1
+            WHERE a.user_idx = #{userIdx}
         ) A
         WHERE 1=1
         <if test="searchAdvertState != -1">
@@ -192,7 +192,7 @@
             (
                 -- 광고중 영역 개수
                 SELECT COUNT(a.advert_idx) FROM qrboard_area qa
-                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state IN (0,1)
+                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state = 3
                 WHERE qa.qrboard_idx = q.qrboard_idx
             ) AS advert_num
         FROM qrboard q
