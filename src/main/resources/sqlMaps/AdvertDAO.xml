@@ -119,7 +119,7 @@
     <!-- 광고 상세 -->
     <select id="selectAdvertEntity" parameterType="advertEntity" resultMap="advertEntityMap">
         SELECT q.qrboard_name, q.qrboard_idx, q.qrboard_approve_stime, q.qrboard_approve_etime, q.template_idx,
-               qa.qrboard_area_seq, u.user_email, u.user_tel,l.layout_name, ts.template_shop_name,
+               qa.qrboard_area_seq, u.user_email, u.user_tel,l.layout_name, ts.template_shop_name, t.template_name,
                a.advert_idx, a.content_idx, a.advert_name, a.advert_user_name, a.advert_user_ci, a.advert_user_tel,
                a.advert_state, a.advert_sdate, a.advert_edate, a.advert_price
         FROM advert a
@@ -127,6 +127,7 @@
         INNER JOIN qrboard_area qa ON a.qrboard_area_idx = qa.qrboard_area_idx
         INNER JOIN layout l ON q.layout_idx = l.layout_idx
         INNER JOIN template_shop ts ON a.template_shop_idx = ts.template_shop_idx
+        INNER JOIN template t ON ts.template_idx = t.template_idx
         INNER JOIN user u ON q.user_idx = u.user_idx
         WHERE a.advert_idx = #{advertIdx}
     </select>
@@ -158,5 +159,78 @@
 		WHERE content_idx = #{contentIdx}
 		ORDER BY content_background_idx
 	</select>
+
+    <!-- 광고사업자용 QR보드에 등록된 광고 목록 개수 -->
+    <select id="selectAdvertApproveEntityListCount" parameterType="advertEntity" resultType="int">
+        SELECT COUNT(a.advert_idx) FROM advert a
+        INNER JOIN qrboard q
+        ON a.qrboard_idx = q.qrboard_idx
+        WHERE q.user_idx = #{userIdx} AND q.use_yn = 'Y'
+        <if test="startDate != '' and startDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(a.reg_date, '%Y-%m-%d') >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != '' and endDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(a.reg_date, '%Y-%m-%d') <= #{endDate}
+            ]]>
+        </if>
+        <if test="searchAdvertState != -1">
+            AND a.advert_state = #{searchAdvertState}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND q.qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'advertName'">
+                    AND a.advert_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 광고사업자용 QR보드에 등록된 광고 목록 -->
+    <select id="selectAdvertApproveEntityList" parameterType="advertEntity" resultType="advertEntity">
+        SELECT a.advert_idx, a.advert_name, q.qrboard_name, a.advert_state,
+               a.advert_sdate, a.advert_edate, a.advert_price, a.reg_date
+        FROM advert a
+        INNER JOIN qrboard q
+        ON a.qrboard_idx = q.qrboard_idx
+        WHERE q.user_idx = #{userIdx} AND q.use_yn = 'Y'
+        <if test="startDate != '' and startDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(a.reg_date, '%Y-%m-%d') >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != '' and endDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(a.reg_date, '%Y-%m-%d') <= #{endDate}
+            ]]>
+        </if>
+        <if test="searchAdvertState != -1">
+            AND a.advert_state = #{searchAdvertState}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND q.qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'advertName'">
+                    AND a.advert_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 광고 승인여부 설정 -->
+    <update id="updateAdvertState" parameterType="advertEntity">
+        UPDATE advert
+        SET
+            advert_state = #{advertState}
+            , advert_state_bigo = #{advertStateBigo}
+        WHERE advert_idx = #{advertIdx}
+    </update>
 
 </mapper>

@@ -242,5 +242,4 @@
     </select><br/>
     <div class="content-wrap"></div>
     <input type="button" value="광고 등록" onclick="insertAdvertEntity();">
-
 </div>

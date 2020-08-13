@@ -74,6 +74,11 @@
     function goQrbardAdvert() {
         location.href = contextPath + "/qrboard/advert";
     }
+
+    // 광고승인관리
+    function goAdvertApprove() {
+        location.href = contextPath + "/advert/approve";
+    }
 </script>
 
 <div>
@@ -92,6 +97,7 @@
 <br/>
 <c:if test="${sessionScope.user.userGrade == 2}">
     <input type="button" value="광고사업주 - QR보드관리" onclick="goQrboard()">
+    <input type="button" value="광고사업주 - 광고승인관리" onclick="goAdvertApprove()">
 </c:if>
 <c:if test="${sessionScope.user.userGrade == 3}">
     <input type="button" value="광고주 - 광고관리" onclick="goAdvert()">

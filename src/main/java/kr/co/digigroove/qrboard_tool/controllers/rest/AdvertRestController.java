@@ -39,10 +39,31 @@ public class AdvertRestController implements Serializable{
 		try {
 			UserEntity userEntity = (UserEntity) session.getAttribute("user");
 			advertEntity.setUserIdx(userEntity.getUserIdx());
-			System.out.println(advertEntity);
 			advertService.insertAdvertEntity(advertEntity);
 			angularResultEntity.setResult(Default.Result.SUCCESS);
 			angularResultEntity.setMessage("광고 등록 성공");
+		} catch (Exception e) {
+			angularResultEntity.setResult(Default.Result.FAIL);
+			angularResultEntity.setMessage("오류가 발생하였습니다.");
+		}
+
+		return angularResultEntity;
+	}
+
+	/**
+	 * 광고 승인여부 설정
+	 * @param advertEntity
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/updateAdvertState", method= RequestMethod.POST)
+	public AngularResultEntity updateAdvertState( AdvertEntity advertEntity) throws Exception{
+		AngularResultEntity angularResultEntity = new AngularResultEntity();
+
+		try {
+			advertService.updateAdvertState(advertEntity);
+			angularResultEntity.setResult(Default.Result.SUCCESS);
+			angularResultEntity.setMessage("광고 승인여부 설정 완료");
 		} catch (Exception e) {
 			angularResultEntity.setResult(Default.Result.FAIL);
 			angularResultEntity.setMessage("오류가 발생하였습니다.");

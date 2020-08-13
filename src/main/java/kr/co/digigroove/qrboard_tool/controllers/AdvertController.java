@@ -60,4 +60,16 @@ public class AdvertController {
         return "user/advert_detail";
     }
 
+    /**
+     * 광고사업자용 QR보드에 등록된 광고 목록
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/approve", method=RequestMethod.GET)
+    public String selectAdvertApproveEntityList(final Model model, HttpSession session, AdvertEntity advertEntity) throws Exception {
+        UserEntity userEntity = (UserEntity) session.getAttribute("user");
+        advertEntity.setUserIdx(userEntity.getUserIdx());
+        model.addAttribute("advertEntityList", advertService.selectAdvertApproveEntityList(advertEntity));
+        return "user/advert_approve";
+    }
 }

@@ -44,6 +44,7 @@ public class AdvertEntity extends PageEntity implements Serializable {
   private String layoutName;
   private int contentIdx;
   private int templateIdx;
+  private String templateName;
   private int templateShopIdx;
   private String templateShopName;
   private int userIdx;
@@ -60,6 +61,7 @@ public class AdvertEntity extends PageEntity implements Serializable {
   private int advertProfit;
   private String advertPayYn;
   private int advertState;
+  private String advertStateBigo;
   private Date regDate;
   private String useYn;
 

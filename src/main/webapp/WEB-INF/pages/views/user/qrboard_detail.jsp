@@ -60,6 +60,25 @@
         <input type="text" value="${qrboardEntity.advertNum}/${qrboardEntity.qrboardAreaNum}" placeholder="광고진행현황"><br/>
         <input type="submit" value="QR보드 수정">
     </form>
+
+    <c:forEach var="qrboardAreaEntity" items="${qrboardAreaEntityList}">
+        <div style="border: 5px solid yellowgreen;">
+            <c:if test="${qrboardAreaEntity.contentIdx == 0}">
+                <a href="">광고등록</a>
+            </c:if>
+            <c:if test="${qrboardAreaEntity.contentIdx != 0}">
+                ${qrboardAreaEntity.qrboardAreaIdx}<br/>
+                ${qrboardAreaEntity.qrboardAreaSeq}<br/>
+                ${qrboardAreaEntity.lastAdvertSdate}<br/>
+                ${qrboardAreaEntity.lastAdvertEdate}<br/>
+                ${qrboardAreaEntity.contentTextEntityList}<br/>
+                ${qrboardAreaEntity.contentImageEntityList}<br/>
+                ${qrboardAreaEntity.contentBackgroundEntityList}
+            </c:if>
+        </div>
+    </c:forEach>
+
     <br/>
+
     <input type="button" value="QR보드 삭제" onclick="deleteQrboardEntity(${qrboardEntity.qrboardIdx})">
 </div>

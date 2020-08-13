@@ -43,4 +43,27 @@ public interface AdvertDAO {
      * @throws Exception
      */
     AdvertEntity selectAdvertEntity(AdvertEntity advertEntity) throws Exception;
+
+    /**
+     * 광고사업자용 QR보드에 등록된 광고 목록 개수
+     * @param advertEntity
+     * @return
+     * @throws Exception
+     */
+    int selectAdvertApproveEntityListCount(AdvertEntity advertEntity) throws Exception;
+
+    /**
+     * 광고사업자용 QR보드에 등록된 광고 목록
+     * @param advertEntity
+     * @return
+     * @throws Exception
+     */
+    List<AdvertEntity> selectAdvertApproveEntityList(AdvertEntity advertEntity) throws Exception;
+
+    /**
+     * 광고 승인여부 설정
+     * @param advertEntity
+     * @throws Exception
+     */
+    void updateAdvertState(AdvertEntity advertEntity) throws Exception;
 }

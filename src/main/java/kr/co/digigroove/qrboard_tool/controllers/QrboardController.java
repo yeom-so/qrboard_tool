@@ -49,6 +49,7 @@ public class QrboardController {
     @RequestMapping(value="/detail", method=RequestMethod.GET)
     public String selectQrboardEntity(final Model model, HttpSession session, QrboardEntity qrboardEntity) throws Exception {
         model.addAttribute("qrboardEntity", qrboardService.selectQrboardEntity(qrboardEntity));
+        model.addAttribute("qrboardAreaEntityList", qrboardAreaService.selectQrboardAreaAdvertEntityList(qrboardEntity));
         return "user/qrboard_detail";
     }
 

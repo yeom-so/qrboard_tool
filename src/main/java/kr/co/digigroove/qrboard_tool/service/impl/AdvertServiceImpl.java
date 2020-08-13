@@ -104,8 +104,45 @@ public class AdvertServiceImpl implements AdvertService {
         return advertDAO.selectAdvertEntityList(advertEntity);
     }
 
+    /**
+     * 광고 상세
+     * @param advertEntity
+     * @return
+     * @throws Exception
+     */
     @Override
     public AdvertEntity selectAdvertEntity(AdvertEntity advertEntity) throws Exception {
         return advertDAO.selectAdvertEntity(advertEntity);
+    }
+
+    /**
+     * 광고사업자용 QR보드에 등록된 광고 목록
+     * @param advertEntity
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<AdvertEntity> selectAdvertApproveEntityList(AdvertEntity advertEntity) throws Exception {
+        // TODO: 검색조건
+        advertEntity.setStartDate("2020-01-01");
+        advertEntity.setEndDate("2020-08-31");
+        advertEntity.setSearchAdvertState(-1);
+        advertEntity.setSearchKey("qrboardName");
+        advertEntity.setSearchValue("로비");
+        advertEntity.setDataSize(advertDAO.selectAdvertApproveEntityListCount(advertEntity));
+        return advertDAO.selectAdvertApproveEntityList(advertEntity);
+    }
+
+    /**
+     * 광고 승인여부 설정
+     * @param advertEntity
+     * @throws Exception
+     */
+    @Override
+    public void updateAdvertState(AdvertEntity advertEntity) throws Exception {
+        // TODO: 문자
+        // TODO: PUSH
+        // TODO: 결제취소
+        advertDAO.updateAdvertState(advertEntity);
     }
 }

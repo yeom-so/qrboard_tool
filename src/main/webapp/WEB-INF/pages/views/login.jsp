@@ -40,7 +40,7 @@
     <div class="outer">
         <div class="inner">
             <form id="loginForm" action="${contextPath}/userRest/login" method="post">
-                <input type="text" name="userEmail" value="test"/><br/>
+                <input type="text" name="userEmail" value="erst"/><br/>
                 <input type="password" name="userPw" value="1234" /><br/>
                 <input type="submit" value="로그인"/>
             </form>
