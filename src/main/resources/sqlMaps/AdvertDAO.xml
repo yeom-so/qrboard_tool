@@ -3,6 +3,68 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.digigroove.qrboard_tool.dao.AdvertDAO">
 
+    <!-- 광고주용 광고 목록 개수 -->
+    <select id="selectAdvertEntityListCount" parameterType="advertEntity" resultType="int">
+        SELECT COUNT(a.advert_idx) FROM advert a
+        INNER JOIN qrboard q
+        ON a.qrboard_idx = q.qrboard_idx
+        WHERE a.user_idx = #{userIdx} AND a.use_yn = 'Y'
+        <if test="startDate != '' and startDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(a.reg_date, '%Y-%m-%d') >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != '' and endDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(a.reg_date, '%Y-%m-%d') <= #{endDate}
+            ]]>
+        </if>
+        <if test="searchAdvertState != -1">
+            AND a.advert_state = #{searchAdvertState}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND q.qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'advertName'">
+                    AND a.advert_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 광고주용 광고 목록 -->
+    <select id="selectAdvertEntityList" parameterType="advertEntity" resultType="advertEntity">
+        SELECT a.advert_idx, a.advert_name, q.qrboard_name, a.advert_state, a.advert_sdate, a.advert_edate, a.reg_date FROM advert a
+        INNER JOIN qrboard q
+        ON a.qrboard_idx = q.qrboard_idx
+        WHERE a.user_idx = #{userIdx} AND a.use_yn = 'Y'
+        <if test="startDate != '' and startDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(a.reg_date, '%Y-%m-%d') >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != '' and endDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(a.reg_date, '%Y-%m-%d') <= #{endDate}
+            ]]>
+        </if>
+        <if test="searchAdvertState != -1">
+            AND a.advert_state = #{searchAdvertState}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND q.qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'advertName'">
+                    AND a.advert_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
+    </select>
+
     <!-- 광고 등록 -->
     <insert id="insertAdvertEntity" parameterType="advertEntity">
         INSERT INTO advert (
@@ -13,6 +75,7 @@
             , user_idx
             , advert_type
             , advert_name
+            , advert_user_name
             , advert_user_ci
             , advert_user_tel
             , advert_sdate
@@ -30,6 +93,7 @@
             , #{userIdx}
             , #{advertType}
             , #{advertName}
+            , #{advertUserName}
             , #{advertUserCi}
             , #{advertUserTel}
             , #{advertSdate}
@@ -51,4 +115,48 @@
         WHERE qrboard_idx = #{qrboardIdx}
         AND advert_state = 3
     </select>
+
+    <!-- 광고 상세 -->
+    <select id="selectAdvertEntity" parameterType="advertEntity" resultMap="advertEntityMap">
+        SELECT q.qrboard_name, q.qrboard_idx, q.qrboard_approve_stime, q.qrboard_approve_etime, q.template_idx,
+               qa.qrboard_area_seq, u.user_email, u.user_tel,l.layout_name, ts.template_shop_name,
+               a.advert_idx, a.content_idx, a.advert_name, a.advert_user_name, a.advert_user_ci, a.advert_user_tel,
+               a.advert_state, a.advert_sdate, a.advert_edate, a.advert_price
+        FROM advert a
+        INNER JOIN qrboard q ON a.qrboard_idx = q.qrboard_idx
+        INNER JOIN qrboard_area qa ON a.qrboard_area_idx = qa.qrboard_area_idx
+        INNER JOIN layout l ON q.layout_idx = l.layout_idx
+        INNER JOIN template_shop ts ON a.template_shop_idx = ts.template_shop_idx
+        INNER JOIN user u ON q.user_idx = u.user_idx
+        WHERE a.advert_idx = #{advertIdx}
+    </select>
+
+    <resultMap id="advertEntityMap" type="advertEntity">
+        <id property="contentIdx" column="content_idx" />
+        <collection property="contentTextEntityList" javaType="ArrayList" column="content_idx" ofType="contentTextEntity" select="selectContentTextEntityList" />
+        <collection property="contentImageEntityList" javaType="ArrayList" column="content_idx" ofType="contentImageEntity" select="selectContentImageEntityList" />
+        <collection property="contentBackgroundEntityList" javaType="ArrayList" column="content_idx" ofType="contentBackgroundEntity" select="selectContentBackgroundEntityList" />
+    </resultMap>
+
+    <select id="selectContentTextEntityList" resultType="contentTextEntity">
+		SELECT *
+		FROM content_text
+		WHERE content_idx = #{contentIdx}
+		ORDER BY content_text_idx
+	</select>
+
+    <select id="selectContentImageEntityList" resultType="contentImageEntity">
+		SELECT *
+		FROM content_image
+		WHERE content_idx = #{contentIdx}
+		ORDER BY content_image_idx
+	</select>
+
+    <select id="selectContentBackgroundEntityList" resultType="contentBackgroundEntity">
+		SELECT *
+		FROM content_background
+		WHERE content_idx = #{contentIdx}
+		ORDER BY content_background_idx
+	</select>
+
 </mapper>

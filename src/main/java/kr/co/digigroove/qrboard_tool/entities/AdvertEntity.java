@@ -31,14 +31,27 @@ public class AdvertEntity extends PageEntity implements Serializable {
     super.setPageParams(paramsMap);
   }
 
+  // 검색조건
+  private int searchAdvertState = -1;  // 광고상태 검색
+
   private int advertIdx;
   private int qrboardIdx;
+  private String qrboardName;
   private int qrboardAreaIdx;
+  private int qrboardAreaSeq;
+  private String qrboardApproveStime;
+  private String qrboardApproveEtime;
+  private String layoutName;
   private int contentIdx;
+  private int templateIdx;
   private int templateShopIdx;
+  private String templateShopName;
   private int userIdx;
+  private String userEmail;
+  private String userTel;
   private String advertType;
   private String advertName;
+  private String advertUserName;
   private String advertUserCi;
   private String advertUserTel;
   private Date advertSdate;

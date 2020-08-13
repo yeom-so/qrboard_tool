@@ -69,7 +69,8 @@
     function goAdvert() {
         location.href = contextPath + "/advert";
     }
-    // 광고관리
+
+    // QR보드 보기
     function goQrbardAdvert() {
         location.href = contextPath + "/qrboard/advert";
     }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.List;
 
 @Service
 public class AdvertServiceImpl implements AdvertService {
@@ -74,8 +75,37 @@ public class AdvertServiceImpl implements AdvertService {
         }
     }
 
+    /**
+     * QR보드에 광고중인 광고수
+     * @param qrboardEntity
+     * @return
+     * @throws Exception
+     */
     @Override
     public int selectQrboardAdvertCount(QrboardEntity qrboardEntity) throws Exception {
         return advertDAO.selectQrboardAdvertCount(qrboardEntity);
+    }
+
+    /**
+     * 광고주용 광고목록
+     * @param advertEntity
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<AdvertEntity> selectAdvertEntityList(AdvertEntity advertEntity) throws Exception {
+        // TODO: 검색조건
+        advertEntity.setStartDate("2020-01-01");
+        advertEntity.setEndDate("2020-08-31");
+        advertEntity.setSearchAdvertState(-1);
+        advertEntity.setSearchKey("qrboardName");
+        advertEntity.setSearchValue("로비");
+        advertEntity.setDataSize(advertDAO.selectAdvertEntityListCount(advertEntity));
+        return advertDAO.selectAdvertEntityList(advertEntity);
+    }
+
+    @Override
+    public AdvertEntity selectAdvertEntity(AdvertEntity advertEntity) throws Exception {
+        return advertDAO.selectAdvertEntity(advertEntity);
     }
 }
