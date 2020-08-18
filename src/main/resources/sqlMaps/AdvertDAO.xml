@@ -128,9 +128,9 @@
         INNER JOIN qrboard q ON a.qrboard_idx = q.qrboard_idx
         INNER JOIN qrboard_area qa ON a.qrboard_area_idx = qa.qrboard_area_idx
         INNER JOIN layout l ON q.layout_idx = l.layout_idx
-        INNER JOIN template_shop ts ON a.template_shop_idx = ts.template_shop_idx
-        INNER JOIN template t ON ts.template_idx = t.template_idx
+        INNER JOIN template t ON q.template_idx = t.template_idx
         INNER JOIN user u ON q.user_idx = u.user_idx
+        LEFT JOIN template_shop ts ON a.template_shop_idx = ts.template_shop_idx
         WHERE a.advert_idx = #{advertIdx}
     </select>
 
