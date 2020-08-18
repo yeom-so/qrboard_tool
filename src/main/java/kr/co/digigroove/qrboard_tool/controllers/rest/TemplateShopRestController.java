@@ -25,6 +25,11 @@ public class TemplateShopRestController implements Serializable{
 	private TemplateShopService templateShopService;
 
 
+	/**
+	 * 업종템플릿 목록
+	 * @param templateShopEntity
+	 * @return
+	 */
 	@RequestMapping(value="/selectTemplateShopEntityList")
 	public AngularResultEntity selectTemplateShopEntityList(TemplateShopEntity templateShopEntity) {
 		AngularResultEntity angularResultEntity = new AngularResultEntity();
@@ -41,6 +46,11 @@ public class TemplateShopRestController implements Serializable{
 		return angularResultEntity;
 	}
 
+	/**
+	 * 업종템플릿 상세
+	 * @param templateShopEntity
+	 * @return
+	 */
 	@RequestMapping(value="/selectTemplateShopEntity")
 	public AngularResultEntity selectTemplateShopEntity(TemplateShopEntity templateShopEntity) {
 		AngularResultEntity angularResultEntity = new AngularResultEntity();

@@ -72,6 +72,7 @@
             , qrboard_area_idx
             , content_idx
             , template_shop_idx
+            , public_advert_idx
             , user_idx
             , advert_type
             , advert_name
@@ -90,6 +91,7 @@
             , #{qrboardAreaIdx}
             , #{contentIdx}
             , #{templateShopIdx}
+            , #{publicAdvertIdx}
             , #{userIdx}
             , #{advertType}
             , #{advertName}
@@ -113,7 +115,7 @@
         FROM
             advert
         WHERE qrboard_idx = #{qrboardIdx}
-        AND advert_state = 3
+        AND advert_state = 4
     </select>
 
     <!-- 광고 상세 -->
@@ -166,6 +168,14 @@
         INNER JOIN qrboard q
         ON a.qrboard_idx = q.qrboard_idx
         WHERE q.user_idx = #{userIdx} AND q.use_yn = 'Y'
+        <choose>
+            <when test="searchAdvertType == 1"><!-- 광고사업자가 등록한 광고 -->
+                AND a.user_idx = #{userIdx}
+            </when>
+            <when test="searchAdvertType == 2"><!-- 광고주가 등록한 광고 -->
+                AND a.user_idx != #{userIdx}
+            </when>
+        </choose>
         <if test="startDate != '' and startDate != null">
             <![CDATA[
             AND DATE_FORMAT(a.reg_date, '%Y-%m-%d') >= #{startDate}
@@ -191,14 +201,21 @@
         </if>
     </select>
 
-    <!-- 광고사업자용 QR보드에 등록된 광고 목록 -->
+    <!-- 광고사업자용 QR보드에 등록된 광고주의 광고 목록 -->
     <select id="selectAdvertApproveEntityList" parameterType="advertEntity" resultType="advertEntity">
-        SELECT a.advert_idx, a.advert_name, q.qrboard_name, a.advert_state,
-               a.advert_sdate, a.advert_edate, a.advert_price, a.reg_date
+        SELECT a.advert_idx, a.advert_name, q.qrboard_name, a.advert_state, a.advert_sdate, a.advert_edate, a.advert_price, a.reg_date
         FROM advert a
         INNER JOIN qrboard q
         ON a.qrboard_idx = q.qrboard_idx
         WHERE q.user_idx = #{userIdx} AND q.use_yn = 'Y'
+        <choose>
+            <when test="searchAdvertType == 1"><!-- 광고사업자가 등록한 광고 -->
+                AND a.user_idx = #{userIdx}
+            </when>
+            <when test="searchAdvertType == 2"><!-- 광고주가 등록한 광고 -->
+                AND a.user_idx != #{userIdx}
+            </when>
+        </choose>
         <if test="startDate != '' and startDate != null">
             <![CDATA[
             AND DATE_FORMAT(a.reg_date, '%Y-%m-%d') >= #{startDate}

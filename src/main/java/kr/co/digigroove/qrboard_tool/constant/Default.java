@@ -43,4 +43,10 @@ public class Default {
         public static final int WITHDRAW    = 2;
     }
 
+    /** 광고 검색 */
+    public static final class SearchAdvertType {
+        public static final int ADVERTISER_ADMIN    = 1;
+        public static final int ADVERTISER          = 2;
+    }
+
 }

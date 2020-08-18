@@ -28,4 +28,12 @@ public interface QrboardAreaService {
      * @throws Exception
      */
     List<QrboardAreaEntity> selectQrboardAreaAdvertEntityList(QrboardEntity qrboardEntity) throws Exception;
+
+    /**
+     * QR보드 광고판 상세
+     * @param qrboardAreaEntity
+     * @return
+     * @throws Exception
+     */
+    QrboardAreaEntity selectQrboardAreaEntity(QrboardAreaEntity qrboardAreaEntity) throws Exception;
 }

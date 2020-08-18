@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Getter @Setter @ToString
-public class QrboardAreaEntity implements Serializable {
+public class QrboardAreaEntity extends QrboardEntity implements Serializable {
 
   private static final long serialVersionUID = -6375567936022237503L;
 
@@ -25,5 +25,11 @@ public class QrboardAreaEntity implements Serializable {
   private List<ContentTextEntity> contentTextEntityList;
   private List<ContentImageEntity> contentImageEntityList;
   private List<ContentBackgroundEntity> contentBackgroundEntityList;
+
+  private String layoutName;
+  private String userEmail;
+  private String userTel;
+  private Date advertSdate;
+  private Date advertEdate;
 
 }

@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.digigroove.qrboard_tool.dao.TemplateShopDAO">
+<mapper namespace="kr.co.digigroove.qrboard_tool.dao.PublicAdvertDAO">
 
-	<!-- 업종템플릿 목록 -->
-	<select id="selectTemplateShopEntityList" parameterType="templateShopEntity" resultType="templateShopEntity">
+	<!-- 공용광고 목록 -->
+	<select id="selectPublicAdvertEntityList" parameterType="publicAdvertEntity" resultType="publicAdvertEntity">
         SELECT
 			*
 		FROM
-			template_shop
+			public_advert
 		WHERE
 		    template_idx = #{templateIdx}
         ORDER BY reg_date DESC
     </select>
 
-	<!-- 업종템플릿 상세 -->
-	<select id="selectTemplateShopEntity" parameterType="templateShopEntity" resultMap="templateShopEntityMap">
+	<!-- 공용광고 상세 -->
+	<select id="selectPublicAdvertEntity" parameterType="publicAdvertEntity" resultMap="publicAdvertEntityMap">
         SELECT
 			*
 		FROM
-			template_shop
+			public_advert
 		WHERE
-		    template_shop_idx = #{templateShopIdx}
+		    public_advert_idx = #{publicAdvertIdx}
     </select>
 
-	<resultMap id="templateShopEntityMap" type="templateShopEntity">
+	<resultMap id="publicAdvertEntityMap" type="publicAdvertEntity">
 		<id property="contentIdx" column="content_idx" />
-		<result property="templateShopIdx" column="template_shop_idx" />
+		<result property="publicAdvertIdx" column="public_advert_idx" />
 		<result property="templateIdx" column="template_idx" />
-		<result property="businessIdx" column="business_idx" />
-		<result property="templateShopName" column="template_shop_name" />
+		<result property="publicAdvertName" column="public_advert_name" />
+		<result property="publicAdvertProfit" column="public_advert_profit" />
+		<result property="publicAdvertSdate" column="public_advert_sdate" />
+		<result property="publicAdvertEdate" column="public_advert_edate" />
 		<result property="regDate" column="reg_date" />
 		<collection property="contentTextEntityList" javaType="ArrayList" column="content_idx" ofType="contentTextEntity" select="selectContentTextEntityList" />
 		<collection property="contentImageEntityList" javaType="ArrayList" column="content_idx" ofType="contentImageEntity" select="selectContentImageEntityList" />

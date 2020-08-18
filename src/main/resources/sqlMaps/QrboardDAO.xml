@@ -74,7 +74,7 @@
             (
                 -- 광고중 영역 개수
                 SELECT COUNT(a.advert_idx) FROM qrboard_area qa
-                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state = 3
+                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state = 4
                 WHERE qa.qrboard_idx = q.qrboard_idx
             ) AS advert_num
         FROM qrboard q
@@ -120,7 +120,7 @@
             ) AS qrboard_area_num,
             (
                 SELECT COUNT(a.advert_idx) FROM qrboard_area qa
-                INNER JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state = 3
+                INNER JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state = 4
                 WHERE qa.qrboard_idx = q.qrboard_idx
             ) AS advert_num,
             MAX(a.advert_state) AS advert_state FROM qrboard q
@@ -155,7 +155,7 @@
             ) AS qrboard_area_num,
             (
                 SELECT COUNT(a.advert_idx) FROM qrboard_area qa
-                INNER JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state = 3
+                INNER JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state = 4
                 WHERE qa.qrboard_idx = q.qrboard_idx
             ) AS advert_num,
             MAX(a.advert_state) AS advert_state FROM qrboard q
@@ -192,7 +192,7 @@
             (
                 -- 광고중 영역 개수
                 SELECT COUNT(a.advert_idx) FROM qrboard_area qa
-                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state = 3
+                LEFT JOIN advert a ON qa.qrboard_area_idx = a.qrboard_area_idx AND a.advert_state = 4
                 WHERE qa.qrboard_idx = q.qrboard_idx
             ) AS advert_num
         FROM qrboard q

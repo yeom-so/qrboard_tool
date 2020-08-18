@@ -23,7 +23,7 @@
         LEFT JOIN (
             SELECT qrboard_area_idx, advert_sdate, advert_edate
             FROM advert
-            WHERE advert_state = 3
+            WHERE advert_state = 4
             ORDER BY advert_edate DESC
             LIMIT 1
         ) a
@@ -39,11 +39,11 @@
             qrboard_area qa
         LEFT JOIN advert a
             ON qa.qrboard_area_idx = a.qrboard_area_idx
-            AND a.advert_state = 3 AND now() BETWEEN advert_state AND advert_edate
+            AND a.advert_state = 4 AND now() BETWEEN advert_state AND advert_edate
         LEFT JOIN (
             SELECT qrboard_area_idx, advert_sdate, advert_edate
             FROM advert
-            WHERE advert_state = 3
+            WHERE advert_state != 1
             ORDER BY advert_edate DESC
             LIMIT 1
         ) l ON qa.qrboard_area_idx = l.qrboard_area_idx
@@ -83,5 +83,23 @@
 		WHERE content_idx = #{contentIdx}
 		ORDER BY content_background_idx
 	</select>
+
+    <select id="selectQrboardAreaEntity" resultType="qrboardAreaEntity">
+        SELECT q.*, qa.qrboard_area_idx, qa.qrboard_area_seq, l.layout_name, u.user_email, u.user_tel, la.advert_sdate, la.advert_edate
+        FROM qrboard_area qa
+        INNER JOIN qrboard q ON qa.qrboard_idx = q.qrboard_idx
+        INNER JOIN layout l ON q.layout_idx = l.layout_idx
+        INNER JOIN user u ON q.user_idx = u.user_idx
+        LEFT JOIN (
+            SELECT qrboard_area_idx, advert_sdate, advert_edate
+            FROM advert
+            WHERE qrboard_area_idx = #{qrboardAreaIdx}
+            -- 미승인된 광고 제외
+            AND advert_state != 1
+            ORDER BY advert_edate DESC
+            LIMIT 1
+        ) la ON qa.qrboard_area_idx = la.qrboard_area_idx
+        WHERE qa.qrboard_area_idx = #{qrboardAreaIdx}
+    </select>
 
 </mapper>

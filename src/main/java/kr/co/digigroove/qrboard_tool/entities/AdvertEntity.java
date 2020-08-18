@@ -33,6 +33,7 @@ public class AdvertEntity extends PageEntity implements Serializable {
 
   // 검색조건
   private int searchAdvertState = -1;  // 광고상태 검색
+  private int searchAdvertType = -1;
 
   private int advertIdx;
   private int qrboardIdx;
@@ -47,6 +48,7 @@ public class AdvertEntity extends PageEntity implements Serializable {
   private String templateName;
   private int templateShopIdx;
   private String templateShopName;
+  private int publicAdvertIdx;
   private int userIdx;
   private String userEmail;
   private String userTel;

@@ -68,4 +68,11 @@ public class QrboardAreaServiceImpl implements QrboardAreaService {
     public List<QrboardAreaEntity> selectQrboardAreaAdvertEntityList(QrboardEntity qrboardEntity) throws Exception {
         return qrboardAreaDAO.selectQrboardAreaAdvertEntityList(qrboardEntity);
     }
+
+    @Override
+    public QrboardAreaEntity selectQrboardAreaEntity(QrboardAreaEntity qrboardAreaEntity) throws Exception {
+        return qrboardAreaDAO.selectQrboardAreaEntity(qrboardAreaEntity);
+    }
+
+
 }

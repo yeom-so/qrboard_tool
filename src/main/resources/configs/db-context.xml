@@ -84,4 +84,9 @@
     <property name="sqlSessionFactory" ref="sessionFactory" />
   </bean>
 
+  <bean id="PublicAdvertDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.PublicAdvertDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
 </beans>

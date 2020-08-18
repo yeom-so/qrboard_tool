@@ -1,11 +1,8 @@
 package kr.co.digigroove.qrboard_tool.controllers;
 
-import kr.co.digigroove.qrboard_tool.entities.AdvertEntity;
-import kr.co.digigroove.qrboard_tool.entities.QrboardEntity;
-import kr.co.digigroove.qrboard_tool.entities.UserEntity;
-import kr.co.digigroove.qrboard_tool.service.AdvertService;
-import kr.co.digigroove.qrboard_tool.service.QrboardService;
-import kr.co.digigroove.qrboard_tool.service.TemplateShopService;
+import kr.co.digigroove.qrboard_tool.constant.Default;
+import kr.co.digigroove.qrboard_tool.entities.*;
+import kr.co.digigroove.qrboard_tool.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +20,15 @@ public class AdvertController {
 
     @Autowired
     private AdvertService advertService;
+
+    @Autowired
+    private QrboardAreaService qrboardAreaService;
+
+    @Autowired
+    private TemplateShopService templateShopService;
+
+    @Autowired
+    private PublicAdvertService publicAdvertService;
 
     /**
      * 광고 목록 페이지
@@ -69,7 +75,46 @@ public class AdvertController {
     public String selectAdvertApproveEntityList(final Model model, HttpSession session, AdvertEntity advertEntity) throws Exception {
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
         advertEntity.setUserIdx(userEntity.getUserIdx());
+        advertEntity.setSearchAdvertType(Default.SearchAdvertType.ADVERTISER);
         model.addAttribute("advertEntityList", advertService.selectAdvertApproveEntityList(advertEntity));
         return "user/advert_approve";
     }
+
+    /**
+     * 광고사업자용 QR보드에 등록된 내 광고 목록
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/my", method=RequestMethod.GET)
+    public String selectMyAdvertEntityList(final Model model, HttpSession session, AdvertEntity advertEntity) throws Exception {
+        UserEntity userEntity = (UserEntity) session.getAttribute("user");
+        advertEntity.setUserIdx(userEntity.getUserIdx());
+        advertEntity.setSearchAdvertType(Default.SearchAdvertType.ADVERTISER_ADMIN);
+        model.addAttribute("advertEntityList", advertService.selectAdvertApproveEntityList(advertEntity));
+        return "user/advert_my";
+    }
+
+    /**
+     * 내QR보드에 광고 등록
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/mycreate", method=RequestMethod.GET)
+    public String insertMyAdvertEntity(final Model model, QrboardAreaEntity qrboardAreaEntity) throws Exception {
+        qrboardAreaEntity = qrboardAreaService.selectQrboardAreaEntity(qrboardAreaEntity);
+        model.addAttribute("qrboardAreaEntity", qrboardAreaService.selectQrboardAreaEntity(qrboardAreaEntity));
+
+        // 업종템플릿 목록
+        TemplateShopEntity templateShopEntity = new TemplateShopEntity();
+        templateShopEntity.setTemplateIdx(qrboardAreaEntity.getTemplateIdx());
+        model.addAttribute("templateShopEntityList", templateShopService.selectTemplateShopEntityList(templateShopEntity));
+
+        // 공용광고 목록
+        PublicAdvertEntity publicAdvertEntity = new PublicAdvertEntity();
+        publicAdvertEntity.setTemplateIdx(qrboardAreaEntity.getTemplateIdx());
+        model.addAttribute("publicAdvertEntityList", publicAdvertService.selectPublicAdvertEntityList(publicAdvertEntity));
+
+        return "user/advert_mycreate";
+    }
+
 }

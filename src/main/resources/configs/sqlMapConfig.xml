@@ -20,5 +20,6 @@
 		<typeAlias alias="contentTextEntity" type="kr.co.digigroove.qrboard_tool.entities.ContentTextEntity"/>
 		<typeAlias alias="contentImageEntity" type="kr.co.digigroove.qrboard_tool.entities.ContentImageEntity"/>
 		<typeAlias alias="contentBackgroundEntity" type="kr.co.digigroove.qrboard_tool.entities.ContentBackgroundEntity"/>
+		<typeAlias alias="publicAdvertEntity" type="kr.co.digigroove.qrboard_tool.entities.PublicAdvertEntity"/>
 	</typeAliases>
 </configuration>
