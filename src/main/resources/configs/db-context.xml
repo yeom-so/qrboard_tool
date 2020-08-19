@@ -89,4 +89,9 @@
     <property name="sqlSessionFactory" ref="sessionFactory" />
   </bean>
 
+  <bean id="PaymentDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.digigroove.qrboard_tool.dao.PaymentDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
 </beans>

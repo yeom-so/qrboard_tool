@@ -10,7 +10,7 @@
         $.ajax({
             data: {
                 advertIdx: $("#advertIdx").val(),
-                advertState: $("#approveYn").val() == 'Y' ? 3:2,
+                advertState: $("#approveYn").val() == 'Y' ? 4:1,
                 advertStateBigo: $("#advertStateBigo").val()
             },
             dataType: 'json',
@@ -48,8 +48,11 @@
     <input type="text" id="advertEdate" placeholder="광고종료일" value="${advertEntity.advertEdate}"><br/>
     <input type="text" id="advertPrice" placeholder="광고료" value="${advertEntity.advertPrice}"><br/>
     <input type="text" id="advertState" placeholder="광고상태" value="${advertEntity.advertState}"><br/>
+    <c:if test="${advertEntity.advertState == 1}">
+        <input type="text" id="advertState" placeholder="결제취소일" value="${advertEntity.paymentCancelDate}"><br/>
+    </c:if>
     <c:if test="${sessionScope.user.userGrade == 2}">
-        <c:if test="${advertEntity.advertState == 1}">
+        <c:if test="${advertEntity.advertState == 2}">
             <select id="approveYn">
                 <option value="Y">승인</option>
                 <option value="N">미승인</option>

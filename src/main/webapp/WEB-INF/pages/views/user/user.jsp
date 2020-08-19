@@ -84,6 +84,16 @@
     function goAdvertMy() {
         location.href = contextPath + "/advert/my";
     }
+
+    // 결제관리
+    function goPayment() {
+        location.href = contextPath + "/payment";
+    }
+
+    // 결제관리
+    function goPaymentMy() {
+        location.href = contextPath + "/payment/my";
+    }
 </script>
 
 <div>
@@ -103,9 +113,11 @@
 <c:if test="${sessionScope.user.userGrade == 2}">
     <input type="button" value="광고사업주 - QR보드관리" onclick="goQrboard()"><br/>
     <input type="button" value="광고사업주 - 광고승인관리" onclick="goAdvertApprove()"><br/>
+    <input type="button" value="광고사업주 - 결제관리" onclick="goPaymentMy()"><br/>
     <input type="button" value="광고사업주 - 내광고관리" onclick="goAdvertMy()"><br/>
 </c:if>
 <c:if test="${sessionScope.user.userGrade == 3}">
     <input type="button" value="광고주 - 광고관리" onclick="goAdvert()"><br/>
     <input type="button" value="광고주 - QR보드보기" onclick="goQrbardAdvert()"><br/>
+    <input type="button" value="광고주 - 결제관리" onclick="goPayment()"><br/>
 </c:if>

@@ -2,9 +2,11 @@ package kr.co.digigroove.qrboard_tool.controllers.rest;
 
 import kr.co.digigroove.qrboard_tool.constant.Default;
 import kr.co.digigroove.qrboard_tool.entities.AdvertEntity;
+import kr.co.digigroove.qrboard_tool.entities.PaymentEntity;
 import kr.co.digigroove.qrboard_tool.entities.UserEntity;
 import kr.co.digigroove.qrboard_tool.entities.result.AngularResultEntity;
 import kr.co.digigroove.qrboard_tool.service.AdvertService;
+import kr.co.digigroove.qrboard_tool.utils.PaymentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,7 @@ public class AdvertRestController implements Serializable{
 		AngularResultEntity angularResultEntity = new AngularResultEntity();
 
 		try {
+			System.out.println(advertEntity.getPaymentEntity());
 			UserEntity userEntity = (UserEntity) session.getAttribute("user");
 			advertEntity.setUserIdx(userEntity.getUserIdx());
 			advertService.insertAdvertEntity(advertEntity);
@@ -64,6 +67,50 @@ public class AdvertRestController implements Serializable{
 			advertService.updateAdvertState(advertEntity);
 			angularResultEntity.setResult(Default.Result.SUCCESS);
 			angularResultEntity.setMessage("광고 승인여부 설정 완료");
+		} catch (Exception e) {
+			angularResultEntity.setResult(Default.Result.FAIL);
+			angularResultEntity.setMessage("오류가 발생하였습니다.");
+		}
+
+		return angularResultEntity;
+	}
+
+	/**
+	 * import 토큰키 조회
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/getImportToken", method= RequestMethod.GET)
+	public AngularResultEntity getImportToken() throws Exception{
+		AngularResultEntity angularResultEntity = new AngularResultEntity();
+
+		try {
+			String token = PaymentUtils.getImportToken();
+			System.out.println("token ::: " + token);
+			angularResultEntity.setResult(Default.Result.SUCCESS);
+			angularResultEntity.setMessage("토큰키 가져오기 성공");
+		} catch (Exception e) {
+			angularResultEntity.setResult(Default.Result.FAIL);
+			angularResultEntity.setMessage("오류가 발생하였습니다.");
+		}
+
+		return angularResultEntity;
+	}
+
+	/**
+	 * 결제취소
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/cancelPayment", method= RequestMethod.POST)
+	public AngularResultEntity cancelPayment(PaymentEntity paymentEntity) throws Exception{
+		AngularResultEntity angularResultEntity = new AngularResultEntity();
+
+		try {
+			String token = PaymentUtils.getImportToken();
+			PaymentUtils.cancelPayment(token, paymentEntity.getImpUid(), paymentEntity.getMerchantUid());
+			angularResultEntity.setResult(Default.Result.SUCCESS);
+			angularResultEntity.setMessage("토큰키 가져오기 성공");
 		} catch (Exception e) {
 			angularResultEntity.setResult(Default.Result.FAIL);
 			angularResultEntity.setMessage("오류가 발생하였습니다.");

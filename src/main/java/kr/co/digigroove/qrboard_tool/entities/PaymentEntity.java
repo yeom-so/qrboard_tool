@@ -9,16 +9,15 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Getter @Setter @ToString
-public class AdvertEntity extends PageEntity implements Serializable {
+public class PaymentEntity extends PageEntity implements Serializable {
 
   private static final long serialVersionUID = -6375567936022237503L;
 
-  public AdvertEntity() {
+  public PaymentEntity() {
     super(1L, Default.Page.UNIT, Default.Page.SIZE);
   }
 
@@ -33,45 +32,35 @@ public class AdvertEntity extends PageEntity implements Serializable {
 
   // 검색조건
   private int searchAdvertState = -1;  // 광고상태 검색
-  private int searchAdvertType = -1;
 
+  private int paymentIdx;
   private int advertIdx;
-  private int qrboardIdx;
-  private String qrboardName;
-  private int qrboardAreaIdx;
-  private int qrboardAreaSeq;
-  private String qrboardApproveStime;
-  private String qrboardApproveEtime;
-  private String layoutName;
-  private int contentIdx;
-  private int templateIdx;
-  private String templateName;
-  private int templateShopIdx;
-  private String templateShopName;
-  private int publicAdvertIdx;
   private int userIdx;
+  private String impUid;
+  private String merchantUid;
+  private int paymentPrice;
+  private String paymentTid;
+  private String paymentMethod;
+  private String paymentApplNum;
+  private String paymentCardNum;
+  private String paymentCardName;
+  private String paymentResultCode;
+  private String paymentResultMsg;
+  private String paymentOs;
+  private String paymentStatus;
+  private Date cancelDate;
+  private Date regDate;
+
+  private String advertName;
+  private String qrboardName;
+  private int qrboardAreaSeq;
   private String userEmail;
   private String userTel;
-  private String advertType;
-  private String advertName;
-  private String advertUserName;
-  private String advertUserCi;
-  private String advertUserTel;
+  private String layoutName;
+  private String templateName;
+  private String templateShopName;
+  private int advertState;
   private Date advertSdate;
   private Date advertEdate;
-  private int advertPrice;
-  private int advertProfit;
-  private String advertPayYn;
-  private int advertState;
-  private String advertStateBigo;
-  private Date regDate;
-  private String useYn;
-  private Date paymentRegDate;
-  private Date paymentCancelDate;
-  private PaymentEntity paymentEntity;
-
-  private List<ContentTextEntity> contentTextEntityList;
-  private List<ContentImageEntity> contentImageEntityList;
-  private List<ContentBackgroundEntity> contentBackgroundEntityList;
 
 }

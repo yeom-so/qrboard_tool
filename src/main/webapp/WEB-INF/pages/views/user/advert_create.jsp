@@ -21,7 +21,7 @@
         , advertPrice : 0
         , advertProfit : 0
         , advertPayYn : 'Y'
-        , advertState : 0
+        , advertState : 2
         , contentTextEntityList : []
         , contentImageEntityList : []
         , contentBackgroundEntityList : []
@@ -164,37 +164,86 @@
         $(".content-wrap").append(temp);
     }
 
-    function insertAdvertEntity() {
-        advertEntity.qrboardIdx = $("#qrboardIdx").val();
-        advertEntity.qrboardAreaIdx = $("#qrboardAreaIdx").val();
-        advertEntity.templateShopIdx = $("#templateShopIdx").val();
-        advertEntity.advertType = $("#advertType").val();
-        advertEntity.advertName = $("#advertName").val();
-        advertEntity.advertUserName = $("#adverUserName").val();
-        advertEntity.advertUserCi = $("#advertUserCi").val();
-        advertEntity.advertUserTel = $("#advertUserTel").val();
-        advertEntity.advertSdate = $("#advertSdate").val();
-        advertEntity.advertEdate = $("#advertEdate").val();
-        advertEntity.advertPrice = $("#advertPrice").val();
-        advertEntity.advertPayYn = $("#advertPayYn").val();
+    // 결제
+    function pay() {
+        IMP.request_pay({
+            pg : 'html5_inicis', // version 1.1.0부터 지원.
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            amount : 1000,
+            buyer_email : '',
+            // name : '주문명:결제테스트',
+            // m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+        }, function(rsp) {
+            if ( rsp.success ) {
 
-        $.ajax({
-            data : JSON.stringify(advertEntity)
-            , type : "POST"
-            , dataType : "json"
-            , contentType : "application/json"
-            , url : contextPath + "/advertRest/insertAdvertEntity"
-            , success: function(data){
-                if(typeof data == "string") data = JSON.parse(data);
-                alert(data.message);
-                location.reload();
-            }
-            , error: function(){
-                alert(data.message);
+                // 광고 등록
+                advertEntity.qrboardIdx = $("#qrboardIdx").val();
+                advertEntity.qrboardAreaIdx = $("#qrboardAreaIdx").val();
+                advertEntity.templateShopIdx = $("#templateShopIdx").val();
+                advertEntity.advertType = $("#advertType").val();
+                advertEntity.advertName = $("#advertName").val();
+                advertEntity.advertUserName = $("#adverUserName").val();
+                advertEntity.advertUserCi = $("#advertUserCi").val();
+                advertEntity.advertUserTel = $("#advertUserTel").val();
+                advertEntity.advertSdate = $("#advertSdate").val();
+                advertEntity.advertEdate = $("#advertEdate").val();
+                advertEntity.advertPrice = $("#advertPrice").val();
+                advertEntity.advertPayYn = $("#advertPayYn").val();
+                advertEntity.paymentEntity = {
+                    impUid: rsp.imp_uid,
+                    merchantUid: rsp.merchant_uid,
+                    paymentPrice: rsp.paid_amount,
+                    paymentTid: rsp.pg_tid,
+                    paymentMethod: rsp.pay_method,
+                    paymentApplNum: rsp.apply_num,
+                    paymentCardNum: rsp.card_number,
+                    paymentCardName: rsp.card_name,
+                    paymentOs: 'P',
+                    paymentStatus: rsp.status
+                };
+
+                $.ajax({
+                    data : JSON.stringify(advertEntity)
+                    , type : "POST"
+                    , dataType : "json"
+                    , contentType : "application/json"
+                    , url : contextPath + "/advertRest/insertAdvertEntity"
+                    , success: function(data){
+                        if(typeof data == "string") data = JSON.parse(data);
+                        alert(data.message);
+                    }
+                    , error: function(){
+                        alert(data.message);
+                    }
+                });
+            } else {
+                var msg = '결제에 실패하였습니다.';
+                msg += '에러내용 : ' + rsp.error_msg;
+                alert(msg);
             }
         });
     }
 
+    // 결제취소테스트
+    function payCancel() {
+        // TOKEN 받아오기
+        $.ajax({
+            data: {
+                impUid : 'imp_235563597657',
+                merchantUid: 'merchant_1597835563473'
+            },
+            dataType: 'json',
+            type: 'post',
+            url: contextPath +'/advertRest/cancelPayment',
+            success: function(data){
+                if(typeof data == "string") data = JSON.parse(data);
+            },
+            error: function(){
+                alert(data.message);
+            }
+        });
+    }
 </script>
 
 <div>
@@ -241,5 +290,5 @@
         <option value="N">미결제</option>
     </select><br/>
     <div class="content-wrap"></div>
-    <input type="button" value="광고 등록" onclick="insertAdvertEntity();">
+    <input type="button" value="광고 등록" onclick="pay();">
 </div>

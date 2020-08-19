@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.digigroove.qrboard_tool.dao.PaymentDAO">
+
+    <insert id="insertPaymentEntity" parameterType="paymentEntity">
+        INSERT INTO payment (
+            advert_idx
+            , imp_uid
+            , merchant_uid
+            , user_idx
+            , payment_price
+            , payment_tid
+            , payment_method
+            , payment_appl_num
+            , payment_card_num
+            , payment_card_name
+            , payment_result_code
+            , payment_result_msg
+            , payment_os
+            , payment_status
+            , reg_date
+        ) VALUES (
+            #{advertIdx}
+            , #{impUid}
+            , #{merchantUid}
+            , #{userIdx}
+            , #{paymentPrice}
+            , #{paymentTid}
+            , #{paymentMethod}
+            , #{paymentApplNum}
+            , #{paymentCardNum}
+            , #{paymentCardName}
+            , #{paymentResultCode}
+            , #{paymentResultMsg}
+            , #{paymentOs}
+            , #{paymentStatus}
+            , now()
+        )
+    </insert>
+
+    <update id="updatePaymentEntity" parameterType="paymentEntity">
+        UPDATE payment
+        SET
+            payment_status = #{paymentStatus}
+            , cancel_date = now()
+        WHERE payment_idx = #{paymentIdx}
+    </update>
+
+    <select id="selectPaymentEntity" parameterType="paymentEntity" resultType="paymentEntity">
+        SELECT q.qrboard_name, qa.qrboard_area_seq, u.user_email, u.user_tel,l.layout_name, ts.template_shop_name,
+            t.template_name, a.advert_idx, a.advert_name, a.advert_state, a.advert_sdate, a.advert_edate,
+            p.payment_price, p.payment_card_name, p.reg_date, p.cancel_date
+        FROM payment p
+        INNER JOIN advert a ON p.advert_idx = a.advert_idx
+        INNER JOIN qrboard q ON a.qrboard_idx = q.qrboard_idx
+        INNER JOIN qrboard_area qa ON a.qrboard_area_idx = qa.qrboard_area_idx
+        INNER JOIN layout l ON q.layout_idx = l.layout_idx
+        INNER JOIN template t ON q.template_idx = t.template_idx
+        INNER JOIN user u ON q.user_idx = u.user_idx
+        LEFT JOIN template_shop ts ON a.template_shop_idx = ts.template_shop_idx
+        WHERE a.advert_idx = #{advertIdx}
+    </select>
+
+    <!-- 광고주용 결제 목록 개수 -->
+    <select id="selectPaymentEntityListCount" parameterType="paymentEntity" resultType="int">
+        SELECT COUNT(p.payment_idx) FROM payment p
+        INNER JOIN advert a ON p.advert_idx = a.advert_idx
+        INNER JOIN qrboard q ON a.qrboard_idx = q.qrboard_idx
+        WHERE a.user_idx = #{userIdx} AND a.use_yn = 'Y'
+        <if test="startDate != '' and startDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(p.reg_date, '%Y-%m-%d') >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != '' and endDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(p.reg_date, '%Y-%m-%d') <= #{endDate}
+            ]]>
+        </if>
+        <if test="searchAdvertState != -1">
+            AND a.advert_state = #{searchAdvertState}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND q.qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'advertName'">
+                    AND a.advert_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 광고주용 결제 목록 -->
+    <select id="selectPaymentEntityList" parameterType="paymentEntity" resultType="paymentEntity">
+        SELECT a.advert_idx, a.advert_name, q.qrboard_name, a.advert_state, a.advert_sdate, a.advert_edate, p.payment_price, p.reg_date
+        FROM payment p
+        INNER JOIN advert a ON p.advert_idx = a.advert_idx
+        INNER JOIN qrboard q ON a.qrboard_idx = q.qrboard_idx
+        WHERE .user_idx = #{userIdx} AND a.use_yn = 'Y'
+        <if test="startDate != '' and startDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(p.reg_date, '%Y-%m-%d') >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != '' and endDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(p.reg_date, '%Y-%m-%d') <= #{endDate}
+            ]]>
+        </if>
+        <if test="searchAdvertState != -1">
+            AND a.advert_state = #{searchAdvertState}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND q.qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'advertName'">
+                    AND a.advert_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 광고사업자용 QR보드에 등록된 광고주의 결제 목록 개수 -->
+    <select id="selectMyPaymentEntityListCount" parameterType="paymentEntity" resultType="int">
+        SELECT COUNT(p.payment_idx) FROM payment p
+        INNER JOIN advert a ON p.advert_idx = a.advert_idx
+        INNER JOIN qrboard q ON a.qrboard_idx = q.qrboard_idx
+        INNER JOIN user u ON q.user_idx = u.user_idx
+        WHERE q.user_idx = #{userIdx} AND a.use_yn = 'Y'
+        <if test="startDate != '' and startDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(p.reg_date, '%Y-%m-%d') >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != '' and endDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(p.reg_date, '%Y-%m-%d') <= #{endDate}
+            ]]>
+        </if>
+        <if test="searchAdvertState != -1">
+            AND a.advert_state = #{searchAdvertState}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND q.qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'advertName'">
+                    AND a.advert_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 광고사업자용 QR보드에 등록된 광고주의 결제 목록 -->
+    <select id="selectMyPaymentEntityList" parameterType="paymentEntity" resultType="paymentEntity">
+        SELECT a.advert_idx, a.advert_name, q.qrboard_name, u.user_email, a.advert_state, p.payment_price, p.reg_date
+        FROM payment p
+        INNER JOIN advert a ON p.advert_idx = a.advert_idx
+        INNER JOIN qrboard q ON a.qrboard_idx = q.qrboard_idx
+        INNER JOIN user u ON q.user_idx = u.user_idx
+        WHERE q.user_idx = #{userIdx} AND a.use_yn = 'Y'
+        <if test="startDate != '' and startDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(p.reg_date, '%Y-%m-%d') >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != '' and endDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(p.reg_date, '%Y-%m-%d') <= #{endDate}
+            ]]>
+        </if>
+        <if test="searchAdvertState != -1">
+            AND a.advert_state = #{searchAdvertState}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND q.qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'advertName'">
+                    AND a.advert_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 광고사업자용 QR보드에 등록된 총 수익 -->
+    <select id="selectTotalPayment" parameterType="paymentEntity" resultType="int">
+        SELECT ifnull(SUM(p.payment_price), 0) FROM payment p
+        INNER JOIN advert a ON p.advert_idx = a.advert_idx
+        INNER JOIN qrboard q ON a.qrboard_idx = q.qrboard_idx
+        INNER JOIN user u ON q.user_idx = u.user_idx
+        WHERE q.user_idx = #{userIdx} AND a.use_yn = 'Y' AND a.advert_state != 1
+        <if test="startDate != '' and startDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(p.reg_date, '%Y-%m-%d') >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != '' and endDate != null">
+            <![CDATA[
+            AND DATE_FORMAT(p.reg_date, '%Y-%m-%d') <= #{endDate}
+            ]]>
+        </if>
+        <if test="searchAdvertState != -1">
+            AND a.advert_state = #{searchAdvertState}
+        </if>
+        <if test="searchValue != '' and searchValue != null">
+            <choose>
+                <when test="searchKey == 'qrboardName'">
+                    AND q.qrboard_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+                <when test="searchKey == 'advertName'">
+                    AND a.advert_name LIKE TRIM(CONCAT('%', #{searchValue}, '%'))
+                </when>
+            </choose>
+        </if>
+    </select>
+
+</mapper>

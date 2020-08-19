@@ -34,6 +34,13 @@
         <script type="text/javascript" src="${contextPath}/resources/js/lib/jquery.form.js"></script>
         <script type="text/javascript" src="${contextPath}/resources/js/lib/jquery-ui.min.js"></script>
 
+        <!-- import -->
+        <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+        <script>
+            var IMP = window.IMP; // 생략가능
+            IMP.init('imp76171189'); // 부여받은 "가맹점 식별코드"를 사용
+        </script>
+
         <title>QR보드 관리툴</title>
     </head>
     <body>

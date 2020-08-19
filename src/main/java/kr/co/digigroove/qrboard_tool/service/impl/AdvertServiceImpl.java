@@ -3,6 +3,7 @@ package kr.co.digigroove.qrboard_tool.service.impl;
 import kr.co.digigroove.qrboard_tool.dao.*;
 import kr.co.digigroove.qrboard_tool.entities.*;
 import kr.co.digigroove.qrboard_tool.service.AdvertService;
+import kr.co.digigroove.qrboard_tool.utils.PaymentUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,9 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Autowired
     private ContentBackgroundDAO contentBackgroundDAO;
+
+    @Autowired
+    private PaymentDAO paymentDAO;
 
     /**
      * 광고 등록
@@ -69,6 +73,12 @@ public class AdvertServiceImpl implements AdvertService {
             // 광고 등록
             advertEntity.setContentIdx(contentEntity.getContentIdx());
             advertDAO.insertAdvertEntity(advertEntity);
+
+            // 결제 등록
+            PaymentEntity paymentEntity = advertEntity.getPaymentEntity();
+            paymentEntity.setAdvertIdx(advertEntity.getAdvertIdx());
+            paymentEntity.setUserIdx(advertEntity.getUserIdx());
+            paymentDAO.insertPaymentEntity(paymentEntity);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -142,7 +152,21 @@ public class AdvertServiceImpl implements AdvertService {
     public void updateAdvertState(AdvertEntity advertEntity) throws Exception {
         // TODO: 문자
         // TODO: PUSH
-        // TODO: 결제취소
-        advertDAO.updateAdvertState(advertEntity);
+        // 결제취소
+        if(advertEntity.getAdvertState() == 1){
+            String token = PaymentUtils.getImportToken();
+            PaymentEntity paymentEntity = new PaymentEntity();
+            paymentEntity.setAdvertIdx(advertEntity.getAdvertIdx());
+            paymentEntity = paymentDAO.selectPaymentEntity(paymentEntity);
+            int res = PaymentUtils.cancelPayment(token, paymentEntity.getImpUid(), paymentEntity.getMerchantUid());
+            if(res > 0){
+                // 결제취소 성공
+                paymentEntity.setPaymentStatus("cancelled");
+                paymentDAO.updatePaymentEntity(paymentEntity);
+                advertDAO.updateAdvertState(advertEntity);
+            }
+        }else{
+            advertDAO.updateAdvertState(advertEntity);
+        }
     }
 }
