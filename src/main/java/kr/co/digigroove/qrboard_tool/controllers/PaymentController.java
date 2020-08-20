@@ -1,7 +1,8 @@
 package kr.co.digigroove.qrboard_tool.controllers;
 
-import kr.co.digigroove.qrboard_tool.entities.*;
-import kr.co.digigroove.qrboard_tool.service.*;
+import kr.co.digigroove.qrboard_tool.entities.PaymentEntity;
+import kr.co.digigroove.qrboard_tool.entities.UserEntity;
+import kr.co.digigroove.qrboard_tool.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +28,7 @@ public class PaymentController {
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
         paymentEntity.setUserIdx(userEntity.getUserIdx());
         model.addAttribute("paymentEntityList", paymentService.selectPaymentEntityList(paymentEntity));
-        return "user/payment";
+        return "test/payment";
     }
 
     /**
@@ -38,7 +39,7 @@ public class PaymentController {
     @RequestMapping(value="/detail", method=RequestMethod.GET)
     public String selectPaymentEntity(final Model model, PaymentEntity paymentEntity) throws Exception {
         model.addAttribute("paymentEntity", paymentService.selectPaymentEntity(paymentEntity));
-        return "user/payment_detail";
+        return "test/payment_detail";
     }
 
     /**
@@ -52,7 +53,7 @@ public class PaymentController {
         paymentEntity.setUserIdx(userEntity.getUserIdx());
         model.addAttribute("paymentEntityList", paymentService.selectMyPaymentEntityList(paymentEntity));
         model.addAttribute("totalPayment", paymentService.selectTotalPayment(paymentEntity));
-        return "user/payment_my";
+        return "test/payment_my";
     }
 
 }

@@ -1,0 +1,45 @@
+@font-face {
+  font-family: "NanumBarunGothic";
+  src: url("./fonts/NanumBarunGothicB.eot"); /* IE9 Compat Modes */
+  src: url("./fonts/NanumBarunGothicB.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./fonts/NanumBarunGothicB.ttf") format("truetype"), /* Open Type Font */
+    url("./fonts/NanumBarunGothicB.woff") format("woff"), /* Modern Browsers */
+    url("./fonts/NanumBarunGothicB.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NanumBarunGothic";
+  src: url("./fonts/NanumBarunGothicR.eot"); /* IE9 Compat Modes */
+  src: url("./fonts/NanumBarunGothicR.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./fonts/NanumBarunGothicR.ttf") format("truetype"), /* Open Type Font */
+    url("./fonts/NanumBarunGothicR.woff") format("woff"), /* Modern Browsers */
+    url("./fonts/NanumBarunGothicR.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NanumBarunGothic";
+  src: url("./fonts/NanumBarunGothicL.eot"); /* IE9 Compat Modes */
+  src: url("./fonts/NanumBarunGothicL.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./fonts/NanumBarunGothicL.ttf") format("truetype"), /* Open Type Font */
+    url("./fonts/NanumBarunGothicL.woff") format("woff"), /* Modern Browsers */
+    url("./fonts/NanumBarunGothicL.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "KoPubDotumLight";
+  src: url("./fonts/KoPubDotumLight.eot"); /* IE9 Compat Modes */
+  src: url("./fonts/KoPubDotumLight.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./fonts/KoPubDotumLight.otf") format("opentype"), /* Open Type Font */
+    url("./fonts/KoPubDotumLight.svg") format("svg"), /* Legacy iOS */
+    url("./fonts/KoPubDotumLight.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./fonts/KoPubDotumLight.woff") format("woff"), /* Modern Browsers */
+    url("./fonts/KoPubDotumLight.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: 300;
+  font-style: normal;
+}

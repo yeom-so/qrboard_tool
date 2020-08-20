@@ -38,24 +38,29 @@ public class UserRestController implements Serializable{
 			userResultEntity = (UserResultEntity) userService.checkLoginUser(userEntity);
 			if(userResultEntity.getCode().equals(Default.Result.MISMATCH)){
 				userResultEntity.setUrl("/");
-				userResultEntity.setMessage("비번이 안맞음!!");
+				userResultEntity.setMessage("비밀번호가 일치하지않습니다.");
 			}else if(userResultEntity.getCode().equals(Default.Result.SUCCESS)){
 				userResultEntity.setUrl("/");
 				session.setAttribute("user", userResultEntity.getLoginInfo());
 				userResultEntity.setCode(Default.Result.SUCCESS);
-				userResultEntity.setUrl("/user/user");
-				userResultEntity.setMessage("로그인 성공!!");
+				if(userEntity.getUserGrade() == Default.UserGrade.ADVERTISER_ADMIN){
+					// TODO: QR보드관리 목록으로 이동
+					userResultEntity.setUrl("/admin/main");
+				}else if(userEntity.getUserGrade() == Default.UserGrade.ADVERTISER){
+					userResultEntity.setUrl("/user/main");
+				}
 				userResultEntity.setLoginInfo(userResultEntity.getLoginInfo());
 			}else if(userResultEntity.getCode().equals(Default.Result.EMPTY_USER)){
 				userResultEntity.setUrl("/");
 				userResultEntity.setMessage("일치하는 사용자가 없습니다.");
 			}else if(userResultEntity.getCode().equals(Default.Result.NOT_APPROVE)){
 				userResultEntity.setUrl("/");
-				userResultEntity.setMessage("승인 대기중인 사용자");
-			}else if(userResultEntity.getCode().equals(Default.Result.WITHDRAW)){
-				userResultEntity.setUrl("/");
-				userResultEntity.setMessage("탈퇴한 사용자");
+				userResultEntity.setMessage("승인 대기중인 사용자입니다.");
 			}
+//			else if(userResultEntity.getCode().equals(Default.Result.WITHDRAW)){
+//				userResultEntity.setUrl("/");
+//				userResultEntity.setMessage("탈퇴한 사용자");
+//			}
 		} catch (Exception e) {
 			userResultEntity.setCode(Default.Result.FAIL);
 			userResultEntity.setMessage("오류가 발생하였습니다.");
@@ -75,7 +80,12 @@ public class UserRestController implements Serializable{
 		ResultEntity resultEntity = new ResultEntity();
 
 		try {
-			resultEntity.setUrl("/");
+			UserEntity userEntity = (UserEntity) session.getAttribute("user");
+			if(userEntity.getUserGrade() == Default.UserGrade.ADVERTISER_ADMIN){
+				resultEntity.setUrl("/admin");
+			}else if(userEntity.getUserGrade() == Default.UserGrade.ADVERTISER){
+				resultEntity.setUrl("/");
+			}
 			session.removeAttribute("user");
 			resultEntity.setCode(Default.Result.SUCCESS);
 			resultEntity.setMessage("로그아웃");

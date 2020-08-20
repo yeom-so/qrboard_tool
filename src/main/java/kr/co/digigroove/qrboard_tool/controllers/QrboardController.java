@@ -6,7 +6,6 @@ import kr.co.digigroove.qrboard_tool.service.LayoutService;
 import kr.co.digigroove.qrboard_tool.service.QrboardAreaService;
 import kr.co.digigroove.qrboard_tool.service.QrboardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +37,7 @@ public class QrboardController {
         qrboardEntity.setUserIdx(userEntity.getUserIdx());
         model.addAttribute("qrboardEntityList", qrboardService.selectQrboardEntityList(qrboardEntity));
         model.addAttribute("layoutEntityList", layoutService.selectLayoutEntityList());
-        return "user/qrboard";
+        return "test/qrboard";
     }
 
     /**
@@ -50,7 +49,7 @@ public class QrboardController {
     public String selectQrboardEntity(final Model model, HttpSession session, QrboardEntity qrboardEntity) throws Exception {
         model.addAttribute("qrboardEntity", qrboardService.selectQrboardEntity(qrboardEntity));
         model.addAttribute("qrboardAreaEntityList", qrboardAreaService.selectQrboardAreaAdvertEntityList(qrboardEntity));
-        return "user/qrboard_detail";
+        return "test/qrboard_detail";
     }
 
     /**
@@ -63,7 +62,7 @@ public class QrboardController {
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
         qrboardEntity.setUserIdx(userEntity.getUserIdx());
         model.addAttribute("qrboardEntityList", qrboardService.selectQrboardAdvertEntityList(qrboardEntity));
-        return "user/qrboard_advert";
+        return "test/qrboard_advert";
     }
 
     /**
@@ -74,7 +73,7 @@ public class QrboardController {
     @RequestMapping(value="/advert_detail", method=RequestMethod.GET)
     public String selectQrboardAreaAdvertEntityList(final Model model, QrboardEntity qrboardEntity) throws Exception {
         model.addAttribute("qrboardAreaEntityList", qrboardAreaService.selectQrboardAreaAdvertEntityList(qrboardEntity));
-        return "user/qrboard_advert_detail";
+        return "test/qrboard_advert_detail";
     }
 
     // 스케쥴링 테스트

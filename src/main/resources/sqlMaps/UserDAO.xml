@@ -7,6 +7,7 @@
     <select id="selectLoginUserEntity" parameterType="userEntity" resultType="userEntity">
         SELECT * FROM user
         WHERE user_email = #{userEmail}
+        AND user_grade = #{userGrade}
     </select>
 
     <!-- 회원가입 -->

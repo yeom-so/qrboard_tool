@@ -40,7 +40,7 @@ public class AdvertController {
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
         advertEntity.setUserIdx(userEntity.getUserIdx());
         model.addAttribute("advertEntityList", advertService.selectAdvertEntityList(advertEntity));
-        return "user/advert";
+        return "test/advert";
     }
 
     /**
@@ -52,7 +52,7 @@ public class AdvertController {
     public String insertAdvertEntity(final Model model, QrboardEntity qrboardEntity) throws Exception {
         // 모든 QR보드 목록
         model.addAttribute("qrboardEntityList", qrboardService.selectQrboardEntityListAll(qrboardEntity));
-        return "user/advert_create";
+        return "test/advert_create";
     }
 
     /**
@@ -63,7 +63,7 @@ public class AdvertController {
     @RequestMapping(value="/detail", method=RequestMethod.GET)
     public String selectAdvertEntity(final Model model, AdvertEntity advertEntity) throws Exception {
         model.addAttribute("advertEntity", advertService.selectAdvertEntity(advertEntity));
-        return "user/advert_detail";
+        return "test/advert_detail";
     }
 
     /**
@@ -77,7 +77,7 @@ public class AdvertController {
         advertEntity.setUserIdx(userEntity.getUserIdx());
         advertEntity.setSearchAdvertType(Default.SearchAdvertType.ADVERTISER);
         model.addAttribute("advertEntityList", advertService.selectAdvertApproveEntityList(advertEntity));
-        return "user/advert_approve";
+        return "test/advert_approve";
     }
 
     /**
@@ -91,7 +91,7 @@ public class AdvertController {
         advertEntity.setUserIdx(userEntity.getUserIdx());
         advertEntity.setSearchAdvertType(Default.SearchAdvertType.ADVERTISER_ADMIN);
         model.addAttribute("advertEntityList", advertService.selectAdvertApproveEntityList(advertEntity));
-        return "user/advert_my";
+        return "test/advert_my";
     }
 
     /**
@@ -114,7 +114,7 @@ public class AdvertController {
         publicAdvertEntity.setTemplateIdx(qrboardAreaEntity.getTemplateIdx());
         model.addAttribute("publicAdvertEntityList", publicAdvertService.selectPublicAdvertEntityList(publicAdvertEntity));
 
-        return "user/advert_mycreate";
+        return "test/advert_mycreate";
     }
 
 }

@@ -47,8 +47,9 @@
   <mvc:interceptors>
     <mvc:interceptor>
       <mvc:mapping path="/user/**" />
+      <mvc:mapping path="/admin/**" />
       <mvc:exclude-mapping path="/user" />
-      <mvc:exclude-mapping path="/user/" />
+      <mvc:exclude-mapping path="/admin" />
       <bean class="kr.co.digigroove.qrboard_tool.interceptor.AuthenticationCheckInterceptor" />
     </mvc:interceptor>
   </mvc:interceptors>

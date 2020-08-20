@@ -4,18 +4,34 @@
   "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-  <definition name="loginDef" template="/WEB-INF/pages/template/loginTemp.jsp">
+
+  <definition name="userLoginDef" template="/WEB-INF/pages/template/user/loginTemp.jsp">
     <put-attribute name="body" value="/WEB-INF/pages/template/user/body.jsp" />
   </definition>
 
-  <definition name="login" extends="loginDef">
-    <put-attribute name="body" value="/WEB-INF/pages/views/login.jsp" />
+  <!-- 광고주용 로그인 -->
+  <definition name="user_login" extends="userLoginDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/user_login.jsp" />
+  </definition>
+
+  <!-- 광고주용 회원가입>약관동의 -->
+  <definition name="user_term" extends="userLoginDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/user/term.jsp" />
+  </definition>
+
+  <!-- 광고주용 회원가입 -->
+  <definition name="user_join" extends="userLoginDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/user/join.jsp" />
+  </definition>
+
+  <!-- 광고주용 메인(메뉴선택) -->
+  <definition name="user_main" extends="userLoginDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/user/main.jsp" />
   </definition>
 
   <definition name="userDef" template="/WEB-INF/pages/template/user/userTemp.jsp">
     <put-attribute name="header" value="/WEB-INF/pages/template/user/header.jsp" />
     <put-attribute name="body" value="/WEB-INF/pages/template/user/body.jsp" />
-    <put-attribute name="left" value="/WEB-INF/pages/template/user/left.jsp" />
   </definition>
   <definition name="user/*" extends="userDef">
     <put-attribute name="body" value="/WEB-INF/pages/views/user/{1}.jsp" />
@@ -30,7 +46,47 @@
     <put-attribute name="body" value="/WEB-INF/pages/views/user/{1}/{2}/{3}/{4}.jsp" />
   </definition>
 
+  <definition name="adminLoginDef" template="/WEB-INF/pages/template/admin/loginTemp.jsp">
+    <put-attribute name="body" value="/WEB-INF/pages/template/admin/body.jsp" />
+  </definition>
+
+  <!-- 광고사업주용 로그인 -->
+  <definition name="admin_login" extends="adminLoginDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/admin_login.jsp" />
+  </definition>
+
+  <definition name="adminDef" template="/WEB-INF/pages/template/admin/adminTemp.jsp">
+    <put-attribute name="header" value="/WEB-INF/pages/template/admin/header.jsp" />
+    <put-attribute name="body" value="/WEB-INF/pages/template/admin/body.jsp" />
+  </definition>
+  <definition name="admin/*" extends="adminDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/admin/{1}.jsp" />
+  </definition>
+  <definition name="admin/*/*" extends="userDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/admin/{1}/{2}.jsp" />
+  </definition>
+  <definition name="admin/*/*/*" extends="userDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/admin/{1}/{2}/{3}.jsp" />
+  </definition>
+  <definition name="admin/*/*/*/*" extends="userDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/admin/{1}/{2}/{3}/{4}.jsp" />
+  </definition>
+
+  <!-- TEST용 -->
+  <definition name="test/*" extends="userDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/test/{1}.jsp" />
+  </definition>
+  <definition name="test/*/*" extends="userDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/test/{1}/{2}.jsp" />
+  </definition>
+  <definition name="test/*/*/*" extends="userDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/test/{1}/{2}/{3}.jsp" />
+  </definition>
+  <definition name="test/*/*/*/*" extends="userDef">
+    <put-attribute name="body" value="/WEB-INF/pages/views/test/{1}/{2}/{3}/{4}.jsp" />
+  </definition>
+
   <!-- Error page -->
-  <definition name="error" template="/WEB-INF/pages/views/errorPage.jsp" />
+  <definition name="error" template="/WEB-INF/pages/views/error_page.jsp" />
 
 </tiles-definitions>
