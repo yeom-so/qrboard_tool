@@ -6,12 +6,13 @@
 	<!-- 공용광고 목록 -->
 	<select id="selectPublicAdvertEntityList" parameterType="publicAdvertEntity" resultType="publicAdvertEntity">
         SELECT
-			*
+			pa.*
 		FROM
-			public_advert
+			public_advert pa
+		LEFT JOIN template_shop ts ON pa.template_shop_idx = ts.template_shop_idx
 		WHERE
-		    template_idx = #{templateIdx}
-        ORDER BY reg_date DESC
+		    ts.template_idx = #{templateIdx}
+        ORDER BY pa.reg_date DESC
     </select>
 
 	<!-- 공용광고 상세 -->

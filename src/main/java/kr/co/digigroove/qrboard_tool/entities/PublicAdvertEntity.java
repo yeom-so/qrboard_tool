@@ -16,6 +16,7 @@ public class PublicAdvertEntity implements Serializable {
   private int publicAdvertIdx;
   private int contentIdx;
   private int templateIdx;
+  private int templateShopIdx;
   private String publicAdvertName;
   private int publicAdvertProfit;
   private Date publicAdvertSdate;
