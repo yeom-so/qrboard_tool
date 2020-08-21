@@ -103,15 +103,18 @@ public class AdvertServiceImpl implements AdvertService {
      * @throws Exception
      */
     @Override
-    public List<AdvertEntity> selectAdvertEntityList(AdvertEntity advertEntity) throws Exception {
+    public AdvertEntity selectAdvertEntityList(AdvertEntity advertEntity) throws Exception {
         // TODO: 검색조건
         advertEntity.setStartDate("2020-01-01");
         advertEntity.setEndDate("2020-08-31");
         advertEntity.setSearchAdvertState(-1);
         advertEntity.setSearchKey("qrboardName");
         advertEntity.setSearchValue("로비");
+        // 페이징처리
+        advertEntity.setPageParams();
         advertEntity.setDataSize(advertDAO.selectAdvertEntityListCount(advertEntity));
-        return advertDAO.selectAdvertEntityList(advertEntity);
+        advertEntity.setAdvertPageEntityList(advertDAO.selectAdvertEntityList(advertEntity));
+        return advertEntity;
     }
 
     /**

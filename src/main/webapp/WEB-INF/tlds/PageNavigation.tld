@@ -11,7 +11,7 @@
 
   <tag>
     <name>PageNavigation</name>
-    <tag-class>kr.co.digigroove.commons.tlds.PageNavigation</tag-class>
+    <tag-class>kr.co.digigroove.qrboard_tool.tlds.PageNavigation</tag-class>
     <body-content>empty</body-content>
     <description>페이징 처리</description>
     <attribute>
@@ -33,6 +33,11 @@
       <name>pageParamName</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>showFirstLastIndicator</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
     </attribute>
   </tag>
 

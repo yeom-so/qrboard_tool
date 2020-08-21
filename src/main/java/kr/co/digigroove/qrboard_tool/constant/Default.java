@@ -6,7 +6,7 @@ public class Default {
     /** 페이지 사이즈 */
     public static class Page {
         public static final int UNIT = 10;
-        public static final int SIZE = 10;
+        public static final int SIZE = 1;
     }
 
     /** Result */

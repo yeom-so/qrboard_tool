@@ -35,6 +35,7 @@ public class AdvertEntity extends PageEntity implements Serializable {
   private int searchAdvertState = -1;  // 광고상태 검색
   private int searchAdvertType = -1;
 
+  private List<AdvertEntity> advertPageEntityList;
   private int advertIdx;
   private int qrboardIdx;
   private String qrboardName;
@@ -66,6 +67,8 @@ public class AdvertEntity extends PageEntity implements Serializable {
   private String advertStateBigo;
   private Date regDate;
   private String useYn;
+  private int paymentPrice;
+  private String paymentStatus;
   private Date paymentRegDate;
   private Date paymentCancelDate;
   private PaymentEntity paymentEntity;

@@ -26,7 +26,7 @@ public interface AdvertService {
      * @return
      * @throws Exception
      */
-    List<AdvertEntity> selectAdvertEntityList(AdvertEntity advertEntity) throws Exception;
+    AdvertEntity selectAdvertEntityList(AdvertEntity advertEntity) throws Exception;
 
     /**
      * 광고 상세

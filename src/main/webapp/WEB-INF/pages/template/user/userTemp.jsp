@@ -41,7 +41,7 @@
     </head>
     <body>
         <div id="wrap">
-            <section id="ads" class="page">
+            <section id="ads" class="page temp">
                 <tiles:insertAttribute name="top" />
                 <tiles:insertAttribute name="body" />
             </section>

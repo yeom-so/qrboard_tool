@@ -1,6 +1,5 @@
 package kr.co.digigroove.qrboard_tool.entities.common;
 
-import kr.co.digigroove.commons.entities.PageNavigationEntity;
 import kr.co.digigroove.commons.utils.StringUtils;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,8 +8,8 @@ public class PageEntity extends PageNavigationEntity {
 
 	private static final long serialVersionUID = 3286446354188420056L;
 
-	private static final String DEFAULT_LABEL_FIRST_PAGE = "<img src=\"/resources/img/icon-first.gif\"/>";
-	private static final String DEFAULT_LABEL_LAST_PAGE  = "<img src=\"/resources/img/icon-last.gif\"/>";
+//	private static final String DEFAULT_LABEL_FIRST_PAGE = "<img src=\"/resources/img/icon-first.gif\"/>";
+//	private static final String DEFAULT_LABEL_LAST_PAGE  = "<img src=\"/resources/img/icon-last.gif\"/>";
 	private static final String DEFAULT_LABEL_GROUP_PREV = "<img src=\"/resources/img/icon-prev.gif\"/>";
 	private static final String DEFAULT_LABEL_GROUP_NEXT = "<img src=\"/resources/img/icon-next.gif\"/>";
 

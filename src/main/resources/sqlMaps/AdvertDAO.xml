@@ -8,6 +8,8 @@
         SELECT COUNT(a.advert_idx) FROM advert a
         INNER JOIN qrboard q
         ON a.qrboard_idx = q.qrboard_idx
+        INNER JOIN payment p
+        ON a.advert_idx = p.advert_idx
         WHERE a.user_idx = #{userIdx} AND a.use_yn = 'Y'
         <if test="startDate != '' and startDate != null">
             <![CDATA[
@@ -36,7 +38,7 @@
 
     <!-- 광고주용 광고 목록 -->
     <select id="selectAdvertEntityList" parameterType="advertEntity" resultType="advertEntity">
-        SELECT a.advert_idx, a.advert_name, q.qrboard_name, a.advert_state, a.advert_sdate, a.advert_edate, a.reg_date, a.advert_price, p.reg_date as payment_reg_date FROM advert a
+        SELECT a.advert_idx, a.advert_name, q.qrboard_name, a.advert_state, a.advert_sdate, a.advert_edate, a.reg_date, p.payment_status, p.payment_price, p.reg_date as payment_reg_date FROM advert a
         INNER JOIN qrboard q ON a.qrboard_idx = q.qrboard_idx
         INNER JOIN payment p ON a.advert_idx = p.advert_idx
         WHERE a.user_idx = #{userIdx} AND a.use_yn = 'Y'
@@ -63,6 +65,8 @@
                 </when>
             </choose>
         </if>
+        ORDER BY a.reg_date DESC
+        LIMIT #{rowStartNumber}, #{pageListSize}
     </select>
 
     <!-- 광고 등록 -->
