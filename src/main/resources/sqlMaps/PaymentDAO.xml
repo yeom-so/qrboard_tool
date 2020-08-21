@@ -99,7 +99,7 @@
         FROM payment p
         INNER JOIN advert a ON p.advert_idx = a.advert_idx
         INNER JOIN qrboard q ON a.qrboard_idx = q.qrboard_idx
-        WHERE .user_idx = #{userIdx} AND a.use_yn = 'Y'
+        WHERE a.user_idx = #{userIdx} AND a.use_yn = 'Y'
         <if test="startDate != '' and startDate != null">
             <![CDATA[
             AND DATE_FORMAT(p.reg_date, '%Y-%m-%d') >= #{startDate}

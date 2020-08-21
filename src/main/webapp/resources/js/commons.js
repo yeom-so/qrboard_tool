@@ -1,43 +1,53 @@
 $(document).ready(function() {
-
-})
-
-function login_chk(){
-	//실패시
-	alert("아이디나 비밀번호를 확인해주세요.");
-
-	//성공시
-	//location.href='';
-}
-//로그인 확인
-
-function chk_agree(){
-	if(!$("#chk_all").is(":checked")){
-		alert('사용약관에 동의해주세요.');
-	}else{
-		location.href='join2.html';
-	}
-}
-//회원가입 약관 동의체크
-
-function join_result(){
-	if($("#pwd").val()!=$("#pwdre").val()){
-		alert("비밀번호가 일치하지 않습니다.");
-		return false;
-	}else {
-		alert("회원가입이 완료되었습니다.");
-	}
-}
-//회원가입 결과
+	$("#start, #end").datepicker({
+		dateFormat: 'yy.mm.dd',
+		showOn: "both",
+		buttonImage: contextPath + "/resources/images/ads_calcendar.png",
+		buttonImageOnly: true,
+		monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'], //달력의 월 부분 텍스트
+		monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], //달력의 월 부분 Tooltip 텍스트
+		dayNamesMin: ['일','월','화','수','목','금','토'], //달력의 요일 부분 텍스트
+		dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+	});
+	$("#ads .lists .opt_select").each(function(e){
+		$("#ads .lists .opt_select").eq(e).click(function(){
+			if($("#ads .lists .opt_view").eq(e).css("display")=="none"){
+				$("#ads .lists .opt_select").removeClass("view");
+				$("#ads .lists .opt_view").hide();
+				$("#ads .lists .opt_select").eq(e).addClass("view");
+				$("#ads .lists .opt_view").eq(e).show();
+			}else{
+				$("#ads .lists .opt_select").removeClass("view");
+				$("#ads .lists .opt_view").hide();
+			}
+		});
+	});
+	$("#ads .lists .more").each(function(e){
+		$("#ads .lists .more").eq(e).click(function(){
+			if($("#ads .lists .contents").eq(e).css("display")=="none"){
+				$("#ads .lists .contents").hide();
+				$("#ads .lists .more").removeClass("view");
+				$("#ads .lists .contents").eq(e).show();
+				$("#ads .lists .more").eq(e).addClass("view");
+			}else{
+				$("#ads .lists .contents").hide();
+				$("#ads .lists .more").removeClass("view");
+			}
+		});
+	});
+});
 
 function fnMove(seq){
-			var offset = $(seq).offset();
-			$('html, body').animate({scrollTop : offset.top-130}, 400);
+	var offset = $(seq).offset();
+	$('html, body').animate({scrollTop : offset.top-130}, 400);
 }
 
-function fnback(n){
-	history.back();
+// 페이지 이동
+function goPage(url){
+	location.href = contextPath + url;
 }
-function loca(n){
-	location.href=n;
+
+// 뒤로 이동
+function goBack(num){
+	history.go(num);
 }

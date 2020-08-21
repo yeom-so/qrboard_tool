@@ -1,4 +1,4 @@
-package kr.co.digigroove.qrboard_tool.controllers;
+package kr.co.digigroove.qrboard_tool.controllers.admin;
 
 import kr.co.digigroove.qrboard_tool.constant.Default;
 import kr.co.digigroove.qrboard_tool.entities.*;
@@ -12,11 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping(value = {"/advert"})
-public class AdvertController {
-
-    @Autowired
-    private QrboardService qrboardService;
+@RequestMapping(value = {"/admin/advert"})
+public class AdminAdvertController {
 
     @Autowired
     private AdvertService advertService;
@@ -29,42 +26,6 @@ public class AdvertController {
 
     @Autowired
     private PublicAdvertService publicAdvertService;
-
-    /**
-     * 광고 목록 페이지
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(method= RequestMethod.GET)
-    public String selectAdvertEntityList(final Model model, HttpSession session, AdvertEntity advertEntity) throws Exception {
-        UserEntity userEntity = (UserEntity) session.getAttribute("user");
-        advertEntity.setUserIdx(userEntity.getUserIdx());
-        model.addAttribute("advertEntityList", advertService.selectAdvertEntityList(advertEntity));
-        return "test/advert";
-    }
-
-    /**
-     * 광고 등록
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value="/create", method=RequestMethod.GET)
-    public String insertAdvertEntity(final Model model, QrboardEntity qrboardEntity) throws Exception {
-        // 모든 QR보드 목록
-        model.addAttribute("qrboardEntityList", qrboardService.selectQrboardEntityListAll(qrboardEntity));
-        return "test/advert_create";
-    }
-
-    /**
-     * 광고 상세
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value="/detail", method=RequestMethod.GET)
-    public String selectAdvertEntity(final Model model, AdvertEntity advertEntity) throws Exception {
-        model.addAttribute("advertEntity", advertService.selectAdvertEntity(advertEntity));
-        return "test/advert_detail";
-    }
 
     /**
      * 광고사업자용 QR보드에 등록된 광고 목록

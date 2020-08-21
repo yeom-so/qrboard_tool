@@ -60,39 +60,39 @@
         });
     }
 
-    // QR보드관리
-    function goQrboard() {
-        location.href = contextPath + "/qrboard";
-    }
-
     // 광고관리
     function goAdvert() {
-        location.href = contextPath + "/advert";
+        location.href = contextPath + "/user/advert";
     }
 
     // QR보드 보기
     function goQrbardAdvert() {
-        location.href = contextPath + "/qrboard/advert";
-    }
-
-    // 광고승인관리
-    function goAdvertApprove() {
-        location.href = contextPath + "/advert/approve";
-    }
-
-    // 내광고관리
-    function goAdvertMy() {
-        location.href = contextPath + "/advert/my";
+        location.href = contextPath + "/user/qrboard/advert";
     }
 
     // 결제관리
     function goPayment() {
-        location.href = contextPath + "/payment";
+        location.href = contextPath + "/user/payment";
+    }
+
+    // QR보드관리
+    function goQrboard() {
+        location.href = contextPath + "/admin/qrboard";
+    }
+
+    // 광고승인관리
+    function goAdvertApprove() {
+        location.href = contextPath + "/admin/advert/approve";
+    }
+
+    // 내광고관리
+    function goAdvertMy() {
+        location.href = contextPath + "/admin/advert/my";
     }
 
     // 결제관리
     function goPaymentMy() {
-        location.href = contextPath + "/payment/my";
+        location.href = contextPath + "/admin/payment/my";
     }
 </script>
 

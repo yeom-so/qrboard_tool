@@ -7,7 +7,7 @@
 <script type="text/javascript">
     // 광고 등록
     function goQrbardAdvertCreate() {
-        location.href = contextPath + "/advert/create";
+        location.href = contextPath + "/user/advert/create";
     }
 </script>
 
@@ -21,7 +21,7 @@
         <th>등록일</th>
         <c:forEach items="${advertEntityList}" var="advertEntity">
             <tr>
-                <td><a href="/advert/detail?advertIdx=${advertEntity.advertIdx}">${advertEntity.advertIdx}</a></td>
+                <td><a href="/user/advert/detail?advertIdx=${advertEntity.advertIdx}">${advertEntity.advertIdx}</a></td>
                 <td>${advertEntity.advertState}</td>
                 <td>${advertEntity.advertName}</td>
                 <td>${advertEntity.qrboardName}</td>

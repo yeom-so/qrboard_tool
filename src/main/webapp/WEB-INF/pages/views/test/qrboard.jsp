@@ -89,7 +89,7 @@
         <th>광고단가</th>
         <c:forEach items="${qrboardEntityList}" var="qrboardEntity">
             <tr>
-                <td><a href="/qrboard/detail?qrboardIdx=${qrboardEntity.qrboardIdx}">${qrboardEntity.qrboardIdx}</a></td>
+                <td><a href="/user/qrboard/detail?qrboardIdx=${qrboardEntity.qrboardIdx}">${qrboardEntity.qrboardIdx}</a></td>
                 <td>${qrboardEntity.qrboardName}</td>
                 <td>${qrboardEntity.layoutName}</td>
                 <td>${qrboardEntity.qrboardAreaNum - qrboardEntity.advertNum}</td>

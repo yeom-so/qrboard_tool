@@ -32,6 +32,8 @@
     </script>
 </head>
 <body>
-    <tiles:insertAttribute name="body" />
+    <div id="wrap">
+        <tiles:insertAttribute name="body" />
+    </div>
 </body>
 </html>

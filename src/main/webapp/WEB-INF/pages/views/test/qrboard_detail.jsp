@@ -64,10 +64,10 @@
     <c:forEach var="qrboardAreaEntity" items="${qrboardAreaEntityList}">
         <div style="border: 5px solid yellowgreen;">
             <c:if test="${qrboardAreaEntity.contentIdx == 0}">
-                <a href="/advert/mycreate?qrboardAreaIdx=${qrboardAreaEntity.qrboardAreaIdx}">광고등록</a>
+                <a href="/admin/advert/mycreate?qrboardAreaIdx=${qrboardAreaEntity.qrboardAreaIdx}">광고등록</a>
             </c:if>
             <c:if test="${qrboardAreaEntity.contentIdx != 0}">
-                <a href="/advert/mycreate?qrboardAreaIdx=${qrboardAreaEntity.qrboardAreaIdx}">광고예약</a><br/>
+                <a href="/admin/advert/mycreate?qrboardAreaIdx=${qrboardAreaEntity.qrboardAreaIdx}">광고예약</a><br/>
                 ${qrboardAreaEntity.qrboardAreaIdx}<br/>
                 ${qrboardAreaEntity.qrboardAreaSeq}<br/>
                 ${qrboardAreaEntity.lastAdvertSdate}<br/>

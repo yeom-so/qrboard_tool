@@ -15,7 +15,7 @@
         <th>결제일</th>
         <c:forEach items="${paymentEntityList}" var="paymentEntity">
             <tr>
-                <td><a href="/payment/detail?advertIdx=${paymentEntity.advertIdx}">${paymentEntity.advertIdx}</a></td>
+                <td><a href="/user/payment/detail?advertIdx=${paymentEntity.advertIdx}">${paymentEntity.advertIdx}</a></td>
                 <td>${paymentEntity.advertState}</td>
                 <td>${paymentEntity.advertName}</td>
                 <td>${paymentEntity.qrboardName}</td>

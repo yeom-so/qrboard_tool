@@ -1,4 +1,4 @@
-package kr.co.digigroove.qrboard_tool.controllers;
+package kr.co.digigroove.qrboard_tool.controllers.admin;
 
 import kr.co.digigroove.qrboard_tool.entities.QrboardEntity;
 import kr.co.digigroove.qrboard_tool.entities.UserEntity;
@@ -14,43 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping(value = {"/qrboard"})
-public class QrboardController {
+@RequestMapping(value = {"/admin/qrboard"})
+public class AdminQrboardController {
 
     @Autowired
     private QrboardService qrboardService;
 
     @Autowired
-    private LayoutService layoutService;
-
-    @Autowired
     private QrboardAreaService qrboardAreaService;
-
-    /**
-     * 광고사업주 QR보드 목록 페이지
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(method= RequestMethod.GET)
-    public String selectQrboardEntityList(final Model model, HttpSession session, QrboardEntity qrboardEntity) throws Exception {
-        UserEntity userEntity = (UserEntity) session.getAttribute("user");
-        qrboardEntity.setUserIdx(userEntity.getUserIdx());
-        model.addAttribute("qrboardEntityList", qrboardService.selectQrboardEntityList(qrboardEntity));
-        model.addAttribute("layoutEntityList", layoutService.selectLayoutEntityList());
-        return "test/qrboard";
-    }
-
-    /**
-     * 광고사업주 QR보드 상세 페이지
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value="/detail", method=RequestMethod.GET)
-    public String selectQrboardEntity(final Model model, HttpSession session, QrboardEntity qrboardEntity) throws Exception {
-        model.addAttribute("qrboardEntity", qrboardService.selectQrboardEntity(qrboardEntity));
-        model.addAttribute("qrboardAreaEntityList", qrboardAreaService.selectQrboardAreaAdvertEntityList(qrboardEntity));
-        return "test/qrboard_detail";
-    }
 
     /**
      * 광고주 QR보드 목록 페이지
@@ -75,11 +46,5 @@ public class QrboardController {
         model.addAttribute("qrboardAreaEntityList", qrboardAreaService.selectQrboardAreaAdvertEntityList(qrboardEntity));
         return "test/qrboard_advert_detail";
     }
-
-    // 스케쥴링 테스트
-//    @Scheduled(cron="*/30 * * * * *")
-//    public void scheduledTest() throws Exception{
-//        System.out.println("scheduledTest");
-//    }
 
 }

@@ -18,7 +18,7 @@
         <th>결제일</th>
         <c:forEach items="${advertEntityList}" var="advertEntity">
             <tr>
-                <td><a href="/advert/detail?advertIdx=${advertEntity.advertIdx}">${advertEntity.advertIdx}</a></td>
+                <td><a href="/admin/advert/detail?advertIdx=${advertEntity.advertIdx}">${advertEntity.advertIdx}</a></td>
                 <td>${advertEntity.advertState}</td>
                 <td>${advertEntity.advertName}</td>
                 <td>${advertEntity.qrboardName}</td>

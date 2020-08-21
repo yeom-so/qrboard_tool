@@ -47,18 +47,29 @@
         <div class="form">
             <form id="loginForm" action="${contextPath}/userRest/login" method="post">
                 <input type="hidden" name="userGrade" value="3"> <%-- 사용자타입고정 (3: 광고주) --%>
+
+                <%if(request.getServerName().equals("127.0.0.1")){%>
                 <div class="input_group">
-                    <input type="text" id="userEmail" name="userEmail" class="inputs" placeholder="아이디(이메일)" value="test"/>
+                    <input type="text" name="userEmail" class="inputs userEmail" placeholder="아이디(이메일)" value="test"/>
                 </div>
                 <div class="input_group">
-                    <input type="password" id="userPw" name="userPw" class="inputs" placeholder="비밀번호" value="1234"/>
+                    <input type="password" name="userPw" class="inputs userPw" placeholder="비밀번호" value="1234"/>
                 </div>
+                <%}else{%>
+                <div class="input_group">
+                    <input type="text" name="userEmail" class="inputs userEmail" placeholder="아이디(이메일)"/>
+                </div>
+                <div class="input_group">
+                    <input type="password" name="userPw" class="inputs userPw" placeholder="비밀번호"/>
+                </div>
+                <%}%>
+
                 <div class="chk_group chk2">
                     <label><input type="checkbox" id="login_auto">로그인 상태 유지</label>
                 </div>
                 <button type="submit" class="btn_login">로그인</button>
                 <div class="link1">
-                    <a href="#" class="join">회원가입</a>
+                    <a href="/user/term" class="join">회원가입</a>
                     <a class="find">아이디/비밀번호찾기</a>
                 </div>
             </form>

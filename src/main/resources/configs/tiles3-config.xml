@@ -30,7 +30,7 @@
   </definition>
 
   <definition name="userDef" template="/WEB-INF/pages/template/user/userTemp.jsp">
-    <put-attribute name="header" value="/WEB-INF/pages/template/user/header.jsp" />
+    <put-attribute name="top" value="/WEB-INF/pages/template/user/top.jsp" />
     <put-attribute name="body" value="/WEB-INF/pages/template/user/body.jsp" />
   </definition>
   <definition name="user/*" extends="userDef">
