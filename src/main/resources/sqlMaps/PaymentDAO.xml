@@ -123,6 +123,8 @@
                 </when>
             </choose>
         </if>
+        ORDER BY p.reg_date DESC
+        LIMIT #{rowStartNumber}, #{pageListSize}
     </select>
 
     <!-- 광고사업자용 QR보드에 등록된 광고주의 결제 목록 개수 -->

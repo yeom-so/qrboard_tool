@@ -15,7 +15,7 @@
         <th>레이아웃</th>
         <th>빈광고영역</th>
         <th>내광고여부</th>
-        <c:forEach items="${qrboardEntityList}" var="qrboardEntity">
+        <c:forEach items="${qrboardEntityList.qrboardPageEntityList}" var="qrboardEntity">
             <tr>
                 <td><a href="/user/qrboard/advert_detail?qrboardIdx=${qrboardEntity.qrboardIdx}">${qrboardEntity.qrboardIdx}</a></td>
                 <td>${qrboardEntity.qrboardName}</td>

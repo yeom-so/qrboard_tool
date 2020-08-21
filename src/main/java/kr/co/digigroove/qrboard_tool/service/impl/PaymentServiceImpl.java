@@ -15,15 +15,18 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentDAO paymentDAO;
 
     @Override
-    public List<PaymentEntity> selectPaymentEntityList(PaymentEntity paymentEntity) throws Exception {
+    public PaymentEntity selectPaymentEntityList(PaymentEntity paymentEntity) throws Exception {
         // TODO: 검색조건
         paymentEntity.setStartDate("2020-01-01");
         paymentEntity.setEndDate("2020-08-31");
         paymentEntity.setSearchAdvertState(-1);
         paymentEntity.setSearchKey("qrboardName");
         paymentEntity.setSearchValue("로비");
+        // 페이징처리
+        paymentEntity.setPageParams();
         paymentEntity.setDataSize(paymentDAO.selectPaymentEntityListCount(paymentEntity));
-        return paymentDAO.selectPaymentEntityList(paymentEntity);
+        paymentEntity.setPaymentPageEntityList(paymentDAO.selectPaymentEntityList(paymentEntity));
+        return paymentEntity;
     }
 
     @Override

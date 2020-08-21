@@ -13,7 +13,7 @@
         <th>광고기간</th>
         <th>광고비</th>
         <th>결제일</th>
-        <c:forEach items="${paymentEntityList}" var="paymentEntity">
+        <c:forEach items="${paymentEntityList.paymentPageEntityList}" var="paymentEntity">
             <tr>
                 <td><a href="/user/payment/detail?advertIdx=${paymentEntity.advertIdx}">${paymentEntity.advertIdx}</a></td>
                 <td>${paymentEntity.advertState}</td>

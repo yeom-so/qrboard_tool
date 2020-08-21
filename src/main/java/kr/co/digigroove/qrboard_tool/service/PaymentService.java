@@ -12,7 +12,7 @@ public interface PaymentService {
      * @return
      * @throws Exception
      */
-    List<PaymentEntity> selectPaymentEntityList(PaymentEntity paymentEntity) throws Exception;
+    PaymentEntity selectPaymentEntityList(PaymentEntity paymentEntity) throws Exception;
 
     /**
      * 결제 상세
@@ -23,7 +23,7 @@ public interface PaymentService {
     PaymentEntity selectPaymentEntity(PaymentEntity paymentEntity) throws Exception;
 
     /**
-     * 광고주용 결제목록
+     * 광고사업자용 결제목록
      * @param paymentEntity
      * @return
      * @throws Exception

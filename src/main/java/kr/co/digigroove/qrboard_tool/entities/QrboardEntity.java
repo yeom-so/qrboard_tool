@@ -35,6 +35,7 @@ public class QrboardEntity extends PageEntity implements Serializable {
   private int searchAdvertState = -1;  // 광고여부 검색
   private int searchLayoutIdx = -1;    // 레이아웃 검색
 
+  private List<QrboardEntity> qrboardPageEntityList;
   private int qrboardIdx;
   private int layoutIdx;
   private String layoutName;

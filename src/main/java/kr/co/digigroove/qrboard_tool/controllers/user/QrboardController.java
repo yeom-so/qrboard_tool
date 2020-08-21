@@ -37,7 +37,7 @@ public class QrboardController {
     }
 
     /**
-     * 광고주 QR보드 상세 페이지
+     * QR보드 상세 페이지
      * @return
      * @throws Exception
      */

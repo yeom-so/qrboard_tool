@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -33,6 +34,7 @@ public class PaymentEntity extends PageEntity implements Serializable {
   // 검색조건
   private int searchAdvertState = -1;  // 광고상태 검색
 
+  private List<PaymentEntity> paymentPageEntityList;
   private int paymentIdx;
   private int advertIdx;
   private int userIdx;

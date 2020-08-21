@@ -13,7 +13,7 @@ public interface QrboardService {
      * @return
      * @throws Exception
      */
-    List<QrboardEntity> selectQrboardEntityList(QrboardEntity qrboardEntity) throws Exception;
+    QrboardEntity selectQrboardEntityList(QrboardEntity qrboardEntity) throws Exception;
 
     /**
      * QR보드등록
@@ -58,6 +58,6 @@ public interface QrboardService {
      * @return
      * @throws Exception
      */
-    List<QrboardEntity> selectQrboardAdvertEntityList(QrboardEntity qrboardEntity) throws Exception;
+    QrboardEntity selectQrboardAdvertEntityList(QrboardEntity qrboardEntity) throws Exception;
 
 }

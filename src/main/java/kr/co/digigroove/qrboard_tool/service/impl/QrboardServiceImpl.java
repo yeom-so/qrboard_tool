@@ -33,15 +33,18 @@ public class QrboardServiceImpl implements QrboardService {
      * @throws Exception
      */
     @Override
-    public List<QrboardEntity> selectQrboardEntityList(QrboardEntity qrboardEntity) throws Exception{
+    public QrboardEntity selectQrboardEntityList(QrboardEntity qrboardEntity) throws Exception{
         // TODO: 검색조건
         qrboardEntity.setStartDate("2020-01-01");
         qrboardEntity.setEndDate("2020-08-31");
         qrboardEntity.setSearchLayoutIdx(-1);
         qrboardEntity.setSearchKey("qrboardName");
         qrboardEntity.setSearchValue("로비");
+        // 페이징처리
+        qrboardEntity.setPageParams();
         qrboardEntity.setDataSize(qrboardDAO.selectQrboardEntityListCount(qrboardEntity));
-        return qrboardDAO.selectQrboardEntityList(qrboardEntity);
+        qrboardEntity.setQrboardPageEntityList(qrboardDAO.selectQrboardEntityList(qrboardEntity));
+        return qrboardEntity;
     }
 
     /**
@@ -160,13 +163,17 @@ public class QrboardServiceImpl implements QrboardService {
      * @throws Exception
      */
     @Override
-    public List<QrboardEntity> selectQrboardAdvertEntityList(QrboardEntity qrboardEntity) throws Exception{
+    public QrboardEntity selectQrboardAdvertEntityList(QrboardEntity qrboardEntity) throws Exception{
         // TODO: 검색조건
 //        qrboardEntity.setSearchAdvertState(3);
         qrboardEntity.setSearchKey("userEmail");
         qrboardEntity.setSearchValue("erst");
+
+        // 페이징처리
+        qrboardEntity.setPageParams();
         qrboardEntity.setDataSize(qrboardDAO.selectQrboardAdvertEntityListCount(qrboardEntity));
-        return qrboardDAO.selectQrboardAdvertEntityList(qrboardEntity);
+        qrboardEntity.setQrboardPageEntityList(qrboardDAO.selectQrboardAdvertEntityList(qrboardEntity));
+        return qrboardEntity;
     }
 
 }

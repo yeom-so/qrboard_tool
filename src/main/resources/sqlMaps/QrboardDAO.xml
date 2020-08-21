@@ -148,7 +148,7 @@
     <!-- 광고주용 QR보드 목록 -->
     <select id="selectQrboardAdvertEntityList" parameterType="qrboardEntity" resultType="qrboardEntity">
         SELECT * FROM (
-            SELECT q.qrboard_idx, q.qrboard_name, u.user_email, l.layout_name,
+            SELECT q.qrboard_idx, q.qrboard_name, q.reg_date, u.user_email, l.layout_name,
             (
                 SELECT COUNT(qa.qrboard_area_idx) FROM qrboard_area qa
                 WHERE qa.qrboard_idx = q.qrboard_idx
@@ -178,6 +178,7 @@
                 </when>
             </choose>
         </if>
+        ORDER BY reg_date DESC
 		LIMIT #{rowStartNumber}, #{pageListSize}
     </select>
 
